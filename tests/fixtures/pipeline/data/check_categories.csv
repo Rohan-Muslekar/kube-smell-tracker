@@ -1,0 +1,4 @@
+tool,check,category,rationale
+kube-linter,run-as-non-root,security,x
+kube-linter,latest-tag,image,x
+kube-score,container-security-context-user-group-id,security,x
