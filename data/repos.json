@@ -4,7 +4,7 @@
     "plain Kubernetes YAML in-tree",
     "commits in last 6 months and >=500 stars",
     ">=5 release tags spanning >=12 months",
-    "latest patch of each of the last 5 minor releases"
+    "latest patch of 5 minor releases evenly spaced over the minors first released since 2022-10-22, newest included (python3 -m kst.select_tags work/<repo> 2022-10-22)"
   ],
   "included": [
     {
@@ -14,9 +14,9 @@
         "kubernetes-manifests"
       ],
       "tags": [
+        "v0.5.2",
         "v0.6.0",
         "v0.7.0",
-        "v0.8.1",
         "v0.9.0",
         "v0.10.7"
       ],
@@ -29,10 +29,10 @@
         "manifests"
       ],
       "tags": [
-        "v0.15.0",
+        "v0.12.0",
+        "v0.14.0",
         "v0.16.0",
         "v0.17.0",
-        "v0.18.0",
         "v0.19.0"
       ],
       "reason": "Monitoring stack; generated manifests committed in-tree at every release"
@@ -44,10 +44,10 @@
         "manifests/install.yaml"
       ],
       "tags": [
+        "v2.5.22",
+        "v2.9.22",
+        "v2.13.9",
         "v3.1.16",
-        "v3.2.12",
-        "v3.3.17",
-        "v3.4.12",
         "v3.5.6"
       ],
       "reason": "GitOps controller; manifests/install.yaml is the rendered install committed per release"
@@ -59,10 +59,10 @@
         "manifests"
       ],
       "tags": [
+        "v0.36.0",
+        "v0.40.2",
+        "v2.2.3",
         "v2.5.1",
-        "v2.6.4",
-        "v2.7.5",
-        "v2.8.8",
         "v2.9.6"
       ],
       "reason": "GitOps toolkit; plain kustomize base manifests in-tree"
@@ -74,10 +74,10 @@
         "samples/bookinfo/platform/kube"
       ],
       "tags": [
+        "1.16.7",
+        "1.20.8",
+        "1.24.6",
         "1.27.9",
-        "1.28.10",
-        "1.29.9",
-        "1.30.6",
         "1.31.2"
       ],
       "reason": "Service mesh; Bookinfo sample manifests are plain YAML maintained with each release"
@@ -89,10 +89,10 @@
         "config/core"
       ],
       "tags": [
+        "v0.36.4",
+        "v0.40.2",
+        "v0.43.3",
         "v0.46.9",
-        "v0.47.3",
-        "v0.48.3",
-        "v0.49.1",
         "v0.50.0"
       ],
       "reason": "Serverless platform; core control-plane manifests in-tree"
@@ -104,10 +104,10 @@
         "config"
       ],
       "tags": [
-        "v1.13.1",
-        "v1.14.1",
-        "v1.15.3",
-        "v1.16.0",
+        "v0.41.3",
+        "v0.52.1",
+        "v0.63.0",
+        "v1.5.0",
         "v1.17.0"
       ],
       "reason": "CI/CD platform; control-plane manifests in-tree"
