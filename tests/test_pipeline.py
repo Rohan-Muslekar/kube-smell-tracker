@@ -33,7 +33,8 @@ def test_pipeline_on_fixtures(tmp_path):
     }
     overlap = {r["category"]: (int(r["linter_only"]), int(r["score_only"]), int(r["both"]))
                for r in _rows(tmp_path / "overlap_summary.csv")}
-    assert overlap == {"image": (2, 0, 0), "security": (1, 0, 1)}
+    # One row per object and category over all tags: web security is flagged by both tools at v1.
+    assert overlap == {"image": (2, 0, 0), "security": (0, 0, 1)}
     split = {(r["tool"], r["category"]): (int(r["removed_object_gone"]), int(r["introduced_new_object"]))
              for r in _rows(tmp_path / "transitions_summary.csv")}
     # web keeps existing in v2, so both removals are fixes; api is a new object in v2.
