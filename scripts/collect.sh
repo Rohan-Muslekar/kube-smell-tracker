@@ -2,7 +2,7 @@
 # Run kube-linter and kube-score over every included repo at every selected tag.
 # Usage: ./scripts/collect.sh [repo-name]   (no argument = all repos in data/repos.json)
 #
-# Writes raw/kube-linter/<repo>__<tag>.json, raw/kube-score/<repo>__<tag>.json,
+# Writes raw/kube-linter/<repo>__<tag>.json, raw/kube-score/<repo>__<tag>.json, raw/objects/<repo>__<tag>.tsv,
 # data/versions.csv (one row per repo and tag) and raw/skipped_files.txt.
 set -euo pipefail
 
@@ -15,7 +15,7 @@ VERSIONS="$ROOT/data/versions.csv"
 SKIPPED="$ROOT/raw/skipped_files.txt"
 ONLY="${1:-}"
 
-mkdir -p "$WORK" "$ROOT/raw/kube-linter" "$ROOT/raw/kube-score"
+mkdir -p "$WORK" "$ROOT/raw/kube-linter" "$ROOT/raw/kube-score" "$ROOT/raw/objects"
 [ -f "$VERSIONS" ] || echo "repo,tag,commit_sha,commit_date,n_yaml_files,valid,note" > "$VERSIONS"
 [ -f "$SKIPPED" ] || : > "$SKIPPED"
 
@@ -62,6 +62,10 @@ jq -c '.included[]' "$REPOS" | while IFS= read -r repo; do
       echo "$name@$tag: no manifests"
       continue
     fi
+
+    # Object inventory (kind, namespace, name, file) used to tell fixed smells from deleted objects.
+    (cd "$clone" && PYTHONPATH="$ROOT" python3 -P -m kst.inventory "${files[@]}") \
+      > "$ROOT/raw/objects/${name}__${tag}.tsv"
 
     # Both tools exit non-zero when they find problems, so the exit code is ignored.
     # A run counts as failed only when stdout is not valid JSON.
