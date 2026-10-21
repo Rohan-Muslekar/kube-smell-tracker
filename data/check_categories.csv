@@ -26,8 +26,8 @@ kube-linter,unset-cpu-requirements,resource,absent CPU requests/limits
 kube-linter,unset-memory-requirements,resource,absent memory requests/limits
 kube-linter,latest-tag,image,image pinned to latest
 kube-linter,use-namespace,hygiene,object in the default namespace
-kube-linter,required-label-owner,hygiene,missing ownership label
-kube-linter,required-annotation-email,hygiene,missing ownership contact annotation
+kube-linter,required-label-owner,other,"kube-linter example organization policy (an owner label); fires on almost every object and no studied project adopts it"
+kube-linter,required-annotation-email,other,"kube-linter example organization policy (an email annotation); fires on almost every object and no studied project adopts it"
 kube-linter,dangling-networkpolicy,hygiene,NetworkPolicy selects no pods in the analysed set
 kube-linter,dangling-networkpolicypeer-podselector,hygiene,NetworkPolicy peer selects no pods in the analysed set
 kube-linter,dangling-service,hygiene,Service selects no pods in the analysed set
