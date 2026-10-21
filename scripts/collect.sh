@@ -3,7 +3,8 @@
 # Usage: ./scripts/collect.sh [repo-name]   (no argument = all repos in data/repos.json)
 #
 # Writes raw/kube-linter/<repo>__<tag>.json, raw/kube-score/<repo>__<tag>.json, raw/objects/<repo>__<tag>.tsv,
-# data/versions.csv (one row per repo and tag) and raw/skipped_files.txt.
+# data/versions.csv (one row per repo and tag), raw/skipped_files.txt and raw/load_failures.tsv
+# (files kube-linter could not load: repo, tag, file).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -11,11 +12,13 @@ REPOS="$ROOT/data/repos.json"
 WORK="$ROOT/work"
 VERSIONS="$ROOT/data/versions.csv"
 SKIPPED="$ROOT/raw/skipped_files.txt"
+UNLOADED="$ROOT/raw/load_failures.tsv"
 ONLY="${1:-}"
 
 mkdir -p "$WORK" "$ROOT/raw/kube-linter" "$ROOT/raw/kube-score" "$ROOT/raw/objects"
 [ -f "$VERSIONS" ] || echo "repo,tag,commit_sha,commit_date,n_yaml_files,valid,note" > "$VERSIONS"
 [ -f "$SKIPPED" ] || : > "$SKIPPED"
+[ -f "$UNLOADED" ] || : > "$UNLOADED"
 
 # Drop earlier rows for the repos being re-collected, so reruns never duplicate rows.
 forget() {
@@ -24,6 +27,8 @@ forget() {
   awk -F, -v r="$name" 'NR == 1 || $1 != r' "$VERSIONS" > "$tmp" && mv "$tmp" "$VERSIONS"
   tmp="$(mktemp)"
   awk -F'\t' -v r="$name" '$1 != r' "$SKIPPED" > "$tmp" && mv "$tmp" "$SKIPPED"
+  tmp="$(mktemp)"
+  awk -F'\t' -v r="$name" '$1 != r' "$UNLOADED" > "$tmp" && mv "$tmp" "$UNLOADED"
 }
 
 # Print the Kubernetes manifests under the given paths, one per line, relative to the clone.
@@ -65,7 +70,8 @@ jq -c '.included[]' "$REPOS" | while IFS= read -r repo; do
     (cd "$clone" && PYTHONPATH="$ROOT" python3 -P -m kst.inventory "${files[@]}") \
       > "$ROOT/raw/objects/${name}__${tag}.tsv"
 
-    (cd "$clone" && "$ROOT/scripts/analyze.sh" "$lint_out" "$score_out" "$WORK/${name}__${tag}" "${files[@]}")
+    (cd "$clone" && "$ROOT/scripts/analyze.sh" "$lint_out" "$score_out" "$WORK/${name}__${tag}" "${files[@]}") \
+      | awk -v r="$name" -v t="$tag" '{print r "\t" t "\t" $0}' >> "$UNLOADED"
 
     # Both tools print absolute paths; keep raw output machine-independent (paths relative to the repo).
     sed -i "s|$clone/||g" "$lint_out" "$score_out"

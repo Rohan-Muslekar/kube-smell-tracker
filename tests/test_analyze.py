@@ -38,3 +38,16 @@ def test_config_file_in_analyzed_repo_is_ignored(tmp_path):
     baseline = len(_analyze(tmp_path, "web.yaml")["Reports"])
     (tmp_path / ".kube-linter.yaml").write_text("checks:\n  exclude: [latest-tag, run-as-non-root]\n")
     assert len(_analyze(tmp_path, "web.yaml")["Reports"]) == baseline
+
+
+def test_files_kube_linter_cannot_load_are_listed(tmp_path):
+    # kube-linter skips these silently; analyze.sh prints them so collect.sh can log them.
+    (tmp_path / "web.yaml").write_text(DEPLOYMENT)
+    (tmp_path / "broken.yaml").write_text("apiVersion: v1\nkind: ConfigMap\nmetadata: {name: x\n")
+    (tmp_path / "roles.yaml").write_text("apiVersion: rbac.authorization.k8s.io/v1\nkind: RoleList\nitems:\n"
+                                         "- apiVersion: rbac.authorization.k8s.io/v1\n  kind: Role\n"
+                                         "  metadata: {name: a, namespace: ns}\n  rules: []\n")
+    result = subprocess.run([str(ROOT / "scripts/analyze.sh"), "lint.json", "score.json", "err",
+                             "web.yaml", "broken.yaml", "roles.yaml"],
+                            cwd=tmp_path, check=True, capture_output=True, text=True)
+    assert result.stdout.splitlines() == ["broken.yaml", "roles.yaml"]
