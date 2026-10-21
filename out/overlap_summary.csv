@@ -1,0 +1,5 @@
+category,linter_only,score_only,both
+hygiene,414,0,48
+image,0,104,112
+resource,25,0,257
+security,9,26,201

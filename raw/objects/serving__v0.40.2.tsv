@@ -1,0 +1,54 @@
+Namespace		knative-serving	config/core/100-namespace.yaml
+Role	knative-serving	knative-serving-activator	config/core/200-roles/activator.yaml
+ClusterRole		knative-serving-activator-cluster	config/core/200-roles/activator.yaml
+ClusterRole		knative-serving-aggregated-addressable-resolver	config/core/200-roles/addressable-resolvers-clusterrole.yaml
+ClusterRole		knative-serving-addressable-resolver	config/core/200-roles/addressable-resolvers-clusterrole.yaml
+ClusterRole		knative-serving-namespaced-admin	config/core/200-roles/clusterrole-namespaced.yaml
+ClusterRole		knative-serving-namespaced-edit	config/core/200-roles/clusterrole-namespaced.yaml
+ClusterRole		knative-serving-namespaced-view	config/core/200-roles/clusterrole-namespaced.yaml
+ClusterRole		knative-serving-core	config/core/200-roles/clusterrole.yaml
+ClusterRole		knative-serving-podspecable-binding	config/core/200-roles/podspecable-bindings-clusterrole.yaml
+ServiceAccount	knative-serving	controller	config/core/200-serviceaccount.yaml
+ClusterRole		knative-serving-admin	config/core/200-serviceaccount.yaml
+ClusterRoleBinding		knative-serving-controller-admin	config/core/200-serviceaccount.yaml
+ClusterRoleBinding		knative-serving-controller-addressable-resolver	config/core/200-serviceaccount.yaml
+ServiceAccount	knative-serving	activator	config/core/200-serviceaccount.yaml
+RoleBinding	knative-serving	knative-serving-activator	config/core/200-serviceaccount.yaml
+ClusterRoleBinding		knative-serving-activator-cluster	config/core/200-serviceaccount.yaml
+CustomResourceDefinition		configurations.serving.knative.dev	config/core/300-resources/configuration.yaml
+CustomResourceDefinition		domainmappings.serving.knative.dev	config/core/300-resources/domain-mapping.yaml
+CustomResourceDefinition		metrics.autoscaling.internal.knative.dev	config/core/300-resources/metric.yaml
+CustomResourceDefinition		podautoscalers.autoscaling.internal.knative.dev	config/core/300-resources/podautoscaler.yaml
+CustomResourceDefinition		revisions.serving.knative.dev	config/core/300-resources/revision.yaml
+CustomResourceDefinition		routes.serving.knative.dev	config/core/300-resources/route.yaml
+CustomResourceDefinition		services.serving.knative.dev	config/core/300-resources/service.yaml
+Secret	knative-serving	serving-certs-ctrl-ca	config/core/300-secret.yaml
+Secret	knative-serving	knative-serving-certs	config/core/300-secret.yaml
+Secret	knative-serving	routing-serving-certs	config/core/300-secret.yaml
+Image	knative-serving	queue-proxy	config/core/999-cache.yaml
+ConfigMap	knative-serving	config-autoscaler	config/core/configmaps/autoscaler.yaml
+ConfigMap	knative-serving	config-defaults	config/core/configmaps/defaults.yaml
+ConfigMap	knative-serving	config-deployment	config/core/configmaps/deployment.yaml
+ConfigMap	knative-serving	config-domain	config/core/configmaps/domain.yaml
+ConfigMap	knative-serving	config-features	config/core/configmaps/features.yaml
+ConfigMap	knative-serving	config-gc	config/core/configmaps/gc.yaml
+ConfigMap	knative-serving	config-leader-election	config/core/configmaps/leader-election.yaml
+ConfigMap	knative-serving	config-logging	config/core/configmaps/logging.yaml
+ConfigMap	knative-serving	config-observability	config/core/configmaps/observability.yaml
+ConfigMap	knative-serving	config-tracing	config/core/configmaps/tracing.yaml
+HorizontalPodAutoscaler	knative-serving	activator	config/core/deployments/activator-hpa.yaml
+PodDisruptionBudget	knative-serving	activator-pdb	config/core/deployments/activator-hpa.yaml
+Deployment	knative-serving	activator	config/core/deployments/activator.yaml
+Service	knative-serving	activator-service	config/core/deployments/activator.yaml
+Deployment	knative-serving	autoscaler	config/core/deployments/autoscaler.yaml
+Service	knative-serving	autoscaler	config/core/deployments/autoscaler.yaml
+Deployment	knative-serving	controller	config/core/deployments/controller.yaml
+Service	knative-serving	controller	config/core/deployments/controller.yaml
+HorizontalPodAutoscaler	knative-serving	webhook	config/core/deployments/webhook-hpa.yaml
+PodDisruptionBudget	knative-serving	webhook-pdb	config/core/deployments/webhook-hpa.yaml
+Deployment	knative-serving	webhook	config/core/deployments/webhook.yaml
+Service	knative-serving	webhook	config/core/deployments/webhook.yaml
+ValidatingWebhookConfiguration		config.webhook.serving.knative.dev	config/core/webhooks/configmap-validation.yaml
+MutatingWebhookConfiguration		webhook.serving.knative.dev	config/core/webhooks/defaulting.yaml
+ValidatingWebhookConfiguration		validation.webhook.serving.knative.dev	config/core/webhooks/resource-validation.yaml
+Secret	knative-serving	webhook-certs	config/core/webhooks/secret.yaml
