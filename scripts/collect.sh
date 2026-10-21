@@ -8,8 +8,6 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 REPOS="$ROOT/data/repos.json"
-LINTER="$ROOT/tools/bin/kube-linter"
-SCORER="$ROOT/tools/bin/kube-score"
 WORK="$ROOT/work"
 VERSIONS="$ROOT/data/versions.csv"
 SKIPPED="$ROOT/raw/skipped_files.txt"
@@ -67,21 +65,16 @@ jq -c '.included[]' "$REPOS" | while IFS= read -r repo; do
     (cd "$clone" && PYTHONPATH="$ROOT" python3 -P -m kst.inventory "${files[@]}") \
       > "$ROOT/raw/objects/${name}__${tag}.tsv"
 
-    # Both tools exit non-zero when they find problems, so the exit code is ignored.
-    # A run counts as failed only when stdout is not valid JSON.
-    (cd "$clone" && "$LINTER" lint "${files[@]}" --add-all-built-in --format json) \
-      > "$lint_out" 2> "$WORK/${name}__${tag}.linter.err" || true
-    (cd "$clone" && "$SCORER" score "${files[@]}" --output-format json) \
-      > "$score_out" 2> "$WORK/${name}__${tag}.score.err" || true
+    (cd "$clone" && "$ROOT/scripts/analyze.sh" "$lint_out" "$score_out" "$WORK/${name}__${tag}" "${files[@]}")
 
     # Both tools print absolute paths; keep raw output machine-independent (paths relative to the repo).
     sed -i "s|$clone/||g" "$lint_out" "$score_out"
 
     valid=1; note=""
-    if ! jq empty "$lint_out" 2>/dev/null; then
-      valid=0; note="kube-linter: $(head -1 "$WORK/${name}__${tag}.linter.err" | tr ',' ';')"
-    elif ! jq empty "$score_out" 2>/dev/null; then
-      valid=0; note="kube-score: $(head -1 "$WORK/${name}__${tag}.score.err" | tr ',' ';')"
+    if ! problem="$(PYTHONPATH="$ROOT" python3 -P -m kst.validate "$lint_out")"; then
+      valid=0; note="kube-linter: $problem; $(head -1 "$WORK/${name}__${tag}.linter.err" | tr ',' ';')"
+    elif ! problem="$(PYTHONPATH="$ROOT" python3 -P -m kst.validate "$score_out")"; then
+      valid=0; note="kube-score: $problem; $(head -1 "$WORK/${name}__${tag}.score.err" | tr ',' ';')"
     fi
     echo "$name,$tag,$sha,$date,${#files[@]},$valid,$note" >> "$VERSIONS"
     echo "$name@$tag: ${#files[@]} files, valid=$valid $note"
