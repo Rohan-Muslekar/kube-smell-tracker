@@ -25,8 +25,13 @@ def instance_key(f):
     return (f.repo, f.tool, f.kind, f.namespace, f.name, f.check)
 
 
-def track(findings, versions):
-    """One row per instance. `versions` maps repo -> valid tags, oldest first; other tags are ignored."""
+def track(findings, versions, objects=None):
+    """One row per instance. `versions` maps repo -> valid tags, oldest first; other tags are ignored.
+
+    `objects` maps (repo, tag) -> set of (kind, namespace, name) defined at that tag. With it,
+    `removed_object_gone` counts removals where the whole object was deleted (not a fix), and
+    `introduced_new_object` counts introductions that came with a newly added object.
+    """
     present = defaultdict(set)
     category = {}
     for f in findings:
@@ -45,5 +50,12 @@ def track(findings, versions):
                "namespace": namespace, "name": name,
                "presence": "".join("1" if p else "0" for p in history), "at_baseline": int(history[0])}
         row.update({label: labels.count(label) for label in LABELS})
+        if objects is not None:
+            obj, tags = (kind, namespace, name), versions[repo]
+            steps = list(zip(tags, tags[1:], labels))
+            row["removed_object_gone"] = sum(1 for _, cur, label in steps
+                                             if label == "removed" and obj not in objects[(repo, cur)])
+            row["introduced_new_object"] = sum(1 for prev, _, label in steps
+                                               if label == "introduced" and obj not in objects[(repo, prev)])
         rows.append(row)
     return rows

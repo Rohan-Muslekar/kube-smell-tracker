@@ -54,3 +54,30 @@ def test_counts_per_label():
     r = rows[0]
     assert r["presence"] == "0101" and r["at_baseline"] == 0
     assert (r["introduced"], r["persisted"], r["removed"], r["reappeared"]) == (1, 0, 1, 1)
+
+
+WEB = ("Deployment", "", "web")
+
+
+def test_removed_with_object_deleted():
+    objects = {("r", "v1"): {WEB}, ("r", "v2"): set()}
+    rows = track([_f("v1")], {"r": ["v1", "v2"]}, objects)
+    assert rows[0]["removed"] == 1 and rows[0]["removed_object_gone"] == 1
+
+
+def test_removed_while_object_stays_is_a_fix():
+    objects = {("r", "v1"): {WEB}, ("r", "v2"): {WEB}}
+    rows = track([_f("v1")], {"r": ["v1", "v2"]}, objects)
+    assert rows[0]["removed"] == 1 and rows[0]["removed_object_gone"] == 0
+
+
+def test_introduced_with_new_object():
+    objects = {("r", "v1"): set(), ("r", "v2"): {WEB}}
+    rows = track([_f("v2")], {"r": ["v1", "v2"]}, objects)
+    assert rows[0]["introduced"] == 1 and rows[0]["introduced_new_object"] == 1
+
+
+def test_introduced_on_existing_object():
+    objects = {("r", "v1"): {WEB}, ("r", "v2"): {WEB}}
+    rows = track([_f("v2")], {"r": ["v1", "v2"]}, objects)
+    assert rows[0]["introduced"] == 1 and rows[0]["introduced_new_object"] == 0
