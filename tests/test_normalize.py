@@ -47,3 +47,12 @@ def test_unmapped_checks_reported(tmp_path):
     mapped, unmapped = categorize(findings, load_categories(str(cats)))
     assert mapped[0].category == "hygiene"
     assert unmapped == {("kube-linter", "access-to-secrets"), ("kube-linter", "dnsconfig-options")}
+
+
+def test_stray_namespace_on_cluster_scoped_object_is_dropped():
+    # A ClusterRole that carries metadata.namespace at one tag and not the next is the same object.
+    data = {"Reports": [{"Check": "access-to-secrets", "Object": {
+        "Metadata": {"FilePath": "manifests/role.yaml"},
+        "K8sObject": {"Namespace": "monitoring", "Name": "metrics",
+                      "GroupVersionKind": {"Kind": "ClusterRole"}}}}]}
+    assert parse_kube_linter(data, "kube-prometheus", "v0.12.0")[0].namespace == ""

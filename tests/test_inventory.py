@@ -21,3 +21,8 @@ def test_list_kind_items_are_not_parsed():
     # A v1 List wraps objects in items; we record only top-level objects and say so in the README.
     text = "apiVersion: v1\nkind: List\nitems:\n- apiVersion: v1\n  kind: Service\n  metadata:\n    name: x\n"
     assert objects(text) == [("List", "", "")]
+
+
+def test_stray_namespace_on_cluster_scoped_object_is_dropped():
+    text = "kind: ClusterRoleBinding\nmetadata:\n  name: resolvers\n  namespace: tekton-pipelines\n"
+    assert objects(text) == [("ClusterRoleBinding", "", "resolvers")]

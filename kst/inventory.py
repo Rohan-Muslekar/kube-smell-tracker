@@ -14,6 +14,19 @@ DOC_SPLIT = re.compile(r"^---\s*$", re.M)
 TOP_KEY = re.compile(r"^([A-Za-z]\w*):\s*(.*?)\s*$")
 META_KEY = re.compile(r"^(\s+)(name|namespace):\s*(.*?)\s*$")
 
+# Kinds that have no namespace. Kubernetes ignores a metadata.namespace on them, so we do too;
+# otherwise a stray namespace that is later removed would split one object into two.
+CLUSTER_SCOPED = frozenset({
+    "APIService", "CSIDriver", "CertificateSigningRequest", "ClusterRole", "ClusterRoleBinding",
+    "CustomResourceDefinition", "IngressClass", "MutatingWebhookConfiguration", "Namespace", "Node",
+    "PersistentVolume", "PodSecurityPolicy", "PriorityClass", "RuntimeClass", "StorageClass",
+    "ValidatingAdmissionPolicy", "ValidatingAdmissionPolicyBinding", "ValidatingWebhookConfiguration",
+    "VolumeAttachment"})
+
+
+def object_namespace(kind, namespace):
+    return "" if kind in CLUSTER_SCOPED else namespace or ""
+
 
 def _scalar(value):
     value = value.split(" #")[0].strip()
@@ -40,7 +53,7 @@ def objects(text):
                 if m and depth == indent and m.group(2) not in meta:
                     meta[m.group(2)] = _scalar(m.group(3))
         if kind:
-            found.append((kind, meta.get("namespace", ""), meta.get("name", "")))
+            found.append((kind, object_namespace(kind, meta.get("namespace")), meta.get("name", "")))
     return found
 
 
