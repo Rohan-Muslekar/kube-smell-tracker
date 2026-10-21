@@ -1,0 +1,7 @@
+tools/bin/
+work/
+__pycache__/
+.pytest_cache/
+.superpowers/
+DESIGN.md
+docs/superpowers/
