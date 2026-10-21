@@ -5,7 +5,9 @@ TOOLS = ("kube-linter", "kube-score")
 
 
 def overlap(findings, kinds=None):
-    """One row per (repo, version, kind, namespace, name, category) flagged by either tool.
+    """One row per (repo, kind, namespace, name, category) flagged by either tool at any tag.
+
+    A pair counts once, not once per tag, so long-lived objects do not dominate the totals.
 
     `kinds` limits the comparison to object kinds both tools analyse; kube-score never
     scores RBAC objects, for example, so those would always look "kube-linter only".
@@ -14,8 +16,8 @@ def overlap(findings, kinds=None):
     for f in findings:
         if f.category == "other" or (kinds is not None and f.kind not in kinds):
             continue
-        tools[(f.repo, f.version, f.kind, f.namespace, f.name, f.category)].add(f.tool)
-    return [{"repo": k[0], "version": k[1], "kind": k[2], "namespace": k[3], "name": k[4], "category": k[5],
+        tools[(f.repo, f.kind, f.namespace, f.name, f.category)].add(f.tool)
+    return [{"repo": k[0], "kind": k[1], "namespace": k[2], "name": k[3], "category": k[4],
              "in_linter": TOOLS[0] in t, "in_score": TOOLS[1] in t}
             for k, t in sorted(tools.items())]
 
