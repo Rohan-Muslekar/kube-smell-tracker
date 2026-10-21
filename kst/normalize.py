@@ -3,6 +3,8 @@ import csv
 import re
 from dataclasses import dataclass, replace
 
+from kst.inventory import object_namespace
+
 
 @dataclass(frozen=True)
 class Finding:
@@ -28,7 +30,8 @@ def parse_kube_linter(data, repo, version):
         obj = rep["Object"]["K8sObject"]
         findings.append(Finding(
             repo=repo, version=version, tool="kube-linter", check=rep["Check"], category="",
-            kind=obj["GroupVersionKind"]["Kind"], namespace=obj.get("Namespace") or "",
+            kind=obj["GroupVersionKind"]["Kind"],
+            namespace=object_namespace(obj["GroupVersionKind"]["Kind"], obj.get("Namespace")),
             name=obj["Name"], file=_relative(rep["Object"]["Metadata"]["FilePath"], repo)))
     return findings
 
@@ -47,7 +50,8 @@ def parse_kube_score(data, repo, version):
                 continue
             findings.append(Finding(
                 repo=repo, version=version, tool="kube-score", check=check["check"]["id"], category="",
-                kind=obj["type_meta"]["kind"], namespace=meta.get("namespace") or "",
+                kind=obj["type_meta"]["kind"],
+                namespace=object_namespace(obj["type_meta"]["kind"], meta.get("namespace")),
                 name=meta.get("name") or "", file=_relative(obj.get("file_name") or "", repo)))
     return findings
 
