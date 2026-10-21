@@ -29,21 +29,13 @@ forget() {
 }
 
 # Print the Kubernetes manifests under the given paths, one per line, relative to the clone.
-# Logs everything it skips (templated, kustomization, not a k8s object) to $SKIPPED.
+# The filter lives in kst/manifests.py; skipped files go to $SKIPPED with the reason.
+# -P keeps the cloned repo (the current directory) off Python's import path.
 manifests() {
   local name="$1" tag="$2"; shift 2
-  local f
-  while IFS= read -r f; do
-    if [ "$(basename "$f")" = "kustomization.yaml" ] || [ "$(basename "$f")" = "kustomization.yml" ]; then
-      printf '%s\t%s\t%s\t%s\n' "$name" "$tag" "$f" "kustomization" >> "$SKIPPED"
-    elif grep -q '{{' "$f"; then
-      printf '%s\t%s\t%s\t%s\n' "$name" "$tag" "$f" "templated" >> "$SKIPPED"
-    elif ! grep -q '^apiVersion:' "$f" || ! grep -q '^kind:' "$f"; then
-      printf '%s\t%s\t%s\t%s\n' "$name" "$tag" "$f" "not a k8s object" >> "$SKIPPED"
-    else
-      echo "$f"
-    fi
-  done < <(find "$@" -type f \( -name '*.yaml' -o -name '*.yml' \) 2>/dev/null | sort)
+  find "$@" -type f \( -name '*.yaml' -o -name '*.yml' \) 2>/dev/null | sort \
+    | xargs -r env PYTHONPATH="$ROOT" python3 -P -m kst.manifests \
+        2> >(awk -v r="$name" -v t="$tag" '{print r "\t" t "\t" $0}' >> "$SKIPPED")
 }
 
 jq -c '.included[]' "$REPOS" | while IFS= read -r repo; do
