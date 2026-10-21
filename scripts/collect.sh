@@ -74,6 +74,9 @@ jq -c '.included[]' "$REPOS" | while IFS= read -r repo; do
     (cd "$clone" && "$SCORER" score "${files[@]}" --output-format json) \
       > "$score_out" 2> "$WORK/${name}__${tag}.score.err" || true
 
+    # Both tools print absolute paths; keep raw output machine-independent (paths relative to the repo).
+    sed -i "s|$clone/||g" "$lint_out" "$score_out"
+
     valid=1; note=""
     if ! jq empty "$lint_out" 2>/dev/null; then
       valid=0; note="kube-linter: $(head -1 "$WORK/${name}__${tag}.linter.err" | tr ',' ';')"
