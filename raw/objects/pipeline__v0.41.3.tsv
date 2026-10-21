@@ -45,7 +45,7 @@ Namespace		tekton-pipelines-resolvers	config/resolvers/100-namespace.yaml
 ClusterRole		tekton-pipelines-resolvers-resolution-request-updates	config/resolvers/200-clusterrole.yaml
 Role	tekton-pipelines-resolvers	tekton-pipelines-resolvers-namespace-rbac	config/resolvers/200-role.yaml
 ServiceAccount	tekton-pipelines-resolvers	tekton-pipelines-resolvers	config/resolvers/200-serviceaccount.yaml
-ClusterRoleBinding	tekton-pipelines-resolvers	tekton-pipelines-resolvers	config/resolvers/201-clusterrolebinding.yaml
+ClusterRoleBinding		tekton-pipelines-resolvers	config/resolvers/201-clusterrolebinding.yaml
 RoleBinding	tekton-pipelines-resolvers	tekton-pipelines-resolvers-namespace-rbac	config/resolvers/201-rolebinding.yaml
 ConfigMap	tekton-pipelines-resolvers	bundleresolver-config	config/resolvers/bundleresolver-config.yaml
 ConfigMap	tekton-pipelines-resolvers	cluster-resolver-config	config/resolvers/cluster-resolver-config.yaml

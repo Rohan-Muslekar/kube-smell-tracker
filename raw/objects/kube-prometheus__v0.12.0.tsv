@@ -6,7 +6,7 @@ Secret	monitoring	alertmanager-main	manifests/alertmanager-secret.yaml
 ServiceAccount	monitoring	alertmanager-main	manifests/alertmanager-serviceAccount.yaml
 ServiceMonitor	monitoring	alertmanager-main	manifests/alertmanager-serviceMonitor.yaml
 Service	monitoring	alertmanager-main	manifests/alertmanager-service.yaml
-ClusterRoleBinding	monitoring	blackbox-exporter	manifests/blackboxExporter-clusterRoleBinding.yaml
+ClusterRoleBinding		blackbox-exporter	manifests/blackboxExporter-clusterRoleBinding.yaml
 ClusterRole		blackbox-exporter	manifests/blackboxExporter-clusterRole.yaml
 ConfigMap	monitoring	blackbox-exporter-configuration	manifests/blackboxExporter-configuration.yaml
 Deployment	monitoring	blackbox-exporter	manifests/blackboxExporter-deployment.yaml
@@ -39,8 +39,8 @@ PrometheusRule	monitoring	kube-state-metrics-rules	manifests/kubeStateMetrics-pr
 ServiceAccount	monitoring	kube-state-metrics	manifests/kubeStateMetrics-serviceAccount.yaml
 ServiceMonitor	monitoring	kube-state-metrics	manifests/kubeStateMetrics-serviceMonitor.yaml
 Service	monitoring	kube-state-metrics	manifests/kubeStateMetrics-service.yaml
-ClusterRoleBinding	monitoring	node-exporter	manifests/nodeExporter-clusterRoleBinding.yaml
-ClusterRole	monitoring	node-exporter	manifests/nodeExporter-clusterRole.yaml
+ClusterRoleBinding		node-exporter	manifests/nodeExporter-clusterRoleBinding.yaml
+ClusterRole		node-exporter	manifests/nodeExporter-clusterRole.yaml
 DaemonSet	monitoring	node-exporter	manifests/nodeExporter-daemonset.yaml
 NetworkPolicy	monitoring	node-exporter	manifests/nodeExporter-networkPolicy.yaml
 PrometheusRule	monitoring	node-exporter-rules	manifests/nodeExporter-prometheusRule.yaml
@@ -48,11 +48,11 @@ ServiceAccount	monitoring	node-exporter	manifests/nodeExporter-serviceAccount.ya
 ServiceMonitor	monitoring	node-exporter	manifests/nodeExporter-serviceMonitor.yaml
 Service	monitoring	node-exporter	manifests/nodeExporter-service.yaml
 APIService		v1beta1.metrics.k8s.io	manifests/prometheusAdapter-apiService.yaml
-ClusterRole	monitoring	system:aggregated-metrics-reader	manifests/prometheusAdapter-clusterRoleAggregatedMetricsReader.yaml
-ClusterRoleBinding	monitoring	resource-metrics:system:auth-delegator	manifests/prometheusAdapter-clusterRoleBindingDelegator.yaml
-ClusterRoleBinding	monitoring	prometheus-adapter	manifests/prometheusAdapter-clusterRoleBinding.yaml
-ClusterRole	monitoring	resource-metrics-server-resources	manifests/prometheusAdapter-clusterRoleServerResources.yaml
-ClusterRole	monitoring	prometheus-adapter	manifests/prometheusAdapter-clusterRole.yaml
+ClusterRole		system:aggregated-metrics-reader	manifests/prometheusAdapter-clusterRoleAggregatedMetricsReader.yaml
+ClusterRoleBinding		resource-metrics:system:auth-delegator	manifests/prometheusAdapter-clusterRoleBindingDelegator.yaml
+ClusterRoleBinding		prometheus-adapter	manifests/prometheusAdapter-clusterRoleBinding.yaml
+ClusterRole		resource-metrics-server-resources	manifests/prometheusAdapter-clusterRoleServerResources.yaml
+ClusterRole		prometheus-adapter	manifests/prometheusAdapter-clusterRole.yaml
 ConfigMap	monitoring	adapter-config	manifests/prometheusAdapter-configMap.yaml
 Deployment	monitoring	prometheus-adapter	manifests/prometheusAdapter-deployment.yaml
 NetworkPolicy	monitoring	prometheus-adapter	manifests/prometheusAdapter-networkPolicy.yaml
