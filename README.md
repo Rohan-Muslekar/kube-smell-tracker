@@ -16,6 +16,13 @@ python3 -m pytest           # unit and pipeline tests
 `make all` runs `./scripts/collect.sh` and then `python3 -m kst`. Re-running only the analysis
 on the committed `raw/` needs no network: `python3 -m kst`.
 
+## Results
+
+[`results/`](results/) has screenshots of the results with a short explanation of each
+([results/README.md](results/README.md)) and every command used to produce them
+([results/commands.md](results/commands.md)). `python3 scripts/summary.py` prints the headline
+numbers.
+
 The committed outputs were checked against a fresh clone of this repository: after
 `./tools/install.sh && make all`, `out/` and `data/versions.csv` were byte-identical. The raw
 analyzer files differ only in two ways: kube-linter's run timestamp (`Summary.CheckEndTime`) and
