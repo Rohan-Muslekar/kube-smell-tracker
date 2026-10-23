@@ -1,0 +1,63 @@
+tool,check,category,rationale
+kube-linter,access-to-create-pods,security,RBAC grants pod creation (over-broad RBAC)
+kube-linter,access-to-secrets,security,RBAC grants secret access (over-broad RBAC)
+kube-linter,cluster-admin-role-binding,security,binds cluster-admin (over-broad RBAC)
+kube-linter,default-service-account,security,pod runs under the default service account
+kube-linter,env-var-secret,security,secret value placed in an environment variable
+kube-linter,read-secret-from-env-var,security,secret read through an environment variable
+kube-linter,host-network,security,host namespace access (hostNetwork)
+kube-linter,host-pid,security,host namespace access (hostPID)
+kube-linter,sensitive-host-mounts,security,hostPath mount of a sensitive path
+kube-linter,no-read-only-root-fs,security,absent securityContext hardening (writable root fs)
+kube-linter,run-as-non-root,security,may run as root
+kube-linter,wildcard-in-rules,security,wildcard RBAC rule (over-broad RBAC)
+kube-linter,non-isolated-pod,security,no NetworkPolicy isolates the pod
+kube-linter,exposed-services,security,service exposed outside the cluster (NodePort/LoadBalancer)
+kube-linter,hpa-minimum-three-replicas,resource,HPA allows fewer than 3 replicas
+kube-linter,minimum-three-replicas,resource,fewer than 3 replicas
+kube-linter,liveness-port,resource,liveness probe targets a port the container does not expose
+kube-linter,no-anti-affinity,resource,replicas not spread by anti-affinity
+kube-linter,no-liveness-probe,resource,missing liveness probe
+kube-linter,no-readiness-probe,resource,missing readiness probe
+kube-linter,no-rolling-update-strategy,resource,no rolling update strategy
+kube-linter,pdb-min-available,resource,PodDisruptionBudget minAvailable blocks or misstates disruption
+kube-linter,pdb-unhealthy-pod-eviction-policy,resource,PDB unhealthy-pod eviction policy unset
+kube-linter,unset-cpu-requirements,resource,absent CPU requests/limits
+kube-linter,unset-memory-requirements,resource,absent memory requests/limits
+kube-linter,latest-tag,image,image pinned to latest
+kube-linter,use-namespace,hygiene,object in the default namespace
+kube-linter,required-label-owner,other,"kube-linter example organization policy (an owner label); fires on almost every object and no studied project adopts it"
+kube-linter,required-annotation-email,other,"kube-linter example organization policy (an email annotation); fires on almost every object and no studied project adopts it"
+kube-linter,dangling-networkpolicy,hygiene,NetworkPolicy selects no pods in the analysed set
+kube-linter,dangling-networkpolicypeer-podselector,hygiene,NetworkPolicy peer selects no pods in the analysed set
+kube-linter,dangling-service,hygiene,Service selects no pods in the analysed set
+kube-linter,dangling-servicemonitor,hygiene,ServiceMonitor selects no Service in the analysed set
+kube-linter,mismatching-selector,hygiene,workload selector does not match pod labels
+kube-linter,non-existent-service-account,hygiene,references a service account not in the analysed set
+kube-linter,env-value-from,hygiene,env valueFrom references an object not in the analysed set
+kube-linter,sorted-keys,other,YAML key ordering style; not a configuration smell
+kube-linter,schema-validation,other,"schema parse failure; tool artifact, reported separately"
+kube-linter,dnsconfig-options,other,opinionated DNS tuning default; outside the Milestone 1 categories
+kube-linter,no-node-affinity,other,opinionated scheduling default; outside the Milestone 1 categories
+kube-linter,restart-policy,other,opinionated restart-policy default; outside the Milestone 1 categories
+kube-score,container-security-context-readonlyrootfilesystem,security,absent securityContext hardening (writable root fs)
+kube-score,container-security-context-user-group-id,security,may run as root / low UID or GID
+kube-score,pod-networkpolicy,security,no NetworkPolicy isolates the pod
+kube-score,service-type,security,service exposed outside the cluster (NodePort)
+kube-score,container-ephemeral-storage-request-and-limit,resource,absent ephemeral-storage requests/limits
+kube-score,container-resources,resource,absent CPU/memory requests/limits
+kube-score,deployment-has-host-podantiaffinity,resource,replicas not spread by anti-affinity
+kube-score,deployment-has-poddisruptionbudget,resource,no PodDisruptionBudget
+kube-score,deployment-replicas,resource,single replica for a stateless workload
+kube-score,deployment-strategy,resource,missing or non-rolling update strategy
+kube-score,horizontalpodautoscaler-replicas,resource,HPA allows a single replica
+kube-score,pod-probes,resource,missing liveness/readiness probes
+kube-score,pod-probes-identical,resource,liveness and readiness probes identical
+kube-score,cronjob-has-deadline,resource,CronJob without startingDeadlineSeconds
+kube-score,cronjob-restartpolicy,resource,CronJob restart policy unset or invalid
+kube-score,container-image-tag,image,image untagged or pinned to latest
+kube-score,container-image-pull-policy,image,imagePullPolicy not Always for a mutable tag
+kube-score,deployment-pod-selector-labels-match-template-metadata-labels,hygiene,workload selector does not match pod labels
+kube-score,networkpolicy-targets-pod,hygiene,NetworkPolicy selects no pods in the analysed set
+kube-score,service-targets-pod,hygiene,Service selects no pods in the analysed set
+kube-score,statefulset-has-servicename,hygiene,StatefulSet serviceName missing or not found
