@@ -16,6 +16,31 @@ python3 -m pytest           # unit and pipeline tests
 `make all` runs `./scripts/collect.sh` and then `python3 -m kst`. Re-running only the analysis
 on the committed `raw/` needs no network: `python3 -m kst`.
 
+## Continuous integration
+
+The workflow in `.github/workflows/ci.yml` runs automatically on pushes
+and pull requests.
+
+It:
+- Runs the test suite and reports skipped-test reasons.
+- Regenerates analysis tables from the committed raw data.
+- Verifies that generated files match the committed `out/` directory.
+- Uploads generated tables as the `analysis-results` artifact.
+
+CI does not recollect data or install the external analyzers.
+Full reproduction remains available through the commands above.
+
+To run the same validation locally:
+
+```bash
+python3 -m pytest -q -rs
+python3 -m kst --out /tmp/kube-smell-ci-check
+diff -ru out /tmp/kube-smell-ci-check
+```
+
+Download generated outputs from the completed workflow run under
+**Actions → Artifacts → analysis-results**.
+
 ## Results
 
 [`results/`](results/) has screenshots of the results with a short explanation of each
