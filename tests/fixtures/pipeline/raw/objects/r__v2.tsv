@@ -1,0 +1,2 @@
+Deployment		web	deploy/web.yaml
+Deployment		api	deploy/api.yaml

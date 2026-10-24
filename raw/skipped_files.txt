@@ -1,0 +1,217 @@
+microservices-demo	v0.5.2	kubernetes-manifests/kustomization.yaml	kustomization
+microservices-demo	v0.6.0	kubernetes-manifests/kustomization.yaml	kustomization
+microservices-demo	v0.7.0	kubernetes-manifests/kustomization.yaml	kustomization
+microservices-demo	v0.9.0	kubernetes-manifests/kustomization.yaml	kustomization
+microservices-demo	v0.10.7	kubernetes-manifests/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/bases/helm-controller/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/bases/helm-controller/patch.yaml	not a k8s object
+flux2	v0.36.0	manifests/bases/image-automation-controller/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/bases/image-automation-controller/patch.yaml	not a k8s object
+flux2	v0.36.0	manifests/bases/image-reflector-controller/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/bases/image-reflector-controller/patch.yaml	not a k8s object
+flux2	v0.36.0	manifests/bases/kustomize-controller/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/bases/kustomize-controller/patch.yaml	not a k8s object
+flux2	v0.36.0	manifests/bases/notification-controller/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/bases/notification-controller/patch.yaml	not a k8s object
+flux2	v0.36.0	manifests/bases/source-controller/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/bases/source-controller/patch.yaml	not a k8s object
+flux2	v0.36.0	manifests/crds/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/install/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/azure/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/_base/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/eventhub-credentials-sync/generic/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/aws/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/azure/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/_base/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/_cronjobs/aws/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/_cronjobs/azure/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/_cronjobs/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/integrations/registry-credentials-sync/gcp/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/monitoring/kube-prometheus-stack/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/monitoring/loki-stack/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/monitoring/monitoring-config/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/policies/kustomization.yaml	kustomization
+flux2	v0.36.0	manifests/rbac/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/bases/helm-controller/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/bases/helm-controller/patch.yaml	not a k8s object
+flux2	v0.40.2	manifests/bases/image-automation-controller/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/bases/image-automation-controller/patch.yaml	not a k8s object
+flux2	v0.40.2	manifests/bases/image-reflector-controller/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/bases/image-reflector-controller/patch.yaml	not a k8s object
+flux2	v0.40.2	manifests/bases/kustomize-controller/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/bases/kustomize-controller/patch.yaml	not a k8s object
+flux2	v0.40.2	manifests/bases/notification-controller/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/bases/notification-controller/patch.yaml	not a k8s object
+flux2	v0.40.2	manifests/bases/source-controller/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/bases/source-controller/patch.yaml	not a k8s object
+flux2	v0.40.2	manifests/crds/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/install/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/azure/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/_base/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/eventhub-credentials-sync/generic/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/aws/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/azure/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/_base/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/_cronjobs/aws/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/_cronjobs/azure/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/_cronjobs/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/integrations/registry-credentials-sync/gcp/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/monitoring/kube-prometheus-stack/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/monitoring/loki-stack/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/monitoring/monitoring-config/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/policies/kustomization.yaml	kustomization
+flux2	v0.40.2	manifests/rbac/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/bases/helm-controller/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/bases/helm-controller/patch.yaml	not a k8s object
+flux2	v2.2.3	manifests/bases/image-automation-controller/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/bases/image-automation-controller/patch.yaml	not a k8s object
+flux2	v2.2.3	manifests/bases/image-reflector-controller/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/bases/image-reflector-controller/patch.yaml	not a k8s object
+flux2	v2.2.3	manifests/bases/kustomize-controller/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/bases/kustomize-controller/patch.yaml	not a k8s object
+flux2	v2.2.3	manifests/bases/notification-controller/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/bases/notification-controller/patch.yaml	not a k8s object
+flux2	v2.2.3	manifests/bases/source-controller/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/bases/source-controller/patch.yaml	not a k8s object
+flux2	v2.2.3	manifests/crds/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/install/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/azure/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/_base/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/eventhub-credentials-sync/generic/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/aws/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/azure/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/_base/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/_cronjobs/aws/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/_cronjobs/azure/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/_cronjobs/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/integrations/registry-credentials-sync/gcp/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/monitoring/kube-prometheus-stack/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/monitoring/loki-stack/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/monitoring/monitoring-config/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/policies/kustomization.yaml	kustomization
+flux2	v2.2.3	manifests/rbac/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/bases/helm-controller/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/bases/helm-controller/patch.yaml	not a k8s object
+flux2	v2.5.1	manifests/bases/image-automation-controller/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/bases/image-automation-controller/patch.yaml	not a k8s object
+flux2	v2.5.1	manifests/bases/image-reflector-controller/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/bases/image-reflector-controller/patch.yaml	not a k8s object
+flux2	v2.5.1	manifests/bases/kustomize-controller/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/bases/kustomize-controller/patch.yaml	not a k8s object
+flux2	v2.5.1	manifests/bases/notification-controller/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/bases/notification-controller/patch.yaml	not a k8s object
+flux2	v2.5.1	manifests/bases/source-controller/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/bases/source-controller/patch.yaml	not a k8s object
+flux2	v2.5.1	manifests/crds/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/install/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/azure/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/_base/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/eventhub-credentials-sync/generic/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/aws/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/azure/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/_base/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/_cronjobs/aws/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/_cronjobs/azure/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/_cronjobs/azure/kustomizeconfig.yaml	not a k8s object
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kustomizeconfig.yaml	not a k8s object
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/integrations/registry-credentials-sync/gcp/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/openshift/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/policies/kustomization.yaml	kustomization
+flux2	v2.5.1	manifests/rbac/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/bases/helm-controller/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/bases/helm-controller/patch.yaml	not a k8s object
+flux2	v2.9.6	manifests/bases/image-automation-controller/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/bases/image-automation-controller/patch.yaml	not a k8s object
+flux2	v2.9.6	manifests/bases/image-reflector-controller/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/bases/image-reflector-controller/patch.yaml	not a k8s object
+flux2	v2.9.6	manifests/bases/kustomize-controller/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/bases/kustomize-controller/patch.yaml	not a k8s object
+flux2	v2.9.6	manifests/bases/notification-controller/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/bases/notification-controller/patch.yaml	not a k8s object
+flux2	v2.9.6	manifests/bases/source-controller/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/bases/source-controller/patch.yaml	not a k8s object
+flux2	v2.9.6	manifests/bases/source-watcher/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/bases/source-watcher/patch.yaml	not a k8s object
+flux2	v2.9.6	manifests/crds/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/install/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/openshift/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/policies/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/rbac/kustomization.yaml	kustomization
+flux2	v2.9.6	manifests/test/kustomization.yaml	kustomization
+serving	v0.36.4	config/core/300-imagecache.yaml	not a k8s object
+serving	v0.36.4	config/core/300-resources/certificate.yaml	not a k8s object
+serving	v0.36.4	config/core/300-resources/domain-claim.yaml	not a k8s object
+serving	v0.36.4	config/core/300-resources/ingress.yaml	not a k8s object
+serving	v0.36.4	config/core/300-resources/serverlessservice.yaml	not a k8s object
+serving	v0.36.4	config/core/configmaps/network.yaml	not a k8s object
+serving	v0.40.2	config/core/300-imagecache.yaml	not a k8s object
+serving	v0.40.2	config/core/300-resources/certificate.yaml	not a k8s object
+serving	v0.40.2	config/core/300-resources/domain-claim.yaml	not a k8s object
+serving	v0.40.2	config/core/300-resources/ingress.yaml	not a k8s object
+serving	v0.40.2	config/core/300-resources/serverlessservice.yaml	not a k8s object
+serving	v0.40.2	config/core/configmaps/network.yaml	not a k8s object
+serving	v0.43.3	config/core/300-imagecache.yaml	not a k8s object
+serving	v0.43.3	config/core/300-resources/certificate.yaml	not a k8s object
+serving	v0.43.3	config/core/300-resources/domain-claim.yaml	not a k8s object
+serving	v0.43.3	config/core/300-resources/ingress.yaml	not a k8s object
+serving	v0.43.3	config/core/300-resources/serverlessservice.yaml	not a k8s object
+serving	v0.43.3	config/core/configmaps/network.yaml	not a k8s object
+serving	v0.46.9	config/core/300-imagecache.yaml	not a k8s object
+serving	v0.46.9	config/core/300-resources/certificate.yaml	not a k8s object
+serving	v0.46.9	config/core/300-resources/domain-claim.yaml	not a k8s object
+serving	v0.46.9	config/core/300-resources/ingress.yaml	not a k8s object
+serving	v0.46.9	config/core/300-resources/serverlessservice.yaml	not a k8s object
+serving	v0.46.9	config/core/configmaps/network.yaml	not a k8s object
+serving	v0.50.0	config/core/300-imagecache.yaml	not a k8s object
+serving	v0.50.0	config/core/300-resources/certificate.yaml	not a k8s object
+serving	v0.50.0	config/core/300-resources/domain-claim.yaml	not a k8s object
+serving	v0.50.0	config/core/300-resources/ingress.yaml	not a k8s object
+serving	v0.50.0	config/core/300-resources/serverlessservice.yaml	not a k8s object
+serving	v0.50.0	config/core/configmaps/network.yaml	not a k8s object
