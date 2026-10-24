@@ -27,3 +27,17 @@ jobs:
 
       - name: Run tests
         run: python -m pytest -q -rs
+
+      - name: Run analysis
+        run: python -m kst --out ci-output
+
+      - name: Verify reproducibility
+        run: diff -ru out ci-output
+
+      - name: Upload analysis results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: analysis-results
+          path: ci-output/
+          if-no-files-found: warn
