@@ -1,0 +1,71 @@
+Namespace		tekton-pipelines	config/100-namespace/100-namespace.yaml
+ClusterRole		tekton-pipelines-controller-cluster-access	config/200-clusterrole.yaml
+ClusterRole		tekton-pipelines-controller-tenant-access	config/200-clusterrole.yaml
+ClusterRole		tekton-pipelines-webhook-cluster-access	config/200-clusterrole.yaml
+ClusterRole		tekton-events-controller-cluster-access	config/200-clusterrole.yaml
+Role	tekton-pipelines	tekton-pipelines-controller	config/200-role.yaml
+Role	tekton-pipelines	tekton-pipelines-webhook	config/200-role.yaml
+Role	tekton-pipelines	tekton-pipelines-events-controller	config/200-role.yaml
+Role	tekton-pipelines	tekton-pipelines-leader-election	config/200-role.yaml
+Role	tekton-pipelines	tekton-pipelines-info	config/200-role.yaml
+ServiceAccount	tekton-pipelines	tekton-pipelines-controller	config/200-serviceaccount.yaml
+ServiceAccount	tekton-pipelines	tekton-pipelines-webhook	config/200-serviceaccount.yaml
+ServiceAccount	tekton-pipelines	tekton-events-controller	config/200-serviceaccount.yaml
+ClusterRoleBinding		tekton-pipelines-controller-cluster-access	config/201-clusterrolebinding.yaml
+ClusterRoleBinding		tekton-pipelines-controller-tenant-access	config/201-clusterrolebinding.yaml
+ClusterRoleBinding		tekton-pipelines-webhook-cluster-access	config/201-clusterrolebinding.yaml
+ClusterRoleBinding		tekton-events-controller-cluster-access	config/201-clusterrolebinding.yaml
+RoleBinding	tekton-pipelines	tekton-pipelines-controller	config/201-rolebinding.yaml
+RoleBinding	tekton-pipelines	tekton-pipelines-webhook	config/201-rolebinding.yaml
+RoleBinding	tekton-pipelines	tekton-pipelines-controller-leaderelection	config/201-rolebinding.yaml
+RoleBinding	tekton-pipelines	tekton-pipelines-webhook-leaderelection	config/201-rolebinding.yaml
+RoleBinding	tekton-pipelines	tekton-pipelines-info	config/201-rolebinding.yaml
+RoleBinding	tekton-pipelines	tekton-pipelines-events-controller	config/201-rolebinding.yaml
+RoleBinding	tekton-pipelines	tekton-events-controller-leaderelection	config/201-rolebinding.yaml
+CustomResourceDefinition		clustertasks.tekton.dev	config/300-clustertask.yaml
+CustomResourceDefinition		customruns.tekton.dev	config/300-customrun.yaml
+CustomResourceDefinition		pipelineruns.tekton.dev	config/300-pipelinerun.yaml
+CustomResourceDefinition		pipelines.tekton.dev	config/300-pipeline.yaml
+CustomResourceDefinition		resolutionrequests.resolution.tekton.dev	config/300-resolutionrequest.yaml
+CustomResourceDefinition		taskruns.tekton.dev	config/300-taskrun.yaml
+CustomResourceDefinition		tasks.tekton.dev	config/300-task.yaml
+CustomResourceDefinition		verificationpolicies.tekton.dev	config/300-verificationpolicy.yaml
+Secret	tekton-pipelines	webhook-certs	config/500-webhooks.yaml
+ValidatingWebhookConfiguration		validation.webhook.pipeline.tekton.dev	config/500-webhooks.yaml
+MutatingWebhookConfiguration		webhook.pipeline.tekton.dev	config/500-webhooks.yaml
+ValidatingWebhookConfiguration		config.webhook.pipeline.tekton.dev	config/500-webhooks.yaml
+ClusterRole		tekton-aggregate-edit	config/clusterrole-aggregate-edit.yaml
+ClusterRole		tekton-aggregate-view	config/clusterrole-aggregate-view.yaml
+ConfigMap	tekton-pipelines	config-defaults	config/config-defaults.yaml
+ConfigMap	tekton-pipelines	config-events	config/config-events.yaml
+ConfigMap	tekton-pipelines	feature-flags	config/config-feature-flags.yaml
+ConfigMap	tekton-pipelines	pipelines-info	config/config-info.yaml
+ConfigMap	tekton-pipelines	config-leader-election	config/config-leader-election.yaml
+ConfigMap	tekton-pipelines	config-logging	config/config-logging.yaml
+ConfigMap	tekton-pipelines	config-observability	config/config-observability.yaml
+ConfigMap	tekton-pipelines	config-registry-cert	config/config-registry-cert.yaml
+ConfigMap	tekton-pipelines	config-spire	config/config-spire.yaml
+ConfigMap	tekton-pipelines	config-tracing	config/config-tracing.yaml
+Deployment	tekton-pipelines	tekton-pipelines-controller	config/controller.yaml
+Service	tekton-pipelines	tekton-pipelines-controller	config/controller.yaml
+Deployment	tekton-pipelines	tekton-events-controller	config/events.yaml
+Service	tekton-pipelines	tekton-events-controller	config/events.yaml
+Namespace		tekton-pipelines-resolvers	config/resolvers/100-namespace.yaml
+ClusterRole		tekton-pipelines-resolvers-resolution-request-updates	config/resolvers/200-clusterrole.yaml
+Role	tekton-pipelines-resolvers	tekton-pipelines-resolvers-namespace-rbac	config/resolvers/200-role.yaml
+ServiceAccount	tekton-pipelines-resolvers	tekton-pipelines-resolvers	config/resolvers/200-serviceaccount.yaml
+ClusterRoleBinding		tekton-pipelines-resolvers	config/resolvers/201-clusterrolebinding.yaml
+RoleBinding	tekton-pipelines-resolvers	tekton-pipelines-resolvers-namespace-rbac	config/resolvers/201-rolebinding.yaml
+ConfigMap	tekton-pipelines-resolvers	bundleresolver-config	config/resolvers/bundleresolver-config.yaml
+ConfigMap	tekton-pipelines-resolvers	cluster-resolver-config	config/resolvers/cluster-resolver-config.yaml
+ConfigMap	tekton-pipelines-resolvers	resolvers-feature-flags	config/resolvers/config-feature-flags.yaml
+ConfigMap	tekton-pipelines-resolvers	config-leader-election	config/resolvers/config-leader-election.yaml
+ConfigMap	tekton-pipelines-resolvers	config-logging	config/resolvers/config-logging.yaml
+ConfigMap	tekton-pipelines-resolvers	config-observability	config/resolvers/config-observability.yaml
+ConfigMap	tekton-pipelines-resolvers	git-resolver-config	config/resolvers/git-resolver-config.yaml
+ConfigMap	tekton-pipelines-resolvers	hubresolver-config	config/resolvers/hubresolver-config.yaml
+Deployment	tekton-pipelines-resolvers	tekton-pipelines-remote-resolvers	config/resolvers/resolvers-deployment.yaml
+Service	tekton-pipelines-resolvers	tekton-pipelines-remote-resolvers	config/resolvers/resolvers-service.yaml
+HorizontalPodAutoscaler	tekton-pipelines	tekton-pipelines-webhook	config/webhook-hpa.yaml
+Deployment	tekton-pipelines	tekton-pipelines-webhook	config/webhook.yaml
+Service	tekton-pipelines	tekton-pipelines-webhook	config/webhook.yaml

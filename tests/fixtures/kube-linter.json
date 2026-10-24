@@ -1,0 +1,67 @@
+{
+ "Reports": [
+  {
+   "Diagnostic": {
+    "Message": "no pods found matching networkpolicy's podSelector labels ({map[app.kubernetes.io/component:alert-router app.kubernetes.io/instance:main app.kubernetes.io/name:alertmanager app.kubernetes.io/part-of:kube-prometheus] []}) "
+   },
+   "Check": "dangling-networkpolicy",
+   "Remediation": "Confirm that your networkPolicy's podselector correctly matches the labels on one of your deployments.",
+   "Object": {
+    "Metadata": {
+     "FilePath": "/build/work/kube-prometheus/manifests/alertmanager-networkPolicy.yaml"
+    },
+    "K8sObject": {
+     "Namespace": "monitoring",
+     "Name": "alertmanager-main",
+     "GroupVersionKind": {
+      "Group": "networking.k8s.io",
+      "Version": "v1",
+      "Kind": "NetworkPolicy"
+     }
+    }
+   }
+  },
+  {
+   "Diagnostic": {
+    "Message": "binding to \"kube-state-metrics\" clusterrole that has [list watch] access to [secrets]"
+   },
+   "Check": "access-to-secrets",
+   "Remediation": "Where possible, remove get, list and watch access to secret objects in the cluster.",
+   "Object": {
+    "Metadata": {
+     "FilePath": "/build/work/kube-prometheus/manifests/kubeStateMetrics-clusterRoleBinding.yaml"
+    },
+    "K8sObject": {
+     "Namespace": "",
+     "Name": "kube-state-metrics",
+     "GroupVersionKind": {
+      "Group": "rbac.authorization.k8s.io",
+      "Version": "v1",
+      "Kind": "ClusterRoleBinding"
+     }
+    }
+   }
+  },
+  {
+   "Diagnostic": {
+    "Message": "Object does not define any DNSConfig rules."
+   },
+   "Check": "dnsconfig-options",
+   "Remediation": "Specify dnsconfig options in your Pod specification to ensure the expected DNS setting on the Pod. Refer to https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config for details.",
+   "Object": {
+    "Metadata": {
+     "FilePath": "/build/work/kube-prometheus/manifests/blackboxExporter-deployment.yaml"
+    },
+    "K8sObject": {
+     "Namespace": "monitoring",
+     "Name": "blackbox-exporter",
+     "GroupVersionKind": {
+      "Group": "apps",
+      "Version": "v1",
+      "Kind": "Deployment"
+     }
+    }
+   }
+  }
+ ]
+}

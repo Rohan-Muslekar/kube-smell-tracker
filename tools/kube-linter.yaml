@@ -1,0 +1,3 @@
+# Passed to kube-linter with --config, so a .kube-linter.yaml inside an analyzed repo is never
+# picked up. The checks come from --add-all-built-in on the command line.
+checks: {}

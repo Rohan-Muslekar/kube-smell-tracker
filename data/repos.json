@@ -1,0 +1,138 @@
+{
+  "selected_on": "2026-10-22",
+  "criteria": [
+    "plain Kubernetes YAML in-tree",
+    "commits in last 6 months and >=500 stars",
+    ">=5 release tags spanning >=12 months",
+    "latest patch of 5 minor releases evenly spaced over the minors first released since 2022-10-22, newest included (python3 -m kst.select_tags work/<repo> 2022-10-22)"
+  ],
+  "included": [
+    {
+      "name": "microservices-demo",
+      "url": "https://github.com/GoogleCloudPlatform/microservices-demo.git",
+      "manifest_paths": [
+        "kubernetes-manifests"
+      ],
+      "tags": [
+        "v0.5.2",
+        "v0.6.0",
+        "v0.7.0",
+        "v0.9.0",
+        "v0.10.7"
+      ],
+      "reason": "Reference microservices application; plain manifests per service; piloted in Milestone 1"
+    },
+    {
+      "name": "kube-prometheus",
+      "url": "https://github.com/prometheus-operator/kube-prometheus.git",
+      "manifest_paths": [
+        "manifests"
+      ],
+      "tags": [
+        "v0.12.0",
+        "v0.14.0",
+        "v0.16.0",
+        "v0.17.0",
+        "v0.19.0"
+      ],
+      "reason": "Monitoring stack; generated manifests committed in-tree at every release"
+    },
+    {
+      "name": "argo-cd",
+      "url": "https://github.com/argoproj/argo-cd.git",
+      "manifest_paths": [
+        "manifests/install.yaml"
+      ],
+      "tags": [
+        "v2.5.22",
+        "v2.9.22",
+        "v2.13.9",
+        "v3.1.16",
+        "v3.5.6"
+      ],
+      "reason": "GitOps controller; manifests/install.yaml is the rendered install committed per release"
+    },
+    {
+      "name": "flux2",
+      "url": "https://github.com/fluxcd/flux2.git",
+      "manifest_paths": [
+        "manifests"
+      ],
+      "tags": [
+        "v0.36.0",
+        "v0.40.2",
+        "v2.2.3",
+        "v2.5.1",
+        "v2.9.6"
+      ],
+      "reason": "GitOps toolkit; plain kustomize base manifests in-tree"
+    },
+    {
+      "name": "istio",
+      "url": "https://github.com/istio/istio.git",
+      "manifest_paths": [
+        "samples/bookinfo/platform/kube"
+      ],
+      "tags": [
+        "1.16.7",
+        "1.20.8",
+        "1.24.6",
+        "1.27.9",
+        "1.31.2"
+      ],
+      "reason": "Service mesh; Bookinfo sample manifests are plain YAML maintained with each release"
+    },
+    {
+      "name": "serving",
+      "url": "https://github.com/knative/serving.git",
+      "manifest_paths": [
+        "config/core"
+      ],
+      "tags": [
+        "v0.36.4",
+        "v0.40.2",
+        "v0.43.3",
+        "v0.46.9",
+        "v0.50.0"
+      ],
+      "reason": "Serverless platform; core control-plane manifests in-tree"
+    },
+    {
+      "name": "pipeline",
+      "url": "https://github.com/tektoncd/pipeline.git",
+      "manifest_paths": [
+        "config"
+      ],
+      "tags": [
+        "v0.41.3",
+        "v0.52.1",
+        "v0.63.0",
+        "v1.5.0",
+        "v1.17.0"
+      ],
+      "reason": "CI/CD platform; control-plane manifests in-tree"
+    }
+  ],
+  "excluded": [
+    {
+      "name": "ingress-nginx",
+      "url": "https://github.com/kubernetes/ingress-nginx.git",
+      "reason": "Archived; last push 2026-03-23 (fails: commits in last 6 months)"
+    },
+    {
+      "name": "cert-manager",
+      "url": "https://github.com/cert-manager/cert-manager.git",
+      "reason": "Ships Helm chart templates and CRDs only; no plain in-tree workload manifests"
+    },
+    {
+      "name": "linkerd2",
+      "url": "https://github.com/linkerd/linkerd2.git",
+      "reason": "Ships Helm charts only; no plain in-tree manifests"
+    },
+    {
+      "name": "opentelemetry-demo",
+      "url": "https://github.com/open-telemetry/opentelemetry-demo.git",
+      "reason": "kubernetes/opentelemetry-demo.yaml removed from the tree in 3.x releases"
+    }
+  ]
+}
