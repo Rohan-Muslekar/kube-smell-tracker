@@ -102,7 +102,7 @@ since 2022-10-22, with the newest included, as of 2026-10-22. They are reproduci
 3. **Track** (`kst/track.py`) follows each instance across tags.
    - **Identity:** the instance key is `(repo, tool, kind, namespace, name, check)`. The file path is not part of it, so moving an object to another file keeps its history.
    - **Labels:** for each pair of consecutive tags, an instance is persisted, introduced, removed or reappeared (present again after an earlier removal).
-   - **Removals:** a removal counts as `removed_object_gone` when the object itself no longer exists, and as a fix otherwise.
+    - **Removals:** a removal counts as `removed_object_gone` when the object itself no longer exists, and as a candidate fix otherwise. Manual inspection is needed to rule out analyzer artifacts.
    - **Introductions:** an introduction counts as `introduced_new_object` when it arrived together with a new object.
 4. **Overlap** (`kst/overlap.py`) compares the two analyzers before any de-duplication, on the object kinds that kube-score scores. Each (repo, kind, namespace, name, category) counts once over all tags; it is "both" when both tools flagged that object in that category at the same tag (in any check of the category, not necessarily the same check).
 
@@ -123,6 +123,14 @@ since 2022-10-22, with the newest included, as of 2026-10-22. They are reproduci
 introduced. Each was confirmed or rejected by reading the YAML at both tags, with the cause noted.
 
 ## Known limitations
+
+### Lifecycle tracking and category validation
+
+Yasaminzahra's task documentation: [tracking review and limitations](docs/tracking_limitations.md)
+and [independent two-rater category validation](docs/category_validation.md).
+The latter includes blank rating sheets, agreement calculation instructions and
+the disagreement/adjudication procedure. Real ratings and validation against
+future denser-tag/rendered-manifest data are pending.
 
 - Helm charts are not rendered, and kustomize bases and patches are linted unrendered. For flux2, this means patch fragments are analyzed as if they were complete objects.
 - A renamed object appears as one removal plus one introduction. The spot-check found no renames.
