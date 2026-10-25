@@ -6,6 +6,8 @@ RQ3 investigates why Kubernetes configuration smells disappear or appear between
 
 The investigation uses the transition outputs and the 20-instance manual spot-check from Milestone 2, together with GitHub release comparisons and commit history.
 
+`data/rq3_investigations.csv` holds the same 20 instances as `data/spot_check.csv`, with the commit and evidence behind each one.
+
 ## Case Study 1: Genuine Security Fix — kube-state-metrics
 
 **Project:** kube-prometheus  
@@ -34,11 +36,13 @@ The earlier configuration used identical exec-based health probes. In the later 
 
 The kube-score warning disappeared because the analyzer did not compare these gRPC probes in the same way.
 
-Evidence: https://github.com/GoogleCloudPlatform/microservices-demo/compare/v0.7.0...v0.9.0
+Commit `157ef70`, authored on June 13, 2023 (PR 1837, "Remove use of gRPC health probe binary"), made the switch.
+
+Evidence: https://github.com/GoogleCloudPlatform/microservices-demo/commit/157ef70
 
 **Finding:** The disappearance of a warning does not necessarily indicate that its underlying configuration smell was corrected.
 
-The manual investigation identifies this transition as an analyzer artifact rather than a genuine fix. The exact introducing commit remains to be documented.
+The manual investigation identifies this transition as an analyzer artifact rather than a genuine fix.
 
 ## Case Study 3: Object Deletion — flux2 Credential Integrations
 
@@ -51,11 +55,28 @@ The Milestone 2 analysis found that the credential integration manifests disappe
 
 These files included unrendered Kustomize patch fragments. Their disappearance caused associated analyzer findings to disappear as well.
 
-Evidence: https://github.com/fluxcd/flux2/compare/v2.5.1...v2.9.6
+Commit `9cad95d` ("Remove credentials sync manifests", PR 5347, merged June 4, 2025) deleted them. v2.7.0 is the first tag that contains it.
+
+Evidence: https://github.com/fluxcd/flux2/pull/5347
 
 **Finding:** Object deletion must be distinguished from a genuine configuration fix. The disappearance of the entire object does not demonstrate remediation of the underlying smell.
 
-The exact deletion commit remains to be traced.
+## Case Study 4: Smells Introduced by Fixes — argo-cd Redis
+
+**Project:** argo-cd  
+**Objects:** RoleBinding/argocd-redis, StatefulSet/argocd-application-controller, Deployment/argocd-redis  
+**Versions:** v2.5.22 → v2.9.22  
+**Checks:** access-to-secrets, read-secret-from-env-var, pod-networkpolicy  
+**Classification:** Side effect of a fix
+
+All three introductions come from fixes backported to the 2.9 release branch, not from careless changes:
+
+- Commit `53570cbd1` (2024-05-21) is the backport of the fix for advisory GHSA-9766-5277-j5hr, which enables Redis authentication by default. It passes `REDIS_PASSWORD` to the application controller through `secretKeyRef` and lets the `argocd-redis` Role read secrets. kube-linter flags both.
+- Commit `2e7fbb042` (2024-05-23, PR 18382) removes the egress rules from the `argocd-redis` NetworkPolicy. kube-score then finds no egress policy for the pod.
+
+Evidence: https://github.com/argoproj/argo-cd/security/advisories/GHSA-9766-5277-j5hr, https://github.com/argoproj/argo-cd/pull/18382
+
+**Finding:** An introduced smell is not always a regression. Here a security fix added the secret access that the analyzers report.
 
 ## Baseline Quantitative Results
 
@@ -73,13 +94,21 @@ Among 147 recorded removals:
 
 The analysis also identified 41 introductions, including 16 associated with newly introduced objects. No reappearances were observed across the sampled releases.
 
+These numbers come from `python3 scripts/summary.py`, run from the repository root. Each commit above can be checked against the sampled tags in a clone, for example:
+
+```
+git -C work/kube-prometheus merge-base --is-ancestor 387731a v0.14.0
+git -C work/flux2 tag --contains 9cad95d | sort -V | head -1
+git -C work/argo-cd show 53570cbd1 -- manifests/install.yaml
+```
+
 ## Limitations and Remaining Investigation
 
 The initial manual spot-check included 20 instances. Nineteen matched their assigned transition explanations, while one apparent fix was identified as an analyzer artifact.
 
 The investigation remains incomplete in three areas:
 
-1. Exact introducing commits have not been verified for every transition.
+1. Commits are traced for the 20 spot-check instances only, not for every transition.
 2. Some examples require further inspection of the original configuration changes and analyzer behavior.
 3. Quantitative results must be regenerated after denser tag sampling, rendered manifests, or category-mapping updates are incorporated.
 
