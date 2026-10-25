@@ -16,7 +16,7 @@ The results suggest substantial persistence across the sampled releases. Of the 
 
 The analysis recorded 147 removals, but 108 (73.5%) occurred because the corresponding Kubernetes object disappeared. Therefore, these removals should not automatically be interpreted as fixes.
 
-Of the remaining 39 removals, nine were identified as kube-score analyzer artifacts involving probe checks. This leaves 30 candidate fixes requiring further commit-level investigation before all can be classified as genuine maintenance fixes.
+Of the remaining 39 removals, nine were identified as kube-score analyzer artifacts involving probe checks. This leaves 30 fixes. The four in the manual spot-check were traced to the commits that made them (see [rq3_case_studies.md](rq3_case_studies.md)); the other 26 are not yet traced.
 
 The study also recorded 41 introductions, including 16 associated with newly introduced objects. No reappearances were observed across the five sampled tags per project. However, changes occurring between sampled releases may not be visible.
 
@@ -41,7 +41,7 @@ The findings from RQ3 will be integrated after the case-study investigation is c
 - Findings categorized as `other` are excluded from the configuration smell analysis.
 - Lifecycle instance counts are analyzer-specific rather than deduplicated across tools.
 - Object deletion is distinguished from candidate configuration fixes.
-- The 30 remaining candidate fixes have not all been independently verified through commit-level investigation.
+- Of the 30 fixes, only the four in the spot-check have been traced to commits so far.
 - Independent two-rater category validation remains pending.
 - The numerical results describe the current baseline and should be rechecked if the analysis outputs change.
 

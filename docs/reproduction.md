@@ -192,7 +192,7 @@ The overlap analysis aggregates detections across the sampled release history by
 - The collection script does not explicitly verify the checked-out tag SHA against a previously recorded expected SHA.
 - Regenerated raw analyzer reports may differ in timestamps, finding content, or ordering, even when aggregate results remain unchanged.
 - The ordering of object inventories and skipped-file records may vary between collection runs.
-- Differences in skipped-file records and analyzer findings require further investigation before claiming byte-identical reproduction of all raw artifacts.
+- The skipped-file records depend on how git checks out symlinks (see Section 10). The analyzer-finding differences still need investigation before claiming byte-identical reproduction of all raw artifacts.
 
 ## 10. Reproduction Evidence and Final Revision
 
@@ -253,6 +253,16 @@ The modified TSV object inventories were compared after sorting their lines, con
 For the JSON reports, 70 modified files were compared after removing the `Summary.CheckEndTime` field. Of these, 25 were identical under that comparison, while 45 retained differences. A detailed comparison of one kube-linter report for `kube-prometheus` v0.12.0 showed that some `dangling-servicemonitor` findings present in the committed report were absent from the regenerated report.
 
 The skipped-file comparison identified 30 entries for the `serving` repository that appeared in the committed `raw/skipped_files.txt` but were absent from the regenerated file. These entries were distributed across five sampled versions.
+
+These 30 entries are six files per tag (for example `config/core/300-imagecache.yaml`) that Knative serving stores as git symlinks into `vendor/`. The committed run used a git with `core.symlinks=false`, which writes each link as a small text file holding the target path; the filter logged those as not Kubernetes objects. On WSL they were real symlinks, which `find -type f` in `scripts/collect.sh` skips without logging. Neither run analyzes the linked files, so the outputs are the same.
+
+The `dangling-servicemonitor` difference is still open: `out/` did not change, so the findings should still be present after normalization, and the two reports need comparing directly. Check with:
+
+```bash
+git -C work/serving ls-files -s config/core | awk '$1 == 120000'
+git config --get core.symlinks
+grep -c dangling-servicemonitor out/findings.csv
+```
 
 The final output directory was checked using:
 
