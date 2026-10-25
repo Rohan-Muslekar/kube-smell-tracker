@@ -32,6 +32,12 @@ def track(findings, versions, objects=None):
     `removed_object_gone` counts removals where the whole object was deleted (not a fix), and
     `introduced_new_object` counts introductions that came with a newly added object.
     """
+    if objects is not None:
+        # Check every tag up front: a lookup only happens at a removal or introduction, so a
+        # missing inventory elsewhere would otherwise pass unnoticed.
+        missing = [(repo, tag) for repo, tags in versions.items() for tag in tags if (repo, tag) not in objects]
+        if missing:
+            raise KeyError(f"No object inventory for {missing}")
     present = defaultdict(set)
     category = {}
     for f in findings:
