@@ -4,26 +4,34 @@ Contributor: Yasaminzahra Valitabar.
 
 ## Current baseline
 
-Local validation on Windows with Python 3.11 and pytest 9.1.1:
+First validated on Windows with Python 3.11 and pytest 9.1.1 (74 passed, 2 skipped).
+Rerun after the review fixes on Linux with Python 3.14.8 and pytest 9.1.1, from the
+repository root, with the same `python3` for every step:
 
-```powershell
-.\.venv\Scripts\python.exe -m pytest -q -rs
-python -m kst --out C:\Users\yasam\AppData\Local\Temp\opencode\lifecycle-tracking-results
+```bash
+python3 -m pytest -q -rs
+rm -rf /tmp/kst-baseline && python3 -m kst --out /tmp/kst-baseline
+diff -r out /tmp/kst-baseline && echo identical
+awk -F, 'NR>1 && $6==1' data/versions.csv | wc -l
+python3 -c "import csv; s=[r for r in csv.DictReader(open('out/instances.csv')) if r['category']!='other']; rm=sum(int(r['removed']) for r in s); gone=sum(int(r['removed_object_gone']) for r in s); print(len(s), rm, gone, rm-gone)"
 ```
 
-- 74 tests passed; two analyzer-wrapper integration tests were skipped because
-  the pinned analyzer binaries were not installed. Full collection was not run.
-- All regenerated baseline files matched the committed `out/` byte for byte.
-- 35 valid versions; 862 non-`other` smell instances.
-- 147 removals, including 108 object deletions and 39 candidate fixes.
-- No production tracking algorithm changes were necessary for the added cases.
+- `pytest`: 81 passed; the two analyzer-wrapper integration tests in
+  `tests/test_analyze.py` skip ("analyzers not built; run ./tools/install.sh").
+  Full collection was not run.
+- `kst` prints `19346 findings, 1340 instances, 35 versions`, and `diff -r` finds no
+  difference between the regenerated files and the committed `out/`.
+- The `awk` line prints 35 valid versions. The last command prints `862 147 108 39`:
+  862 non-`other` smell instances, 147 removals, 108 of them object deletions and
+  39 candidate fixes.
+- No production tracking algorithm changes were necessary for the added cases. The
+  review fixes added an up-front inventory check to `track()`, which does not change
+  any output.
 - An independent code/deliverable review reproduced the test result and found no
   blocker in the completed work. Its terminology correction (candidate fixes)
   was applied.
 
-The isolated `.venv/` is retained locally for rerunning tests and ignored by Git.
-Temporary generated baseline outputs are outside the repository. Run the two
-integration tests in the team's Linux environment after `./tools/install.sh`.
+Run the two integration tests in the team's Linux environment after `./tools/install.sh`.
 
 ## Pending evidence
 

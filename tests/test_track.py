@@ -146,3 +146,8 @@ def test_empty_inputs_and_invalid_only_findings():
     assert classify([]) == []
     assert track([], {"r": ["v1"]}) == []
     assert track([_f("invalid")], {"r": ["v1"]}) == []
+
+
+def test_missing_inventory_without_removal_is_rejected():
+    with pytest.raises(KeyError):
+        track([_f("v1"), _f("v2")], {"r": ["v1", "v2"]}, {("r", "v1"): {WEB}})

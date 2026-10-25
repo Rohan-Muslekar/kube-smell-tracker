@@ -38,7 +38,7 @@ mistaken for the 862 smell instances.
 - A removal with the object still present is only a candidate fix: analyzer
   coverage, changed check behavior, filtering and parsing failures can mimic fixes.
 - Object-deletion classification depends on complete, consistent inventories.
-  Missing required inventory keys raise an error, but an incorrectly empty
+  `track()` raises an error when any valid tag has no inventory, but an incorrectly empty
   inventory can still produce a false deletion classification.
 - The inventory reader does not fully parse YAML or expand `kind: List` objects.
   The current collection uses unrendered Helm/kustomize inputs as described in

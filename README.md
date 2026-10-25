@@ -124,17 +124,17 @@ introduced. Each was confirmed or rejected by reading the YAML at both tags, wit
 
 ## Known limitations
 
-### Lifecycle tracking and category validation
-
-Yasaminzahra's task documentation: [tracking review and limitations](docs/tracking_limitations.md)
-and [independent two-rater category validation](docs/category_validation.md).
-The latter includes blank rating sheets, agreement calculation instructions and
-the disagreement/adjudication procedure. Real ratings and validation against
-future denser-tag/rendered-manifest data are pending.
-
 - Helm charts are not rendered, and kustomize bases and patches are linted unrendered. For flux2, this means patch fragments are analyzed as if they were complete objects.
 - A renamed object appears as one removal plus one introduction. The spot-check found no renames.
 - The object inventory (`kst/inventory.py`) reads the top level of each YAML document without a full YAML parser. Objects inside a `kind: List` are not listed. The inventory matched every object either analyzer reported.
 - kube-score scores only workload-related kinds (it never scores RBAC objects), so the overlap table is limited to the kinds it scores.
 - Files kube-linter cannot load are logged, not analyzed (`raw/load_failures.tsv`). If a file failed at one tag and loaded at the next, its smells would look introduced or removed; in the committed data every such file fails at every tag where it exists. A multi-document file where only some documents fail to parse is not detected.
 - Instance counts are per tool: a problem both tools flag is two instances. The paper also reports merged counts.
+
+### Lifecycle tracking and category validation
+
+Yasaminzahra's task documentation: [tracking review and limitations](docs/tracking_limitations.md)
+and [independent two-rater category validation](docs/category_validation.md).
+The latter covers generating the rating sheets, agreement calculation and
+the disagreement/adjudication procedure. Real ratings and validation against
+future denser-tag/rendered-manifest data are pending.
