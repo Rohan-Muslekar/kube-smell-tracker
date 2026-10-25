@@ -31,6 +31,13 @@ def main():
     removed, gone = total("removed"), total("removed_object_gone")
     artifacts = sum(int(r["removed"]) - int(r["removed_object_gone"]) for r in smell
                     if (r["tool"], r["check"]) in ARTIFACT_CHECKS)
+    # A fix both tools see on the same object, category and step counts once here.
+    fix_steps = {(r["repo"], r["kind"], r["namespace"], r["name"], r["category"], i)
+                 for r in smell
+                 if (r["tool"], r["check"]) not in ARTIFACT_CHECKS
+                 and int(r["removed"]) > int(r["removed_object_gone"])
+                 for i in range(1, len(r["presence"]))
+                 if r["presence"][i - 1:i + 1] == "10"}
 
     print(f"smell instances      {len(smell)}  ({len(merged)} merged object-category pairs)")
     for tool in ("kube-linter", "kube-score"):
@@ -41,7 +48,7 @@ def main():
     print(f"baseline survivors   {len(survivors)}/{len(base)} ({pct(len(survivors), len(base))})")
     print(f"removed              {removed}, of which object deleted {gone} ({pct(gone, removed)})")
     print(f"fixes (object kept)  {removed - gone}, of which probe artifacts {artifacts}, "
-          f"real fixes {removed - gone - artifacts}")
+          f"real fixes {removed - gone - artifacts} ({len(fix_steps)} merged)")
     print(f"introduced           {total('introduced')}, with a new object {total('introduced_new_object')}")
     print(f"reappeared           {total('reappeared')}")
 
