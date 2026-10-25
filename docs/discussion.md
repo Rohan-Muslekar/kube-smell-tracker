@@ -1,38 +1,49 @@
 # Discussion — Current Baseline (Draft)
 
-**Status:** Draft based on the current 35-tag baseline. RQ3 case-study integration and any updates to the dataset or category mapping are pending.
+**Status:** Draft based on the current 35-tag baseline. RQ3 case-study integration, independent category validation, and any updates to the dataset remain pending.
 
-## RQ1: Evolution of Configuration Smells
+## RQ1: Configuration Smell Prevalence
 
-The results indicate substantial baseline-to-final survival of configuration smells across the sampled release histories. Of the 821 smell instances present at the first sampled tag, 676 (82.3%) were also detected at the final tag. This finding suggests that many configuration issues remain detectable across the studied releases. However, baseline-to-final survival does not necessarily imply uninterrupted presence between releases.
+The study analyzed Kubernetes configuration artifacts from seven open-source projects across five release tags each, covering 35 valid versions.
 
-The analysis recorded 147 smell removals, of which 108 (73.5%) coincided with the disappearance of the corresponding Kubernetes object. Therefore, most observed removals should not be interpreted as direct configuration fixes. The remaining 39 removals occurred while the object was retained and were initially classified as candidate fixes. Nine of these were identified as kube-score analyzer artifacts in the project's manual review, leaving 30 remaining candidate fixes pending further case-study evidence.
+The current baseline contains 862 configuration smell instances after excluding findings categorized as `other`. These include 483 kube-linter instances and 379 kube-score instances. Resource and reliability smells are the most prevalent categories for both analyzers, followed by security and privilege smells.
 
-The study also recorded 41 introductions, including 16 associated with newly introduced objects. No reappearances were observed across the sampled tags. However, transitions occurring between selected releases may remain undetected.
+These counts represent analyzer-specific instances. Therefore, the same underlying configuration problem may be counted separately when detected by both tools.
 
-These results demonstrate the importance of distinguishing analyzer-level changes, resource deletion, and potential configuration fixes when interpreting smell lifecycles.
+## RQ2: Configuration Smell Lifecycle
 
-## RQ2: Overlap Between Static Analysis Tools
+The results suggest substantial persistence across the sampled releases. Of the 821 smell instances present at the first sampled tag, 676 (82.3%) remained present at the final sampled tag.
 
-The reported overlap between kube-linter and kube-score varies with the categories included in the comparison. Across the four smell categories, both tools flagged 134 of 241 distinct object-category pairs (55.6%). Excluding the hygiene category increased the reported overlap to 124 of 158 pairs (78.5%).
+The analysis recorded 147 removals, but 108 (73.5%) occurred because the corresponding Kubernetes object disappeared. Therefore, these removals should not automatically be interpreted as fixes.
 
-This difference demonstrates that category selection substantially influences the overlap measure. In addition, the analyzers support different checks and resource kinds, so their outputs are not directly interchangeable.
+Of the remaining 39 removals, nine were identified as kube-score analyzer artifacts involving probe checks. This leaves 30 candidate fixes requiring further commit-level investigation before all can be classified as genuine maintenance fixes.
 
-The implementation aggregates findings by repository, resource kind, namespace, resource name, and category across the sampled tags. Therefore, the overlap calculation does not require both analyzers to flag the same category at the same release tag. The reported percentages represent shared detection over the sampled history, rather than simultaneous agreement within individual releases.
+The study also recorded 41 introductions, including 16 associated with newly introduced objects. No reappearances were observed across the five sampled tags per project. However, changes occurring between sampled releases may not be visible.
 
-These findings suggest that the two tools provide partially overlapping perspectives on Kubernetes configuration issues. However, overlap should be interpreted in light of tool coverage, category definitions, and the aggregation method.
+## Supplementary Analysis: Static Analyzer Overlap
 
-## RQ3: Case Studies
+The two analyzers identified overlapping categories of configuration problems, but their coverage was not identical.
 
-**Pending:** Representative commit-level case studies and their supporting evidence will be integrated after the RQ3 investigation is completed.
+Across the supported object kinds, both tools flagged 134 of 241 distinct object-category pairs (55.6%). When hygiene findings were excluded, overlap increased to 124 of 158 pairs (78.5%).
 
-## Interpretation Notes
+These results are aggregated across the sampled version history. They should not be interpreted as proof that both tools detected each shared object-category pair at the same release tag.
 
-- All smell-level counts exclude the `other` category.
-- Lifecycle instance counts are tool-specific and may count related warnings separately.
-- The 30 remaining candidate fixes should not be described as independently verified genuine fixes.
-- Independent human validation of the category mapping is still pending.
-- Quantitative statements reflect the current committed baseline and must be rechecked if the dataset, category mapping, or analysis outputs change.
+Differences in analyzer checks, supported Kubernetes object kinds, and category coverage help explain the observed disagreement.
+
+## RQ3: Maintenance Change Case Studies
+
+Detailed commit-level case studies remain pending. These investigations will help distinguish deliberate configuration fixes, regressions, object deletions, and analyzer-related artifacts.
+
+The findings from RQ3 will be integrated after the case-study investigation is completed.
+
+## Interpretation and Validation Notes
+
+- Findings categorized as `other` are excluded from the configuration smell analysis.
+- Lifecycle instance counts are analyzer-specific rather than deduplicated across tools.
+- Object deletion is distinguished from candidate configuration fixes.
+- The 30 remaining candidate fixes have not all been independently verified through commit-level investigation.
+- Independent two-rater category validation remains pending.
+- The numerical results describe the current baseline and should be rechecked if the analysis outputs change.
 
 ## Supporting Project Artifacts
 
