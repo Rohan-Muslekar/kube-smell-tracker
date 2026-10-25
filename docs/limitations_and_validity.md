@@ -10,7 +10,7 @@ Configuration smells were operationalized using findings from two static analyze
 
 Smell instances are tracked using repository, tool, resource kind, namespace, resource name, and check identifier. Changes to these identity fields may split the history of the same underlying resource, while deletion and recreation between sampled tags may remain undetected. The tracking process also depends on consistent object inventories, which are extracted without fully parsing YAML or expanding Kubernetes `List` objects. Consequently, incomplete inventories, unsupported configurations, and analyzer behavior may affect the interpretation of lifecycle transitions.
 
-Of the 147 recorded smell removals, 108 coincided with object disappearance. The remaining 39 were initially candidate fixes, including nine removals classified as analyzer artifacts during the project's manual review. The other 30 cases should not be treated as independently verified genuine fixes until supporting case-study evidence is finalized.
+Of the 147 recorded smell removals, 108 coincided with object disappearance. The remaining 39 were initially candidate fixes, including nine removals classified as analyzer artifacts during the project's manual review. The other 30 are counted as fixes. Only the four in the spot-check have been traced to commits so far, so the rest rely on the analyzer output and the object inventory.
 
 ## External Validity
 
@@ -27,7 +27,7 @@ Instance counts are analyzer-specific, meaning that related warnings from differ
 ## Pending Validation
 
 - Independent human category ratings, agreement statistics, and adjudication.
-- RQ3 commit-level case studies and verification of remaining candidate fixes.
+- Commit-level tracing of the 26 fixes and the introductions outside the spot-check (RQ3).
 - Validation using denser release histories and rendered manifests, if those datasets become available.
 - Final verification of numerical claims after any dataset, category-mapping, or analysis changes.
 

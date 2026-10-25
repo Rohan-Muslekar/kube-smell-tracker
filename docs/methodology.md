@@ -176,7 +176,7 @@ The comparison unit is identified by:
 
 Findings categorized as `other` are excluded.
 
-The comparison can be restricted to object kinds represented in kube-score's analyzed output, avoiding comparisons dominated by kinds that kube-score does not evaluate.
+The comparison is restricted to object kinds represented in kube-score's analyzed output, avoiding comparisons dominated by kinds that kube-score does not evaluate.
 
 For each comparison unit, the implementation records whether kube-linter, kube-score, or both tools reported at least one finding.
 
@@ -266,7 +266,7 @@ The continuous integration workflow runs tests, regenerates derived analysis tab
 
 The environment recorded for the committed results includes Fedora Linux 44, Go 1.26.9, Python 3.14.8, kube-linter v0.8.3, and kube-score v1.20.0. Additional tool versions are documented in the repository README.
 
-The README reports that a fresh-clone reproduction produced byte-identical `out/` and `data/versions.csv` artifacts. This is a repository-documented verification result rather than an independent reproduction performed as part of preparing this methodology document.
+The README reports that a fresh-clone reproduction produced byte-identical `out/` and `data/versions.csv` artifacts. An independent fresh-clone run on Ubuntu under WSL is documented in [reproduction.md](reproduction.md).
 
 For reproducibility, the study's selected repositories, release tags, and resolved commit identifiers are recorded in `data/repos.json` and `data/versions.csv`.
 

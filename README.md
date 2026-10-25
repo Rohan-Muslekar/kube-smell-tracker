@@ -50,8 +50,13 @@ numbers.
 
 The committed outputs were checked against a fresh clone of this repository: after
 `./tools/install.sh && make all`, `out/` and `data/versions.csv` were byte-identical. The raw
-analyzer files differ only in two ways: kube-linter's run timestamp (`Summary.CheckEndTime`) and
-the order in which kube-score lists checks. None of the outputs depend on either.
+analyzer files differed in kube-linter's run timestamp (`Summary.CheckEndTime`) and the order in
+which kube-score lists checks. None of the outputs depend on either.
+
+A second fresh clone on Ubuntu under WSL also left `out/` unchanged, but showed more raw
+differences; see [docs/reproduction.md](docs/reproduction.md). Thirty entries in
+`raw/skipped_files.txt` depend on how git checks out symlinks (see Known limitations). Some
+kube-linter `dangling-servicemonitor` reports for kube-prometheus v0.12.0 still need comparing.
 
 ## Environment used for the committed outputs
 
@@ -104,7 +109,7 @@ since 2022-10-22, with the newest included, as of 2026-10-22. They are reproduci
    - **Labels:** for each pair of consecutive tags, an instance is persisted, introduced, removed or reappeared (present again after an earlier removal).
     - **Removals:** a removal counts as `removed_object_gone` when the object itself no longer exists, and as a candidate fix otherwise. Manual inspection is needed to rule out analyzer artifacts.
    - **Introductions:** an introduction counts as `introduced_new_object` when it arrived together with a new object.
-4. **Overlap** (`kst/overlap.py`) compares the two analyzers before any de-duplication, on the object kinds that kube-score scores. Each (repo, kind, namespace, name, category) counts once over all tags; it is "both" when both tools flagged that object in that category at the same tag (in any check of the category, not necessarily the same check).
+4. **Overlap** (`kst/overlap.py`) compares the two analyzers before any de-duplication, on the object kinds that kube-score scores. Each (repo, kind, namespace, name, category) counts once over all tags; it is "both" when both tools flagged that object in that category at some sampled tag, not necessarily the same tag or the same check.
 
 ## Outputs (`out/`)
 
@@ -130,6 +135,7 @@ introduced. Each was confirmed or rejected by reading the YAML at both tags, wit
 - kube-score scores only workload-related kinds (it never scores RBAC objects), so the overlap table is limited to the kinds it scores.
 - Files kube-linter cannot load are logged, not analyzed (`raw/load_failures.tsv`). If a file failed at one tag and loaded at the next, its smells would look introduced or removed; in the committed data every such file fails at every tag where it exists. A multi-document file where only some documents fail to parse is not detected.
 - Instance counts are per tool: a problem both tools flag is two instances. The paper also reports merged counts.
+- Manifests stored as git symlinks are not analyzed. In Knative serving, six files per tag under `config/core` (five CRDs and the `network` ConfigMap) link into `vendor/`. With real symlinks, `find -type f` skips them silently; with `core.symlinks=false`, git writes them as small text files that are logged in `raw/skipped_files.txt` as not Kubernetes objects. Either way no smells are counted for them, so `out/` does not change, but the skipped-file log depends on the machine.
 
 ### Lifecycle tracking and category validation
 
