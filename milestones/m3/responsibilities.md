@@ -3,6 +3,9 @@
 Due **Sun Nov 8, 2026** (assumed 11:59 p.m.). Code lands in `kube-smell-tracker` through PRs.
 Rohan reviews and merges every PR.
 
+Milestone 3 does the full analysis. Milestone 4 is polishing only: final number check,
+final report, presentation.
+
 ## 1. Code ownership (whole repo)
 
 Each person owns these files: they fix them, review changes to them, and keep the matching
@@ -16,70 +19,85 @@ Each person owns these files: they fix them, review changes to them, and keep th
 | **Bayan Sayyadifar** | `kst/overlap.py`, table writers in `kst/__main__.py`, `scripts/summary.py`, `scripts/sample_spot_check.py`, `data/spot_check.csv`, `data/rq3_investigations.csv`, `results/` | `docs/rq3_case_studies.md`, `docs/discussion.md`, `results/README.md` |
 | **Seyedeh Rojan Razavi** | **new** `kst/render.py` (kustomize and Helm rendering), its tests and fixtures, the render flag in `scripts/collect.sh` | `docs/methodology.md`, `docs/limitations_and_validity.md` |
 
-## 2. Milestone 3 tasks (due Nov 8, 12:00 noon)
+## 2. How the day runs
 
-Every task ends in a merged PR **or** a short result note (numbers + command) sent to Rohan.
-The report needs the numbers by **noon Nov 8**. If a task cannot finish, use its fallback;
-the full version moves to Milestone 4 and the report says so.
+Rendering and denser tags both change the raw data, so every number changes once they land.
+There is **one integration run** after the code PRs merge; all analysis and tracing after that
+uses its output.
 
-### Rojan: rendering check (the check behind our strongest validity threat)
-Why: 84 of our 108 "object deleted" removals come from unrendered kustomize patch fragments in
-flux2. If rendering changes that, our main RQ2 removal finding changes.
-- Branch `feat/render-kustomize`.
-- `kst/render.py`: for a manifest directory containing `kustomization.yaml`, run
-  `kubectl kustomize <dir>` (kustomize binary is not needed) and write the rendered YAML to the
-  per-tag work dir; `helm template` for charts.
-- Flag in `scripts/collect.sh` (e.g. `RENDER=1`), default off so the M2 run still reproduces.
-- Test: one tiny kustomize base + patch fixture under `tests/fixtures/`, assert the rendered
-  output holds whole objects.
-- **Result needed for the report:** flux2 at its 5 tags, rendered vs. unrendered: number of
-  objects, smell instances, removals, "object deleted" removals. One small table.
-- Fallback: render flux2 by hand for the 5 tags (`kubectl kustomize`), run both analyzers,
-  report the same numbers; module and flag go to M4.
-
-### Ankit: analyzers on rendered output + reproduction
-- Make `scripts/analyze.sh` and `kst/validate.py` accept Rojan's rendered output (pair with her).
-- Fresh-clone reproduction of current `master` (`./tools/install.sh && make all`, then
-  `diff -ru out /tmp/fresh/out`); finish the open WSL comparison of kube-prometheus
-  `dangling-servicemonitor`. Record in `docs/reproduction.md`.
-- Keep CI green after the merges.
-- **Result needed:** one line "fresh clone reproduces out/ byte-identical: yes/no" + what differed.
-- Fallback: reproduction only.
-
-### Yasaminzahra: two-rater category validation (kappa)
-- Run `python3 -m kst.category_validation prepare --out ~/category-sheets` and send
-  `category_rater_1.csv` to **Ankit** and `category_rater_2.csv` to **Rojan** (raters chosen so
-  the coordinator does not rate; swap if needed). About 62 checks, ~45 minutes each.
-- Raters return sheets by **Nov 7 night**. Then
-  `python3 -m kst.category_validation calculate --rater-1 data/category_validation/category_rater_1.csv --rater-2 data/category_validation/category_rater_2.csv --out results/category_validation`
-- Adjudicate disagreements, commit sheets + `category_agreement.json`.
-- **Result needed:** % agreement, Cohen's kappa, number of checks whose category changed after
-  adjudication.
-- Fallback: report agreement on what is returned; adjudication goes to M4.
-
-### Bayan: RQ3 commit tracing + survival figure
-- Trace the remaining real fixes (26 not yet traced) and the introductions on existing objects
-  to their commits in `data/rq3_investigations.csv` (same columns as now).
-- Add `scripts/survival.py` (or a function in `results/render.py`) that plots, per system, the
-  share of first-tag instances still present at each later tag, from `out/instances.csv`.
-  Output `results/survival.pdf` (vector, for the paper).
-- **Result needed:** count per classification (real fix / side effect of fix / analyzer
-  artifact / object deleted / new object) over all traced cases; the figure.
-- Fallback: trace 10 more, stratified by system; full tracing goes to M4.
-
-### Rohan: report + denser-tag stretch
-- Write `milestones/m3/paper/milestone3.tex`, run `make_tables.py`, add the new tables from the
-  results above, fill the contribution table, build the PDF.
-- Stretch (only if time): denser tags for one system that changes (argo-cd): every minor between
-  the sampled tags, to test "zero reappearance is a lower bound".
-- Review and merge all PRs by noon Nov 8.
-
-## 3. Milestone 4 continuation (stated in the report as next steps)
-
-| Member | Continues with |
+| When | Step |
 |---|---|
-| Rohan | denser tags for all systems that change; final numbers freeze |
-| Ankit | CI covering the rendered run; final fresh-clone reproduction |
-| Yasaminzahra | tracking on denser tags; rename detection (object moved/renamed = removal + introduction today) |
-| Bayan | full RQ3 tracing of all fixes and introductions; case-study write-up |
-| Rojan | Helm rendering for any chart-only candidates; rerun RQ1/RQ2 on rendered manifests for all systems |
+| Nov 7 night | Code PRs open: rendering (Rojan), denser tags (Rohan), rename detection (Yasaminzahra), rendered-input support (Ankit). Category sheets rated. Bayan finishes tracing the M2 dataset. |
+| **Nov 8, 10:00** | All code PRs merged. |
+| Nov 8, 10:00-12:00 | **Integration run** (Rohan): `RENDER=1 make all` with denser tags; commit new `raw/`, `out/`, `data/versions.csv`. |
+| Nov 8, 12:00-17:00 | Analysis on the new data (everyone, below). |
+| **Nov 8, 17:00** | **Numbers freeze.** Result notes + contribution lines with PR links sent to Rohan. |
+| Nov 8, 20:00 / 23:00 | Draft checked by everyone / submitted. |
+
+**Fallback for the whole day:** if the integration run is not committed by 12:00, the report
+uses the M2 data, and rendering and denser tags are reported as checks run on a subset
+(flux2 rendered; one system with denser tags).
+
+## 3. Tasks
+
+### Rohan: denser tags, integration run, report
+- `kst/select_tags.py`: a dense mode that takes **every minor release** (latest patch of each)
+  in the same window, for every system. Keep the 5-tag mode so M2 reproduces.
+- `scripts/collect.sh` / `data/repos.json`: record the mode used; `data/versions.csv` grows.
+- Integration run and commit (see table above).
+- Report: `milestones/m3/paper/milestone3.tex`, `make_tables.py`, contribution table, PDF.
+- Result for the report: number of tags per system; reappearances found with dense tags
+  (tests the "zero reappearance is a lower bound" threat).
+
+### Rojan: rendering for all systems
+- Branch `feat/render-kustomize`. `kst/render.py`: for each manifest directory with
+  `kustomization.yaml`, run `kubectl kustomize <dir>` (no kustomize binary needed); for charts,
+  `helm template`. Write rendered YAML to the per-tag work dir.
+- `RENDER=1` flag in `scripts/collect.sh`; off reproduces M2 exactly.
+- Tests: tiny kustomize base + patch fixture and a tiny chart under `tests/fixtures/`; assert
+  rendered output holds whole objects and the inventory matches analyzer objects.
+- After the integration run: comparison of rendered vs. unrendered on the same tags for every
+  system: objects, instances, removals, "object deleted" removals, real fixes. Script it
+  (`scripts/compare_render.py`) so it reruns. This is the check behind the strongest threat.
+- Update `docs/methodology.md` and `docs/limitations_and_validity.md`.
+
+### Ankit: analyzers on rendered output, CI, reproduction
+- `scripts/analyze.sh` and `kst/validate.py` accept rendered output (pair with Rojan tonight).
+- CI: run the tests plus the offline analysis on the new committed raw data; `out/` must match.
+- After the integration run: fresh-clone reproduction of the new `master`
+  (`./tools/install.sh && RENDER=1 make all`, then `diff -ru out <fresh>/out`), on Fedora and
+  WSL. Finish the open kube-prometheus `dangling-servicemonitor` comparison.
+- Rate category sheet 1 tonight (~45 min).
+- Result for the report: reproduction yes/no + what differed.
+
+### Yasaminzahra: category validation + tracking upgrades
+- Tonight: `python3 -m kst.category_validation prepare --out ~/category-sheets`; send
+  `category_rater_1.csv` to Ankit and `category_rater_2.csv` to Rojan. When back:
+  `python3 -m kst.category_validation calculate --rater-1 data/category_validation/category_rater_1.csv --rater-2 data/category_validation/category_rater_2.csv --out results/category_validation`,
+  adjudicate, commit sheets and `category_agreement.json`.
+- `kst/track.py`: **rename detection**: an object that disappears and a new object of the same
+  kind with the same smells appearing in the same step, flagged as a probable rename instead of
+  removal + introduction. Tests for it, and for tracking across many dense tags.
+- After the integration run: check the tracking output (renames found, any tag marked invalid).
+- Result for the report: % agreement, Cohen's kappa, checks that changed category; renames found.
+
+### Bayan: full RQ3 tracing, figures, case studies
+- Tonight: trace **all** remaining real fixes (26) and introductions on existing objects in the
+  M2 data into `data/rq3_investigations.csv`.
+- After the integration run: trace the new fixes and introductions it reveals. If there are too
+  many by 17:00, trace a sample stratified by system and say so.
+- `scripts/survival.py`: per system, share of first-tag instances still present at each later
+  tag, from `out/instances.csv`; output `results/survival.pdf` (vector).
+- Update `docs/rq3_case_studies.md` with the final cases.
+- Result for the report: count per cause (real fix / side effect of fix / analyzer artifact /
+  object deleted / new object / rename) over all traced transitions; the figure; 2-3 cases.
+
+## 4. Milestone 4 (polishing only)
+
+| Member | Milestone 4 |
+|---|---|
+| Rohan | Final report from the M3 paper; final numbers check |
+| Ankit | Final fresh-clone reproduction of the submitted artifact |
+| Yasaminzahra | Tracking and category docs final pass |
+| Bayan | Case-study write-up polish; figures for the presentation |
+| Rojan | Methodology/validity docs final pass; presentation slides |
