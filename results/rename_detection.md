@@ -1,5 +1,7 @@
 # Rename detection result note
 
+PR: https://github.com/Rohan-Muslekar/kube-smell-tracker/pull/12
+
 Scope: Milestone 2 baseline on master `fc84c26`, not the pending dense/rendered run.
 
 Commands:
