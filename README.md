@@ -115,7 +115,7 @@ git tag `milestone-2-data`. `data/repos.json` is the record of the tags used. Th
    - runs both analyzers (`scripts/analyze.sh`, writing `raw/kube-linter/`, `raw/kube-score/`)
    - lints each file alone to find files kube-linter cannot load (unparseable YAML, `kind: List`), which it otherwise skips silently, and logs them to `raw/load_failures.tsv`
 
-   A tag is invalid when either analyzer's stdout is empty or not a JSON array or object (`kst/validate.py`; kube-score prints nothing when it crashes), or when no manifests remain. Invalid tags are left out of tracking, so a crashed run does not look like removed smells. All 35 tags are valid.
+   A tag is invalid when either analyzer's stdout is empty or not a JSON array or object (`kst/validate.py`; kube-score prints nothing when it crashes), or when no manifests remain. Invalid tags are left out of tracking, so a crashed run does not look like removed smells. All 123 tags are valid.
 2. **Normalize** (`kst/normalize.py`) produces one finding per analyzer report:
    - kube-score checks count when graded below 10 and not skipped
    - file paths are made relative to the repo root
@@ -135,7 +135,7 @@ git tag `milestone-2-data`. `data/repos.json` is the record of the tags used. Th
 |---|---|
 | `findings.csv` | repo, version, tool, check, category, kind, namespace, name, file, dup_count (identical reports in one tag, e.g. one per container) |
 | `prevalence.csv` | repo, version, tool, category, findings (reports), instances (distinct keys) |
-| `instances.csv` | one row per instance: key fields, category, presence (e.g. `11100` over the five tags), at_baseline, introduced, persisted, removed, reappeared, removed_object_gone, introduced_new_object |
+| `instances.csv` | one row per instance: key fields, category, presence (one character per tag, e.g. `11100` over five tags), at_baseline, introduced, persisted, removed, reappeared, removed_object_gone, introduced_new_object |
 | `transitions_summary.csv` | the instance counts summed per tool and category |
 | `transitions_by_repo.csv` | the same per repo, tool and category |
 | `overlap_summary.csv` | category, linter_only, score_only, both (distinct object-category pairs) |
