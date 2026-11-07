@@ -155,9 +155,10 @@ configuration, and write the report.
    `RENDER=1 make all`. Check that `data/versions.csv` has no unexpected invalid tags, then
    commit the new `raw/`, `out/` and `data/versions.csv`. Tell the group when it is pushed.
 4. Dense-tag check: count reappearances in the new `out/instances.csv`, and compare them with
-   the same projects restricted to the five Milestone 2 tags. To restrict, copy `data/` to a
-   temporary folder, keep only those tags in `versions.csv`, and run
-   `python3 -m kst --data <tmp>/data --out <tmp>/out`.
+   the same projects restricted to the five Milestone 2 tags:
+   `python3 -m kst.subset --field tags_milestone2 --out /tmp/m2tags` then
+   `python3 -m kst --data /tmp/m2tags --out /tmp/m2tags/out`. (Done: `kst/subset.py` in PR #10;
+   on the Milestone 2 data it reproduces `out/` byte for byte.)
 5. Report: write `milestone3.tex`, regenerate tables with `make_tables.py`, build the PDF, and
    fill the contribution table from everyone's result notes.
 
@@ -202,7 +203,7 @@ projects were excluded in Milestone 2), so Helm support is optional (step 6).
    - the inventory of the rendered output lists the same object the analyzers report.
 5. After the integration run, write `scripts/compare_render.py`. It compares, per project, the
    Milestone 2 results (unrendered; read with `git show milestone-2-data:out/...`) with the new
-   rendered results restricted to the same five tags (use the same restriction as Rohan's step 4). For each project, print:
+   rendered results restricted to the same five tags (`python3 -m kst.subset --field tags_milestone2 --out <tmp>`, then `python3 -m kst --data <tmp> --out <tmp>/out`). For each project, print:
    - objects;
    - smell instances;
    - removals;
