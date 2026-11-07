@@ -25,6 +25,36 @@ def instance_key(f):
     return (f.repo, f.tool, f.kind, f.namespace, f.name, f.check)
 
 
+def probable_renames(findings, versions, objects):
+    """Candidate object pairs per step, with matching sets of (tool, check).
+
+    Inventories establish disappearance/appearance independently of analyzer coverage.
+    Many-to-many matches remain candidates, never an asserted identity merge.
+    """
+    if objects is None:
+        return []
+    checks = defaultdict(lambda: defaultdict(set))
+    for f in findings:
+        if f.version in versions.get(f.repo, ()):
+            checks[(f.repo, f.version)][(f.kind, f.namespace, f.name)].add((f.tool, f.check))
+    candidates = []
+    for repo, tags in versions.items():
+        for prev, cur in zip(tags, tags[1:]):
+            before, after = objects[(repo, prev)], objects[(repo, cur)]
+            added = defaultdict(list)
+            for obj in sorted(after - before):
+                signature = frozenset(checks[(repo, cur)][obj])
+                if signature:
+                    added[(obj[0], signature)].append(obj)
+            for old in sorted(before - after):
+                signature = frozenset(checks[(repo, prev)][old])
+                for new in added.get((old[0], signature), ()):
+                    if old[2] != new[2]:
+                        candidates.append({"repo": repo, "from_tag": prev, "to_tag": cur,
+                                           "old": old, "new": new, "checks": sorted(signature)})
+    return candidates
+
+
 def track(findings, versions, objects=None):
     """One row per instance. `versions` maps repo -> valid tags, oldest first; other tags are ignored.
 
@@ -32,6 +62,7 @@ def track(findings, versions, objects=None):
     `removed_object_gone` counts removals where the whole object was deleted (not a fix), and
     `introduced_new_object` counts introductions that came with a newly added object.
     """
+    findings = list(findings)
     if objects is not None:
         # Check every tag up front: a lookup only happens at a removal or introduction, so a
         # missing inventory elsewhere would otherwise pass unnoticed.
@@ -46,6 +77,12 @@ def track(findings, versions, objects=None):
         key = instance_key(f)
         present[key].add(f.version)
         category[key] = f.category
+
+    flagged = set()
+    for candidate in probable_renames(findings, versions, objects):
+        for kind, namespace, name in (candidate["old"], candidate["new"]):
+            for tool, check in candidate["checks"]:
+                flagged.add((candidate["repo"], tool, kind, namespace, name, check))
 
     rows = []
     for key in sorted(present):
@@ -63,5 +100,6 @@ def track(findings, versions, objects=None):
                                              if label == "removed" and obj not in objects[(repo, cur)])
             row["introduced_new_object"] = sum(1 for prev, _, label in steps
                                                if label == "introduced" and obj not in objects[(repo, prev)])
+        row["probable_rename"] = int(key in flagged)
         rows.append(row)
     return rows

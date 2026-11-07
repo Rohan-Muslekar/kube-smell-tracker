@@ -1,5 +1,5 @@
 from kst.normalize import Finding
-from kst.track import classify, track
+from kst.track import classify, track, probable_renames
 from dataclasses import replace
 
 import pytest
@@ -151,3 +151,54 @@ def test_empty_inputs_and_invalid_only_findings():
 def test_missing_inventory_without_removal_is_rejected():
     with pytest.raises(KeyError):
         track([_f("v1"), _f("v2")], {"r": ["v1", "v2"]}, {("r", "v1"): {WEB}})
+
+
+def test_probable_rename_marks_both_sides_without_merging_counts():
+    findings = [_f("v1"), _f("v1"), _f("v2", name="renamed")]
+    objects = {("r", "v1"): {WEB}, ("r", "v2"): {("Deployment", "", "renamed")}}
+    rows = track(findings, {"r": ["v1", "v2"]}, objects)
+    assert len(rows) == 2
+    assert all(r["probable_rename"] == 1 for r in rows)
+    assert sum(r["removed"] for r in rows) == 1
+    assert sum(r["introduced"] for r in rows) == 1
+    assert sum(r["removed_object_gone"] for r in rows) == 1
+
+
+@pytest.mark.parametrize("change", ["check", "kind", "tool", "existing"])
+def test_different_checks_kind_tool_or_existing_object_is_not_rename(change):
+    new = _f("v2", name="renamed")
+    if change in ("check", "kind", "tool"):
+        new = replace(new, **{change: "different"})
+    new_obj = (new.kind, new.namespace, new.name)
+    objects = {("r", "v1"): {WEB}, ("r", "v2"): {new_obj}}
+    if change == "existing":
+        objects[("r", "v2")].add(WEB)
+    assert not any(r["probable_rename"] for r in track([_f("v1"), new], {"r": ["v1", "v2"]}, objects))
+
+
+def test_rename_requires_entire_check_set_not_overlap():
+    objects = {("r", "v1"): {WEB}, ("r", "v2"): {("Deployment", "", "renamed")}}
+    findings = [_f("v1"), _f("v1", check="extra"), _f("v2", name="renamed")]
+    assert probable_renames(findings, {"r": ["v1", "v2"]}, objects) == []
+
+
+def test_rename_in_46_tag_history_keeps_original_histories():
+    tags = [f"v{i}" for i in range(46)]
+    findings = [_f(tag, name="web" if i < 23 else "renamed") for i, tag in enumerate(tags)]
+    objects = {("r", f.version): {(f.kind, f.namespace, f.name)} for f in findings}
+    rows = track(findings, {"r": tags}, objects)
+    assert sorted(r["presence"] for r in rows) == ["0" * 23 + "1" * 23, "1" * 23 + "0" * 23]
+    assert all(r["probable_rename"] == 1 and r["persisted"] == 22 for r in rows)
+    candidate, = probable_renames(findings, {"r": tags}, objects)
+    assert (candidate["from_tag"], candidate["to_tag"]) == ("v22", "v23")
+
+
+def test_ambiguous_rename_candidates_are_not_merged():
+    findings = [_f("v1"), _f("v2", name="one"), _f("v2", name="two")]
+    objects = {("r", "v1"): {WEB}, ("r", "v2"): {("Deployment", "", n) for n in ("one", "two")}}
+    assert len(probable_renames(findings, {"r": ["v1", "v2"]}, objects)) == 2
+    assert len(track(findings, {"r": ["v1", "v2"]}, objects)) == 3
+
+
+def test_no_inventory_does_not_claim_rename():
+    assert not any(r["probable_rename"] for r in track([_f("v1"), _f("v2", name="new")], {"r": ["v1", "v2"]}))

@@ -1,5 +1,38 @@
 # Lifecycle tracking review
 
+## Milestone 3: probable rename flags
+
+Tracking now adds `probable_rename` (0 or 1) to each instance row. A flag means
+that the instance participated in at least one candidate rename over its history;
+it is not a count of rename events. Both old and new sides are flagged. Original
+histories and transition counts remain unchanged.
+
+For each consecutive valid-tag pair within a project, the object inventory must
+show one object disappearing and another appearing. Candidates need the same
+kind, different names, and exactly the same nonempty set of `(tool, check)` findings
+across both analyzers. Duplicate reports do not affect this set. All checks,
+including `other`, contribute to the signature. Namespace changes are permitted
+when the name also changes. A namespace-only move is not treated as a rename.
+Without inventories the flag remains zero: missing warnings alone cannot establish
+that an object disappeared. Invalid tags are excluded by the existing loader.
+
+Matching warnings are only a heuristic: unrelated objects can have identical
+checks. All matching pairs in ambiguous many-to-many cases remain candidates;
+none are merged. A real rename with changed checks will be missed. Analyzer
+coverage changes and gaps between valid tags can also affect detection.
+
+Run `python -m kst.rename_report` to list candidate object-pair transitions with
+old/new identities, tag pairs and check signatures, plus invalid tags from
+`data/versions.csv`. This event count differs from the count of flagged instance
+rows (multiple checks and both sides can belong to one candidate).
+
+After integration, regenerate analysis to a temporary directory, inspect the
+`probable_rename` flags in its `instances.csv`, run the report command, and manually
+check candidate YAML/commits with Bayan before calling a candidate a confirmed rename.
+The code PR does not update committed generated data. Adding the new column means
+the old `out/instances.csv` will differ until the integration run regenerates it;
+the existing byte-comparison CI check will expose this expected schema difference.
+
 Task owner: Yasaminzahra Valitabar.
 
 ## Review and verification
