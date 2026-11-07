@@ -1,5 +1,7 @@
 # Category validation result note
 
+PR: https://github.com/Rohan-Muslekar/kube-smell-tracker/pull/11
+
 Prepared against master `fc84c26`. Blank independent sheets were generated outside
 the repository with:
 
