@@ -2,7 +2,8 @@
 
 Artifact for *Tracking the Lifecycle of Kubernetes Configuration Smells Across Versions*
 (ENGR 5570G, Group 4). It runs two static analyzers over the Kubernetes manifests of seven
-open-source projects at five release tags each. Each smell instance is then followed from tag
+open-source projects at every minor release since late 2022 (123 tags; Milestone 2 used five
+tags per project). Each smell instance is then followed from tag
 to tag and labelled introduced, persisted, removed or reappeared.
 
 ## Reproduce
@@ -74,18 +75,35 @@ Both analyzers report `development` from their `version` subcommand when built w
 
 ## Study systems
 
-`data/repos.json` lists each included repository: URL, manifest path(s), the five tags,
-and the reason for inclusion. Excluded candidates are listed with the reason.
+`data/repos.json` lists each included repository: URL, manifest path(s), the tags (`tags`),
+the five Milestone 2 tags (`tags_milestone2`), and the reason for inclusion. Excluded candidates are listed with the reason.
 
 Selection criteria:
 1. The repository ships plain Kubernetes YAML in the repository, not only Helm charts or release assets.
 2. It has commits in the last six months and at least 500 stars.
 3. It has at least five release tags spanning at least 12 months.
 
-The tags are the latest patch of five minor releases, evenly spaced over the minors first released
-since 2022-10-22, with the newest included, as of 2026-10-22. They are reproducible with
-`python3 -m kst.select_tags work/<repo> 2022-10-22`; a later run also sees newer releases, so
-`data/repos.json` is the record of the tags used. The commit SHA of every tag is in
+The tags are the latest patch of **every** minor release first released since 2022-10-22,
+ignoring tags dated after 2026-10-22, so the list does not move when a project publishes a new
+patch. Where Milestone 2 sampled a minor, its tag is kept. To regenerate one repo's list:
+
+```bash
+python3 -m kst.select_tags work/<repo> 2022-10-22 --all --until 2026-10-22 --keep <tags_milestone2...>
+```
+
+| System | Tags |
+|---|---|
+| microservices-demo | 6 |
+| kube-prometheus | 8 |
+| argo-cd | 16 |
+| flux2 | 16 |
+| istio | 16 |
+| serving | 15 |
+| pipeline | 46 |
+
+Milestone 2 used the latest patch of five minor releases, evenly spaced over the same minors
+(`python3 -m kst.select_tags work/<repo> 2022-10-22`). Its data and outputs are preserved at the
+git tag `milestone-2-data`. `data/repos.json` is the record of the tags used. The commit SHA of every tag is in
 `data/versions.csv`.
 
 ## Pipeline
