@@ -31,10 +31,11 @@ ratings, agreement results and adjudicated decisions are pending.
 
    This writes `category_agreement.json` (agreement, kappa, and
    `agreed_differs_from_map`), `category_disagreements.csv` (with each check's mapped
-   category) and `category_map_differences.csv` (checks where both raters agreed on a
-   category other than the mapped one). Outputs are written all at once or not at all.
+   category) and `category_map_differences.csv` (the decision ledger: all rater
+   disagreements plus checks where both raters agreed on a category other than
+   the mapped one).
 
-5. Review `category_disagreements.csv` together. Fill `adjudicated_category`,
+5. Review `category_disagreements.csv` together. In `category_map_differences.csv`, fill `adjudicated_category`,
    `decision_rationale`, `adjudicator`, and `date` for each disagreement; preserve
    both original ratings. If unresolved, involve a third team member and record
    the decision. Then compare the adjudicated categories with `mapped_category`, and
@@ -43,6 +44,27 @@ ratings, agreement results and adjudicated decisions are pending.
    Run the tests and analysis again, inspect changed outputs and document their
    effect on prevalence and category-level summaries. Check-ID instance identity
    remains unchanged; changing `other` membership changes the smell totals.
+   Report the number of ledger rows whose final `adjudicated_category` differs
+   from `mapped_category`, after every decision is complete. Do not equate
+   `agreed_differs_from_map` with the final number of changed checks.
+
+## Milestone 3 coordination and status
+
+Generate sheets outside the repository. Assign sheet 1 privately to **Ankit Suman**
+and sheet 2 privately to **Seyedeh Rojan Razavi**. Each sheet contains 62 checks.
+Request a return tonight (November 7), allowing about 45 minutes per rater.
+Send the shared category definitions above with each sheet, but not the map.
+The coordinator still needs to send the files through the team's private channel.
+
+Returned files must be copied unchanged before calculation. Agreement and kappa
+are unavailable until both independent sheets are returned; with only one sheet,
+report that collection status rather than inventing a two-rater agreement value.
+With partially completed sheets, disclose coverage and obtain paired ratings
+before computing a subset statistic; the current calculator requires full coverage.
+
+After adjudication, include the approved map changes in this branch. Rohan's
+integration run regenerates committed outputs; do not include generated `out/`,
+`raw/`, or `data/versions.csv` changes in the category code PR.
 
 ## Shared category definitions
 

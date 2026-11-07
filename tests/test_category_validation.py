@@ -80,7 +80,11 @@ def test_agreed_category_that_differs_from_map_is_listed():
     summary, disagreements, changes = agreement(*keyed_sheets(
         ["hygiene", "security"], ["hygiene", "resource"], mapped=["other", "security"]))
     assert summary["agreed_differs_from_map"] == 1
-    assert [(c["check"], c["mapped_category"], c["agreed_category"]) for c in changes] == [("0", "other", "hygiene")]
+    assert [(c["check"], c["mapped_category"], c["agreed_category"]) for c in changes] == [
+        ("0", "other", "hygiene"), ("1", "security", "")]
+    assert changes[1]["rater_1_category"] == "security"
+    assert changes[1]["rater_2_category"] == "resource"
+    assert all(c["adjudicated_category"] == c["decision_rationale"] == "" for c in changes)
     assert disagreements[0]["mapped_category"] == "security"
 
 
