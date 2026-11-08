@@ -1,0 +1,184 @@
+{
+  "repo": "flux2",
+  "tags": [
+    "v0.36.0",
+    "v0.37.0",
+    "v0.38.3",
+    "v0.39.0",
+    "v0.40.2",
+    "v0.41.2",
+    "v2.0.1",
+    "v2.1.2",
+    "v2.2.3",
+    "v2.3.0",
+    "v2.4.0",
+    "v2.5.1",
+    "v2.6.4",
+    "v2.7.5",
+    "v2.8.8",
+    "v2.9.6"
+  ],
+  "per_tag": [
+    {
+      "tag": "v0.36.0",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 115,
+      "failed": []
+    },
+    {
+      "tag": "v0.37.0",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 115,
+      "failed": []
+    },
+    {
+      "tag": "v0.38.3",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 115,
+      "failed": []
+    },
+    {
+      "tag": "v0.39.0",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 115,
+      "failed": []
+    },
+    {
+      "tag": "v0.40.2",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 117,
+      "failed": []
+    },
+    {
+      "tag": "v0.41.2",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 117,
+      "failed": []
+    },
+    {
+      "tag": "v2.0.1",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 118,
+      "failed": []
+    },
+    {
+      "tag": "v2.1.2",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 118,
+      "failed": []
+    },
+    {
+      "tag": "v2.2.3",
+      "top": 15,
+      "rendered": 15,
+      "plain": 0,
+      "objects": 118,
+      "failed": []
+    },
+    {
+      "tag": "v2.3.0",
+      "top": 13,
+      "rendered": 13,
+      "plain": 0,
+      "objects": 151,
+      "failed": []
+    },
+    {
+      "tag": "v2.4.0",
+      "top": 13,
+      "rendered": 13,
+      "plain": 0,
+      "objects": 151,
+      "failed": []
+    },
+    {
+      "tag": "v2.5.1",
+      "top": 13,
+      "rendered": 13,
+      "plain": 0,
+      "objects": 151,
+      "failed": []
+    },
+    {
+      "tag": "v2.6.4",
+      "top": 13,
+      "rendered": 13,
+      "plain": 0,
+      "objects": 151,
+      "failed": []
+    },
+    {
+      "tag": "v2.7.5",
+      "top": 4,
+      "rendered": 4,
+      "plain": 0,
+      "objects": 142,
+      "failed": []
+    },
+    {
+      "tag": "v2.8.8",
+      "top": 4,
+      "rendered": 4,
+      "plain": 0,
+      "objects": 146,
+      "failed": []
+    },
+    {
+      "tag": "v2.9.6",
+      "top": 4,
+      "rendered": 4,
+      "plain": 0,
+      "objects": 146,
+      "failed": []
+    }
+  ],
+  "unrendered": {
+    "instances": 97,
+    "by_category": {
+      "hygiene": 11,
+      "image": 12,
+      "resource": 36,
+      "security": 38
+    },
+    "at_first_tag": 95,
+    "survive_to_last": 11,
+    "introduced": 2,
+    "introduced_new_object": 2,
+    "removed": 84,
+    "removed_object_gone": 84,
+    "removed_object_kept": 0,
+    "reappeared": 0
+  },
+  "rendered": {
+    "instances": 162,
+    "by_category": {
+      "image": 27,
+      "resource": 86,
+      "security": 49
+    },
+    "at_first_tag": 153,
+    "survive_to_last": 37,
+    "introduced": 9,
+    "introduced_new_object": 9,
+    "removed": 116,
+    "removed_object_gone": 116,
+    "removed_object_kept": 0,
+    "reappeared": 0
+  }
+}

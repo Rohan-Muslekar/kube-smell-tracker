@@ -1,0 +1,95 @@
+{
+  "repo": "microservices-demo",
+  "tags": [
+    "v0.5.2",
+    "v0.6.0",
+    "v0.7.0",
+    "v0.8.1",
+    "v0.9.0",
+    "v0.10.7"
+  ],
+  "per_tag": [
+    {
+      "tag": "v0.5.2",
+      "top": 1,
+      "rendered": 1,
+      "plain": 0,
+      "objects": 23,
+      "failed": []
+    },
+    {
+      "tag": "v0.6.0",
+      "top": 1,
+      "rendered": 1,
+      "plain": 0,
+      "objects": 23,
+      "failed": []
+    },
+    {
+      "tag": "v0.7.0",
+      "top": 1,
+      "rendered": 1,
+      "plain": 0,
+      "objects": 23,
+      "failed": []
+    },
+    {
+      "tag": "v0.8.1",
+      "top": 1,
+      "rendered": 1,
+      "plain": 0,
+      "objects": 23,
+      "failed": []
+    },
+    {
+      "tag": "v0.9.0",
+      "top": 1,
+      "rendered": 1,
+      "plain": 0,
+      "objects": 23,
+      "failed": []
+    },
+    {
+      "tag": "v0.10.7",
+      "top": 1,
+      "rendered": 1,
+      "plain": 0,
+      "objects": 33,
+      "failed": []
+    }
+  ],
+  "unrendered": {
+    "instances": 182,
+    "by_category": {
+      "hygiene": 24,
+      "image": 24,
+      "resource": 85,
+      "security": 49
+    },
+    "at_first_tag": 181,
+    "survive_to_last": 161,
+    "introduced": 1,
+    "introduced_new_object": 0,
+    "removed": 20,
+    "removed_object_gone": 0,
+    "removed_object_kept": 20,
+    "reappeared": 0
+  },
+  "rendered": {
+    "instances": 166,
+    "by_category": {
+      "hygiene": 23,
+      "image": 21,
+      "resource": 77,
+      "security": 45
+    },
+    "at_first_tag": 166,
+    "survive_to_last": 147,
+    "introduced": 0,
+    "introduced_new_object": 0,
+    "removed": 19,
+    "removed_object_gone": 0,
+    "removed_object_kept": 19,
+    "reappeared": 0
+  }
+}
