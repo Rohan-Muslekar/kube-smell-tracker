@@ -70,15 +70,23 @@ def agreement(expected, first, second):
                           adjudicated_category="", decision_rationale="", adjudicator="", date="")
                      for k in sorted(expected) if a[k]["category"] != b[k]["category"]]
     # Agreement alone is not enough: both raters may agree on a category the map does not use.
-    map_differences = [dict(tool=k[0], check=k[1], mapped_category=mapped[k], agreed_category=a[k]["category"])
+    map_differences = [dict(tool=k[0], check=k[1], mapped_category=mapped[k], agreed_category=a[k]["category"],
+                            rater_1_category=a[k]["category"], rater_2_category=b[k]["category"],
+                            adjudicated_category="", decision_rationale="", adjudicator="", date="")
                        for k in sorted(expected)
                        if a[k]["category"] == b[k]["category"] and mapped[k] and a[k]["category"] != mapped[k]]
+    # One decision ledger also includes rater disagreements, as required for M3.
+    map_differences.extend(dict(tool=r["tool"], check=r["check"], mapped_category=r["mapped_category"],
+                                agreed_category="", rater_1_category=r["rater_1_category"],
+                                rater_2_category=r["rater_2_category"], adjudicated_category="",
+                                decision_rationale="", adjudicator="", date="") for r in disagreements)
+    agreed_differences = sum(bool(r["agreed_category"]) for r in map_differences)
     return {"checks": n, "raters": raters, "agreements": matches,
             "disagreements": len(disagreements), "percent_agreement": observed * 100,
             "expected_agreement": chance,
             "cohens_kappa": (observed - chance) / (1 - chance) if chance < 1 else None,
             "kappa_note": "Undefined when expected agreement is 1" if chance == 1 else "",
-            "agreed_differs_from_map": len(map_differences),
+            "agreed_differs_from_map": agreed_differences,
             "stage": "independent ratings, before adjudication"}, disagreements, map_differences
 
 
@@ -121,7 +129,9 @@ def main(argv=None):
                 raise ValueError("calculate requires --rater-1 and --rater-2")
             summary, rows, changes = agreement(keys, read_rows(args.rater_1), read_rows(args.rater_2))
             files = {"category_disagreements.csv": (DISAGREEMENT_FIELDS, rows),
-                     "category_map_differences.csv": (["tool", "check", "mapped_category", "agreed_category"], changes),
+                     "category_map_differences.csv": (["tool", "check", "mapped_category", "agreed_category",
+                                                        "rater_1_category", "rater_2_category", "adjudicated_category",
+                                                        "decision_rationale", "adjudicator", "date"], changes),
                      "category_agreement.json": (None, summary)}
         write_all(args.out, files)
     except (ValueError, KeyError, OSError) as error:
