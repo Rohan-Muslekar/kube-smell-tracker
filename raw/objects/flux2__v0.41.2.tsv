@@ -1,0 +1,96 @@
+ServiceAccount		helm-controller	manifests/bases/helm-controller/account.yaml
+LabelTransformer		labels	manifests/bases/helm-controller/labels.yaml
+ServiceAccount		image-automation-controller	manifests/bases/image-automation-controller/account.yaml
+LabelTransformer		labels	manifests/bases/image-automation-controller/labels.yaml
+ServiceAccount		image-reflector-controller	manifests/bases/image-reflector-controller/account.yaml
+LabelTransformer		labels	manifests/bases/image-reflector-controller/labels.yaml
+ServiceAccount		kustomize-controller	manifests/bases/kustomize-controller/account.yaml
+LabelTransformer		labels	manifests/bases/kustomize-controller/labels.yaml
+ServiceAccount		notification-controller	manifests/bases/notification-controller/account.yaml
+LabelTransformer		labels	manifests/bases/notification-controller/labels.yaml
+ServiceAccount		source-controller	manifests/bases/source-controller/account.yaml
+LabelTransformer		labels	manifests/bases/source-controller/labels.yaml
+LabelTransformer		labels	manifests/install/labels.yaml
+Namespace		flux-system	manifests/install/namespace.yaml
+AzureIdentity	flux-system	lab	manifests/integrations/eventhub-credentials-sync/azure/az-identity.yaml
+AzureIdentityBinding	flux-system	lab	manifests/integrations/eventhub-credentials-sync/azure/az-identity.yaml
+ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/azure/config-patches.yaml
+AzureIdentity	flux-system	lab	manifests/integrations/eventhub-credentials-sync/azure/config-patches.yaml
+Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/azure/config-patches.yaml
+Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/azure/reconcile-patch.yaml
+Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/kubectl-patch.yaml
+ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
+Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
+Role	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
+RoleBinding	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
+ServiceAccount	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
+AzureIdentity	flux-system	lab	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/az-identity.yaml
+AzureIdentityBinding	flux-system	lab	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/az-identity.yaml
+ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/config-patches.yaml
+AzureIdentity	flux-system	lab	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/config-patches.yaml
+CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/config-patches.yaml
+CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/reconcile-patch.yaml
+CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kubectl-patch.yaml
+ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
+CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
+Role	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
+RoleBinding	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
+ServiceAccount	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
+ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/config-patches.yaml
+CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/reconcile-patch.yaml
+Secret	flux-system	azure-credentials	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/secret-azure-credentials.yaml
+ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/generic/config-patches.yaml
+Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/generic/reconcile-patch.yaml
+Secret	flux-system	azure-credentials	manifests/integrations/eventhub-credentials-sync/generic/secret-azure-credentials.yaml
+ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/aws/config-patches.yaml
+ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/aws/config-patches.yaml
+Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/aws/reconcile-patch.yaml
+AzureIdentity	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/az-identity.yaml
+AzureIdentityBinding	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/az-identity.yaml
+ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/azure/config-patches.yaml
+AzureIdentity	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/config-patches.yaml
+Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/config-patches.yaml
+Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/reconcile-patch.yaml
+Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/kubectl-patch.yaml
+ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
+Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
+Role	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
+RoleBinding	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
+ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
+ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/aws/config-patches.yaml
+ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/aws/config-patches.yaml
+CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/aws/config-patches.yaml
+CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/aws/reconcile-patch.yaml
+AzureIdentity	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/az-identity.yaml
+AzureIdentityBinding	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/az-identity.yaml
+ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/config-patches.yaml
+AzureIdentity	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/config-patches.yaml
+CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/config-patches.yaml
+CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/reconcile-patch.yaml
+CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kubectl-patch.yaml
+ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
+CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
+Role	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
+RoleBinding	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
+ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
+ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/config-patches.yaml
+ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/config-patches.yaml
+CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/config-patches.yaml
+CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/reconcile-patch.yaml
+ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/gcp/config-patches.yaml
+ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/gcp/config-patches.yaml
+Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/gcp/reconcile-patch.yaml
+Namespace		monitoring	manifests/monitoring/kube-prometheus-stack/namespace.yaml
+HelmRelease		kube-prometheus-stack	manifests/monitoring/kube-prometheus-stack/release.yaml
+HelmRepository		prometheus-community	manifests/monitoring/kube-prometheus-stack/repository.yaml
+HelmRelease		loki-stack	manifests/monitoring/loki-stack/release.yaml
+HelmRepository		grafana-charts	manifests/monitoring/loki-stack/repository.yaml
+PodMonitor	flux-system	flux-system	manifests/monitoring/monitoring-config/podmonitor.yaml
+NetworkPolicy		allow-egress	manifests/policies/allow-egress.yaml
+NetworkPolicy		allow-scraping	manifests/policies/allow-scraping.yaml
+NetworkPolicy		allow-webhooks	manifests/policies/allow-webhooks.yaml
+ClusterRole		crd-controller	manifests/rbac/controller.yaml
+ClusterRoleBinding		crd-controller	manifests/rbac/controller.yaml
+ClusterRole		flux-edit	manifests/rbac/edit.yaml
+ClusterRoleBinding		cluster-reconciler	manifests/rbac/reconciler.yaml
+ClusterRole		flux-view	manifests/rbac/view.yaml
