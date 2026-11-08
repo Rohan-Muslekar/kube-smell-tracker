@@ -59,7 +59,40 @@ jq -c '.included[]' "$REPOS" | while IFS= read -r repo; do
     lint_out="$ROOT/raw/kube-linter/${name}__${tag}.json"
     score_out="$ROOT/raw/kube-score/${name}__${tag}.json"
 
-    mapfile -t files < <(cd "$clone" && manifests "$name" "$tag" "${paths[@]}")
+    if [ "${RENDER:-0}" = "1" ]; then
+      render_args=()
+      for path in "${paths[@]}"; do
+        render_args+=(--manifest-path "$path")
+      done
+
+      render_stdout="$(mktemp)"
+      render_stderr="$(mktemp)"
+
+      if (
+        cd "$clone" &&
+        PYTHONPATH="$ROOT" python3 -P -m kst.render \
+          --repo-path "$clone" \
+          --output-dir "$WORK/rendered/${name}__${tag}" \
+          "${render_args[@]}"
+      ) > "$render_stdout" 2> "$render_stderr"; then
+        mapfile -t files < "$render_stdout"
+        awk -v r="$name" -v t="$tag" \
+          '{print r "\t" t "\t" $0}' "$render_stderr" >> "$SKIPPED"
+      else
+        awk -v r="$name" -v t="$tag" \
+          '{print r "\t" t "\t" $0}' "$render_stderr" >> "$SKIPPED"
+
+        rm -f "$render_stdout" "$render_stderr"
+
+        echo "$name,$tag,$sha,$date,0,0,kustomize render failed" >> "$VERSIONS"
+        echo "$name@$tag: rendering failed; excluded"
+        continue
+      fi
+
+      rm -f "$render_stdout" "$render_stderr"
+    else
+      mapfile -t files < <(cd "$clone" && manifests "$name" "$tag" "${paths[@]}")
+    fi
     if [ "${#files[@]}" -eq 0 ]; then
       echo "$name,$tag,$sha,$date,0,0,no manifests" >> "$VERSIONS"
       echo "$name@$tag: no manifests"
