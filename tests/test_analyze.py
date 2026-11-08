@@ -51,3 +51,17 @@ def test_files_kube_linter_cannot_load_are_listed(tmp_path):
                              "web.yaml", "broken.yaml", "roles.yaml"],
                             cwd=tmp_path, check=True, capture_output=True, text=True)
     assert result.stdout.splitlines() == ["broken.yaml", "roles.yaml"]
+
+def test_analyzers_accept_rendered_manifest_outside_checkout(tmp_path):
+    clone = tmp_path / "checkout"
+    clone.mkdir()
+
+    rendered = tmp_path / "work" / "rendered" / "example" / "v1" / "rendered.yaml"
+    rendered.parent.mkdir(parents=True)
+    rendered.write_text(DEPLOYMENT)
+
+    lint = _analyze(clone, str(rendered))
+    score = json.loads((clone / "score.json").read_text())
+
+    assert lint["Reports"], "kube-linter did not report on the rendered manifest"
+    assert isinstance(score, list) and score, "kube-score did not score the rendered manifest"
