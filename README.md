@@ -122,6 +122,15 @@ git tag `milestone-2-data`. `data/repos.json` is the record of the tags used. Th
    - lints each file alone to find files kube-linter cannot load (unparseable YAML, `kind: List`), which it otherwise skips silently, and logs them to `raw/load_failures.tsv`
 
    A tag is invalid when either analyzer's stdout is empty or not a JSON array or object (`kst/validate.py`; kube-score prints nothing when it crashes), or when no manifests remain. Invalid tags are left out of tracking, so a crashed run does not look like removed smells. All 123 tags are valid.
+
+**Optional Kustomize rendering (`RENDER=1`):**
+
+When enabled, the collection script discovers top-level Kustomize configurations under the selected manifest paths and renders them using `kubectl kustomize`. The rendered Kubernetes manifests are saved under `work/rendered/<repo>__<tag>/` and included in the analysis pipeline. Source files consumed by successfully rendered Kustomizations, including bases and patches, are excluded from separate analysis to avoid double counting. Unconsumed plain Kubernetes YAML files continue to be analyzed normally.
+
+If rendering fails, the error is recorded in `raw/skipped_files.txt` and the affected version is marked invalid so that incomplete results are not included in lifecycle tracking. The default collection behavior remains unchanged when `RENDER` is not enabled.
+
+Kustomize rendering requires `kubectl` to be available in the environment.
+
 2. **Normalize** (`kst/normalize.py`) produces one finding per analyzer report:
    - kube-score checks count when graded below 10 and not skipped
    - file paths are made relative to the repo root
