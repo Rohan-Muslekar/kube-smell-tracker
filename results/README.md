@@ -9,6 +9,25 @@ Smell counts below leave out the "other" category (style checks, opinionated def
 kube-linter's example ownership policies). Counts are per tool unless a line says merged: a
 problem both tools flag is two instances.
 
+
+## Milestone 3 (every minor release, 123 tags)
+
+The screenshots below are from Milestone 2 (five tags per project). The Milestone 3 data in
+`out/` covers 123 tags; regenerate the numbers with `python3 scripts/summary.py`.
+
+- **Same smells, denser view:** 862 smell instances, 676 of 821 first-tag instances (82.3%)
+  still present at the last tag, 0 reappearances, now over every minor release.
+- **Removals:** 106 of 147 (72.1%) are object deletions; 41 keep the object, 9 of them the
+  kube-score probe artifact, so 32 real fixes. Without flux2, 22 of 63 (34.9%) are deletions.
+- **RQ3:** every fix and every introduction on an existing object is traced to a commit
+  ([docs/rq3_case_studies.md](../docs/rq3_case_studies.md), `data/rq3_investigations.csv`).
+- **Survival per system:** `python3 scripts/survival.py` writes [survival.csv](survival.csv)
+  and [survival.pdf](survival.pdf).
+- **Probable renames:** `python3 -m kst.rename_report` ([rename_detection.md](rename_detection.md));
+  none involves a real smell.
+
+## Milestone 2 screenshots
+
 ## 1. Tests
 
 ![pytest run](screenshots/01-tests.png)
