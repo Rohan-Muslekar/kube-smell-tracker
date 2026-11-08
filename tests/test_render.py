@@ -97,3 +97,17 @@ def test_invalid_kustomization(tmp_path):
     assert files == []
     assert len(failures) == 1
     assert failures[0][0] == "."
+
+
+def test_deprecated_bases_key(tmp_path):
+    """A base listed under the old `bases:` key is not rendered on its own."""
+    fixture = Path(__file__).parent / "fixtures" / "kustomize_bases"
+
+    files, failures = build_analysis_file_list(
+        fixture,
+        ["."],
+        tmp_path / "rendered",
+    )
+
+    assert failures == []
+    assert [Path(path).name for path in files] == ["overlay.yaml"]

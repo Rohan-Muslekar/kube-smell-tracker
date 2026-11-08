@@ -15,6 +15,7 @@ KUSTOMIZATION_FILES = (
 
 REFERENCE_KEYS = (
     "resources",
+    "bases",
     "components",
     "patchesStrategicMerge",
     "transformers",
