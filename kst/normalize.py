@@ -20,7 +20,11 @@ class Finding:
 
 
 def _relative(path, repo):
-    """Strip the local clone prefix (…/work/<repo>/) so files are relative to the repo root."""
+    """Return a repo-relative source path or a workspace-relative rendered path."""
+    rendered = re.match(rf"^/.*/(work/rendered/{re.escape(repo)}(?:/|__).+)$", path)
+    if rendered:
+        return rendered.group(1)
+
     return re.sub(rf"^.*/work/{re.escape(repo)}/", "", path)
 
 
