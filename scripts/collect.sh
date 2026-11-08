@@ -77,10 +77,10 @@ jq -c '.included[]' "$REPOS" | while IFS= read -r repo; do
       ) > "$render_stdout" 2> "$render_stderr"; then
         mapfile -t files < "$render_stdout"
         awk -v r="$name" -v t="$tag" \
-          '{print r "\\t" t "\\t" $0}' "$render_stderr" >> "$SKIPPED"
+          '{print r "\t" t "\t" $0}' "$render_stderr" >> "$SKIPPED"
       else
         awk -v r="$name" -v t="$tag" \
-          '{print r "\\t" t "\\t" $0}' "$render_stderr" >> "$SKIPPED"
+          '{print r "\t" t "\t" $0}' "$render_stderr" >> "$SKIPPED"
 
         rm -f "$render_stdout" "$render_stderr"
 
