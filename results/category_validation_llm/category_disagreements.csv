@@ -1,0 +1,4 @@
+tool,check,mapped_category,rater_1_category,rater_2_category,rater_1_rationale,rater_2_rationale,adjudicated_category,decision_rationale,adjudicator,date
+kube-linter,no-node-affinity,other,resource,other,"Flags deployments with no node affinity, a scheduling and placement concern, so resource (kube-linter docs).",opinionated scheduling default; outside the Milestone 1 categories,,,,
+kube-linter,restart-policy,other,resource,other,"Flags deployment-like objects without an Always/OnFailure restart policy, a fault-tolerance concern, so resource (kube-linter docs).",opinionated restart-policy default; outside the Milestone 1 categories,,,,
+kube-linter,schema-validation,other,hygiene,other,"Validates resources against the Kubernetes API schema via kubeconform, a configuration-correctness and maintainability check, so hygiene (kube-linter docs).","schema parse failure; tool artifact, reported separately",,,,

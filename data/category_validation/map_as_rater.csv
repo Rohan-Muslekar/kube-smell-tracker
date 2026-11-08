@@ -1,0 +1,63 @@
+tool,check,rater,category,rationale
+kube-linter,access-to-create-pods,category map,security,RBAC grants pod creation (over-broad RBAC)
+kube-linter,access-to-secrets,category map,security,RBAC grants secret access (over-broad RBAC)
+kube-linter,cluster-admin-role-binding,category map,security,binds cluster-admin (over-broad RBAC)
+kube-linter,dangling-networkpolicy,category map,hygiene,NetworkPolicy selects no pods in the analysed set
+kube-linter,dangling-networkpolicypeer-podselector,category map,hygiene,NetworkPolicy peer selects no pods in the analysed set
+kube-linter,dangling-service,category map,hygiene,Service selects no pods in the analysed set
+kube-linter,dangling-servicemonitor,category map,hygiene,ServiceMonitor selects no Service in the analysed set
+kube-linter,default-service-account,category map,security,pod runs under the default service account
+kube-linter,dnsconfig-options,category map,other,opinionated DNS tuning default; outside the Milestone 1 categories
+kube-linter,env-value-from,category map,hygiene,env valueFrom references an object not in the analysed set
+kube-linter,env-var-secret,category map,security,secret value placed in an environment variable
+kube-linter,exposed-services,category map,security,service exposed outside the cluster (NodePort/LoadBalancer)
+kube-linter,host-network,category map,security,host namespace access (hostNetwork)
+kube-linter,host-pid,category map,security,host namespace access (hostPID)
+kube-linter,hpa-minimum-three-replicas,category map,resource,HPA allows fewer than 3 replicas
+kube-linter,latest-tag,category map,image,image pinned to latest
+kube-linter,liveness-port,category map,resource,liveness probe targets a port the container does not expose
+kube-linter,minimum-three-replicas,category map,resource,fewer than 3 replicas
+kube-linter,mismatching-selector,category map,hygiene,workload selector does not match pod labels
+kube-linter,no-anti-affinity,category map,resource,replicas not spread by anti-affinity
+kube-linter,no-liveness-probe,category map,resource,missing liveness probe
+kube-linter,no-node-affinity,category map,other,opinionated scheduling default; outside the Milestone 1 categories
+kube-linter,no-read-only-root-fs,category map,security,absent securityContext hardening (writable root fs)
+kube-linter,no-readiness-probe,category map,resource,missing readiness probe
+kube-linter,no-rolling-update-strategy,category map,resource,no rolling update strategy
+kube-linter,non-existent-service-account,category map,hygiene,references a service account not in the analysed set
+kube-linter,non-isolated-pod,category map,security,no NetworkPolicy isolates the pod
+kube-linter,pdb-min-available,category map,resource,PodDisruptionBudget minAvailable blocks or misstates disruption
+kube-linter,pdb-unhealthy-pod-eviction-policy,category map,resource,PDB unhealthy-pod eviction policy unset
+kube-linter,read-secret-from-env-var,category map,security,secret read through an environment variable
+kube-linter,required-annotation-email,category map,other,kube-linter example organization policy (an email annotation); fires on almost every object and no studied project adopts it
+kube-linter,required-label-owner,category map,other,kube-linter example organization policy (an owner label); fires on almost every object and no studied project adopts it
+kube-linter,restart-policy,category map,other,opinionated restart-policy default; outside the Milestone 1 categories
+kube-linter,run-as-non-root,category map,security,may run as root
+kube-linter,schema-validation,category map,other,"schema parse failure; tool artifact, reported separately"
+kube-linter,sensitive-host-mounts,category map,security,hostPath mount of a sensitive path
+kube-linter,sorted-keys,category map,other,YAML key ordering style; not a configuration smell
+kube-linter,unset-cpu-requirements,category map,resource,absent CPU requests/limits
+kube-linter,unset-memory-requirements,category map,resource,absent memory requests/limits
+kube-linter,use-namespace,category map,hygiene,object in the default namespace
+kube-linter,wildcard-in-rules,category map,security,wildcard RBAC rule (over-broad RBAC)
+kube-score,container-ephemeral-storage-request-and-limit,category map,resource,absent ephemeral-storage requests/limits
+kube-score,container-image-pull-policy,category map,image,imagePullPolicy not Always for a mutable tag
+kube-score,container-image-tag,category map,image,image untagged or pinned to latest
+kube-score,container-resources,category map,resource,absent CPU/memory requests/limits
+kube-score,container-security-context-readonlyrootfilesystem,category map,security,absent securityContext hardening (writable root fs)
+kube-score,container-security-context-user-group-id,category map,security,may run as root / low UID or GID
+kube-score,cronjob-has-deadline,category map,resource,CronJob without startingDeadlineSeconds
+kube-score,cronjob-restartpolicy,category map,resource,CronJob restart policy unset or invalid
+kube-score,deployment-has-host-podantiaffinity,category map,resource,replicas not spread by anti-affinity
+kube-score,deployment-has-poddisruptionbudget,category map,resource,no PodDisruptionBudget
+kube-score,deployment-pod-selector-labels-match-template-metadata-labels,category map,hygiene,workload selector does not match pod labels
+kube-score,deployment-replicas,category map,resource,single replica for a stateless workload
+kube-score,deployment-strategy,category map,resource,missing or non-rolling update strategy
+kube-score,horizontalpodautoscaler-replicas,category map,resource,HPA allows a single replica
+kube-score,networkpolicy-targets-pod,category map,hygiene,NetworkPolicy selects no pods in the analysed set
+kube-score,pod-networkpolicy,category map,security,no NetworkPolicy isolates the pod
+kube-score,pod-probes,category map,resource,missing liveness/readiness probes
+kube-score,pod-probes-identical,category map,resource,liveness and readiness probes identical
+kube-score,service-targets-pod,category map,hygiene,Service selects no pods in the analysed set
+kube-score,service-type,category map,security,service exposed outside the cluster (NodePort)
+kube-score,statefulset-has-servicename,category map,hygiene,StatefulSet serviceName missing or not found
