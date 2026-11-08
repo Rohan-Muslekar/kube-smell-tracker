@@ -30,7 +30,7 @@ def normalize_report(path):
     changed = False
     if isinstance(data, dict):
         for report in data.get("Reports") or []:
-            metadata = report.get("Object", {}).get("Metadata", {})
+            metadata = (report.get("Object") or {}).get("Metadata") or {}
             changed |= _normalize_field(metadata, "FilePath")
     elif isinstance(data, list):
         for entry in data:

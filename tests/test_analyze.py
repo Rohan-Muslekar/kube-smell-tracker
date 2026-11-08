@@ -56,7 +56,7 @@ def test_analyzers_accept_rendered_manifest_outside_checkout(tmp_path):
     clone = tmp_path / "checkout"
     clone.mkdir()
 
-    rendered = tmp_path / "work" / "rendered" / "example" / "v1" / "rendered.yaml"
+    rendered = tmp_path / "work" / "rendered" / "example__v1" / "rendered.yaml"
     rendered.parent.mkdir(parents=True)
     rendered.write_text(DEPLOYMENT)
 
@@ -65,7 +65,7 @@ def test_analyzers_accept_rendered_manifest_outside_checkout(tmp_path):
 
     assert lint["Reports"], "kube-linter did not report on the rendered manifest"
     assert isinstance(score, list) and score, "kube-score did not score the rendered manifest"
-    expected = "work/rendered/example/v1/rendered.yaml"
+    expected = "work/rendered/example__v1/rendered.yaml"
 
     assert {
         report["Object"]["Metadata"]["FilePath"]

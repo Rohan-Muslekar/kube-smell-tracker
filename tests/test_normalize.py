@@ -61,3 +61,10 @@ def test_rendered_manifest_path_is_workspace_relative():
     path = "/tmp/kst/work/rendered/example/v1/rendered.yaml"
 
     assert _relative(path, "example") == "work/rendered/example/v1/rendered.yaml"
+
+
+def test_rendered_path_in_planned_repo_tag_layout_is_workspace_relative():
+    # Milestone 3 plan: rendered files go under work/rendered/<repo>__<tag>/
+    path = "/tmp/kst/work/rendered/example__v1/rendered.yaml"
+
+    assert _relative(path, "example") == "work/rendered/example__v1/rendered.yaml"
