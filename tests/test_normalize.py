@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from kst.normalize import Finding, categorize, load_categories, parse_kube_linter, parse_kube_score
+from kst.normalize import Finding, categorize, _relative, load_categories, parse_kube_linter, parse_kube_score
 
 FIX = Path(__file__).parent / "fixtures"
 
@@ -56,3 +56,8 @@ def test_stray_namespace_on_cluster_scoped_object_is_dropped():
         "K8sObject": {"Namespace": "monitoring", "Name": "metrics",
                       "GroupVersionKind": {"Kind": "ClusterRole"}}}}]}
     assert parse_kube_linter(data, "kube-prometheus", "v0.12.0")[0].namespace == ""
+
+def test_rendered_manifest_path_is_workspace_relative():
+    path = "/tmp/kst/work/rendered/example/v1/rendered.yaml"
+
+    assert _relative(path, "example") == "work/rendered/example/v1/rendered.yaml"
