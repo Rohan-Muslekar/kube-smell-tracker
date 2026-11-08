@@ -135,7 +135,7 @@ git tag `milestone-2-data`. `data/repos.json` is the record of the tags used. Th
 |---|---|
 | `findings.csv` | repo, version, tool, check, category, kind, namespace, name, file, dup_count (identical reports in one tag, e.g. one per container) |
 | `prevalence.csv` | repo, version, tool, category, findings (reports), instances (distinct keys) |
-| `instances.csv` | one row per instance: key fields, category, presence (one character per tag, e.g. `11100` over five tags), at_baseline, introduced, persisted, removed, reappeared, removed_object_gone, introduced_new_object |
+| `instances.csv` | one row per instance: key fields, category, presence (one character per tag, e.g. `11100` over five tags), at_baseline, introduced, persisted, removed, reappeared, removed_object_gone, introduced_new_object, probable_rename (1 when the instance belongs to a candidate rename; histories are never merged, see [docs/tracking_limitations.md](docs/tracking_limitations.md)) |
 | `transitions_summary.csv` | the instance counts summed per tool and category |
 | `transitions_by_repo.csv` | the same per repo, tool and category |
 | `overlap_summary.csv` | category, linter_only, score_only, both (distinct object-category pairs) |
@@ -148,7 +148,7 @@ introduced. Each was confirmed or rejected by reading the YAML at both tags, wit
 ## Known limitations
 
 - Helm charts are not rendered, and kustomize bases and patches are linted unrendered. For flux2, this means patch fragments are analyzed as if they were complete objects.
-- A renamed object appears as one removal plus one introduction. The spot-check found no renames.
+- A renamed object appears as one removal plus one introduction. `probable_rename` flags candidate pairs (same kind, same set of checks) but does not merge them. The spot-check found no renames.
 - The object inventory (`kst/inventory.py`) reads the top level of each YAML document without a full YAML parser. Objects inside a `kind: List` are not listed. The inventory matched every object either analyzer reported.
 - kube-score scores only workload-related kinds (it never scores RBAC objects), so the overlap table is limited to the kinds it scores.
 - Files kube-linter cannot load are logged, not analyzed (`raw/load_failures.tsv`). If a file failed at one tag and loaded at the next, its smells would look introduced or removed; in the committed data every such file fails at every tag where it exists. A multi-document file where only some documents fail to parse is not detected.
