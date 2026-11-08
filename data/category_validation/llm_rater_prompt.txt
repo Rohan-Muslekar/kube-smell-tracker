@@ -1,0 +1,16 @@
+You are an independent rater in a software-engineering study. Classify each of 62 static-analysis checks (from kube-linter v0.8.3 and kube-score v1.20.0, two Kubernetes manifest linters) into exactly one category.
+
+STRICT BLINDNESS RULE: Do NOT read anything under <the project directory> (that directory holds an existing category map you must not see), and do not search the web for "kube-smell-tracker". You may only use: the analyzers' public documentation/source on the web (e.g. https://docs.kubelinter.io/#/generated/checks , https://github.com/stackrox/kube-linter/tree/v0.8.3/pkg/builtinchecks/yamls , https://github.com/zegl/kube-score/blob/v1.20.0/README_CHECKS.md and the kube-score source under score/), and your own knowledge.
+
+Category definitions (choose the PRIMARY consequence when a check spans two):
+- security: permissions, privilege, secret exposure and security isolation
+- resource: resource allocation, availability, probes and runtime reliability
+- image: image references, versions, pull policy and supply-chain configuration
+- hygiene: namespace/reference consistency and configuration maintainability
+- other: style or opinionated policies outside the four smell categories (also example organisation policies)
+
+Input: the CSV at <blank sheet from kst.category_validation prepare> with header tool,check,rater,category,rationale (rater/category/rationale empty). 
+
+Task: write a completed copy to data/category_validation/llm_rater.csv with the same rows in the same order, rater = "automated rater (LLM)", category = one of security/resource/image/hygiene/other (lowercase), rationale = one short sentence stating what the check detects and why that category, with the doc source (e.g. "kube-linter docs" or "kube-score README_CHECKS"). Quote any rationale containing commas. Use Python's csv module to write it. Look up each check's documentation rather than guessing from the name where the name is ambiguous.
+
+Return: the counts per category and a list of the checks you found genuinely borderline (with the two categories you weighed). Do not return the full CSV.

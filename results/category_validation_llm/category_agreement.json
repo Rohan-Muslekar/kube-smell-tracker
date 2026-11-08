@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "automated rater (LLM)",
+    "category map"
+  ],
+  "agreements": 59,
+  "disagreements": 3,
+  "percent_agreement": 95.16129032258065,
+  "expected_agreement": 0.2718522372528616,
+  "cohens_kappa": 0.9335476956055735,
+  "kappa_note": "",
+  "agreed_differs_from_map": 0,
+  "stage": "independent ratings, before adjudication"
+}
