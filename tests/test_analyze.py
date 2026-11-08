@@ -65,3 +65,11 @@ def test_analyzers_accept_rendered_manifest_outside_checkout(tmp_path):
 
     assert lint["Reports"], "kube-linter did not report on the rendered manifest"
     assert isinstance(score, list) and score, "kube-score did not score the rendered manifest"
+    expected = "work/rendered/example/v1/rendered.yaml"
+
+    assert {
+        report["Object"]["Metadata"]["FilePath"]
+        for report in lint["Reports"]
+    } == {expected}
+
+    assert {entry["file_name"] for entry in score} == {expected}
