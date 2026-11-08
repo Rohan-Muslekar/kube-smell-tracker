@@ -78,7 +78,7 @@ Evidence: https://github.com/argoproj/argo-cd/security/advisories/GHSA-9766-5277
 
 **Finding:** An introduced smell is not always a regression. Here a security fix added the secret access that the analyzers report.
 
-## Baseline Quantitative Results
+## Milestone 2 Baseline Results
 
 Across 35 sampled versions from seven projects, the baseline identified 862 smell instances, counted separately by analyzer.
 
@@ -102,17 +102,60 @@ git -C work/flux2 tag --contains 9cad95d | sort -V | head -1
 git -C work/argo-cd show 53570cbd1 -- manifests/install.yaml
 ```
 
+## Milestone 3: every fix and introduction traced
+
+Milestone 3 samples every minor release (123 tags). `out/instances.csv` then has 41 removals
+where the object still exists and 25 introductions on an object that already existed. Every one
+of them now has a row in `data/rq3_investigations.csv` with the commit, the configuration change
+and a compare link (smells only; the two rows on checks mapped to `other` are kept but not
+counted):
+
+| Transition | Cause | Count |
+|---|---|---|
+| Fix (object kept) | real fix | 32 |
+| | analyzer artifact (kube-score grpc probes) | 9 |
+| Introduction on an existing object | side effect of another fix | 23 |
+| | new object (a new Service makes kube-score check the Deployment) | 2 |
+
+The 32 real fixes come from 12 commits; one microservices-demo commit (20585fa) removes 11
+`default-service-account` smells. The 25 introductions come from six changes, and five of them
+are fixes or hardening of something else:
+
+- **istio bookinfo, 10 `run-as-non-root` (21f4509, PR 44765).** `runAsUser: 1000` was removed
+  from every bookinfo Deployment because OpenShift rejects fixed UIDs; the images set `USER 1000`
+  instead. The containers still run as non-root, but kube-linter only sees the manifest, so a
+  portability fix shows up as ten new security smells.
+- **argo-cd, 8 smells (35a7d6c, GHSA-9766-5277-j5hr; the 2.9 backport is 53570cb).** Enabling Redis
+  authentication adds `REDIS_PASSWORD` from a secret to four workloads (`env-value-from`,
+  `read-secret-from-env-var`) and a `secret-init` init container with `IfNotPresent` pull policy.
+- **argo-cd, `access-to-create-pods` (4e79aab, PR 15487).** The server ClusterRole may now create
+  Jobs and Workflows so resource actions can trigger them.
+- **microservices-demo loadgenerator, `container-image-pull-policy` (b08eccf, PR 3428).** Pinning
+  the init container's `busybox:latest` to a digest changes the default pull policy from
+  `Always` to `IfNotPresent`, which kube-score grades 1 (checked on a minimal Deployment with
+  kube-score v1.20.0). Fixing one supply-chain smell creates another.
+- **Tekton resolvers, `deployment-replicas` and `pod-probes` (7554dcd).** A new Service now selects
+  the resolvers Deployment, and kube-score only checks these for Deployments behind a Service.
+
+The two fixes that only dense sampling shows are Knative serving's `domain-mapping` probes, added
+by 587f587 ("add missing probes", #13563) at v0.37.6, before the object was deleted at a later
+release.
+
+To find the commit for a transition, list the commits that touched the manifest between the two
+tags and read the diff, for example:
+
+```
+git -C work/istio log --oneline 1.18.7..1.19.10 -- samples/bookinfo/platform/kube/bookinfo.yaml
+git -C work/argo-cd log --oneline -S REDIS_PASSWORD v2.7.18..v2.8.21 -- manifests/install.yaml
+```
+
 ## Limitations and Remaining Investigation
 
-The initial manual spot-check included 20 instances. Nineteen matched their assigned transition explanations, while one apparent fix was identified as an analyzer artifact.
-
-The investigation remains incomplete in three areas:
-
-1. Commits are traced for the 20 spot-check instances only, not for every transition.
-2. Some examples require further inspection of the original configuration changes and analyzer behavior.
-3. Quantitative results must be regenerated after denser tag sampling, rendered manifests, or category-mapping updates are incorporated.
-
-The baseline results should not be presented as final updated RQ3 results until these steps are completed.
+1. Tracing covers the stored manifests. Rendering flux2 (the check in PR #15) shows
+   only deletions there, so it adds no fixes to trace, but a rendered run of every system may.
+2. The classification is per analyzer instance; a fix both tools report is two rows.
+3. "Side effect of another fix" is our reading of the commit message and diff; we did not ask
+   the maintainers.
 
 ## Preliminary Conclusion
 
