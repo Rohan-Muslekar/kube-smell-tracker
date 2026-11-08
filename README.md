@@ -54,6 +54,12 @@ The committed outputs were checked against a fresh clone of this repository: aft
 analyzer files differed in kube-linter's run timestamp (`Summary.CheckEndTime`) and the order in
 which kube-score lists checks. None of the outputs depend on either.
 
+This was repeated for the 123-tag data on 2026-11-08: a fresh clone of commit `25108f5` (the
+merge of #16) on Fedora 44 recollected every tag in 17 minutes. `out/` and `data/versions.csv`
+were byte-identical and all 103 tests passed. All 123 kube-linter files differed only in
+`CheckEndTime`, and all 121 kube-score files that differed were identical after sorting objects
+and checks.
+
 A second fresh clone on Ubuntu under WSL also left `out/` unchanged, but showed more raw
 differences; see [docs/reproduction.md](docs/reproduction.md). Thirty entries in
 `raw/skipped_files.txt` depend on how git checks out symlinks (see Known limitations). Some
