@@ -30,6 +30,14 @@ def latest_patch_per_minor(tags):
     return {k: tag for k, (_, tag) in sorted(best.items())}
 
 
+def minor_zero(tag):
+    """The x.y.0 tag of `tag`'s minor, with the same prefix: v0.10.7 -> v0.10.0."""
+    m = SEMVER.fullmatch(tag)
+    if not m:
+        raise ValueError(f"not a release tag: {tag}")
+    return f"{tag[:m.start(1)]}{m.group(1)}.{m.group(2)}.0"
+
+
 def evenly_spaced(items, count):
     if len(items) <= count:
         return list(items)

@@ -7,7 +7,7 @@
     "plain Kubernetes YAML in-tree",
     "commits in last 6 months and >=500 stars",
     ">=5 release tags spanning >=12 months",
-    "tags: latest patch of every minor release first released since 2022-10-22, ignoring tags dated after 2026-10-22 and keeping the Milestone 2 tag of each minor it sampled (python3 -m kst.select_tags work/<repo> 2022-10-22 --all --until 2026-10-22 --keep <tags_milestone2>). Milestone 2 used the latest patch of 5 minor releases evenly spaced over the same minors (python3 -m kst.select_tags work/<repo> 2022-10-22); those tags are kept as tags_milestone2"
+    "tags: latest patch of every minor release first released since 2022-10-22, ignoring tags whose commit is dated after 2026-10-22 and keeping the Milestone 2 tag of each minor it sampled (python3 -m kst.select_tags work/<repo> 2022-10-22 --all --until 2026-10-22 --keep <tags_milestone2>). Milestone 2 used the latest patch of 5 minor releases evenly spaced over the same minors (python3 -m kst.select_tags work/<repo> 2022-10-22); those tags are kept as tags_milestone2. The tags below are frozen: a patch can be tagged weeks after its commit, so rerunning on clones fetched later can pick a newer patch"
   ],
   "included": [
     {

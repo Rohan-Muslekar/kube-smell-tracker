@@ -66,3 +66,10 @@ def test_tag_dates_reads_lightweight_and_annotated_tags(tmp_path):
     git("tag", "v1.0.0")
     git("-c", "user.name=t", "-c", "user.email=t@t", "tag", "-a", "v1.0.1", "-m", "annotated")
     assert tag_dates(str(tmp_path)) == {"v1.0.0": "2024-05-06", "v1.0.1": "2024-05-06"}
+
+
+def test_minor_zero_names_the_first_release_of_the_tags_minor():
+    from kst.select_tags import minor_zero
+    assert minor_zero("v0.10.7") == "v0.10.0"
+    assert minor_zero("1.16.7") == "1.16.0"
+    assert minor_zero("v2.7.0") == "v2.7.0"
