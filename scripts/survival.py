@@ -77,7 +77,9 @@ def main(argv=None):
     ax.xaxis.set_major_locator(mdates.YearLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     ax.grid(alpha=0.3, linewidth=0.4)
-    ax.legend(fontsize=6.5, ncol=2, frameon=False, loc="lower left", handlelength=1.6, columnspacing=0.8)
+    # One column in the empty lower left, clear of flux2's drop.
+    ax.legend(fontsize=6.5, ncol=1, frameon=False, loc="lower left", handlelength=1.6, labelspacing=0.25,
+              borderaxespad=0.3)
     fig.tight_layout(pad=0.3)
     fig.savefig(args.out / "survival.pdf")
     print(f"wrote {args.out / 'survival.csv'} and {args.out / 'survival.pdf'}")
