@@ -1,0 +1,2 @@
+tool,check,mapped_category,rater_1_category,rater_2_category,rater_1_rationale,rater_2_rationale,adjudicated_category,decision_rationale,adjudicator,date
+kube-linter,dnsconfig-options,other,resource,other,"Flags missing explicit DNS options, which affect runtime name resolution. Source: https://github.com/stackrox/kube-linter/blob/10ae003038c81855aca8489df5e35da150f4dc2e/pkg/builtinchecks/yamls/dnsconfig-options.yaml","Flags deployments with no dnsConfig options set, an opt-in opinionated pod-DNS policy outside the smell categories, so other (kube-linter docs).",,,,

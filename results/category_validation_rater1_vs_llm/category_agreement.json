@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "Ankit Suman (AI-assisted draft)",
+    "automated rater (LLM)"
+  ],
+  "agreements": 61,
+  "disagreements": 1,
+  "percent_agreement": 98.38709677419355,
+  "expected_agreement": 0.2898022892819979,
+  "cohens_kappa": 0.9772893772893773,
+  "kappa_note": "",
+  "agreed_differs_from_map": 3,
+  "stage": "independent ratings, before adjudication"
+}

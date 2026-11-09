@@ -1,0 +1,5 @@
+tool,check,mapped_category,agreed_category,rater_1_category,rater_2_category,adjudicated_category,decision_rationale,adjudicator,date
+kube-linter,no-node-affinity,other,resource,resource,resource,,,,
+kube-linter,restart-policy,other,resource,resource,resource,,,,
+kube-linter,schema-validation,other,hygiene,hygiene,hygiene,,,,
+kube-linter,dnsconfig-options,other,,resource,other,,,,
