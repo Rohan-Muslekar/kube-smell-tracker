@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "Ankit Suman (AI-assisted draft)",
+    "category map"
+  ],
+  "agreements": 58,
+  "disagreements": 4,
+  "percent_agreement": 93.54838709677419,
+  "expected_agreement": 0.2757544224765869,
+  "cohens_kappa": 0.910919540229885,
+  "kappa_note": "",
+  "agreed_differs_from_map": 0,
+  "stage": "independent ratings, before adjudication"
+}
