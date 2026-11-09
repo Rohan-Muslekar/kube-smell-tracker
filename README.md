@@ -22,6 +22,7 @@ The other results come from these scripts, which read the clones `make all` leav
 python3 scripts/minor_dates.py   # data/minor_dates.csv: the x.y.0 date of each study tag's minor
 python3 scripts/survival.py      # results/survival.csv and .pdf: survival per system over time
 python3 scripts/check_rq3.py     # every traced commit lies between the two tags of its transition
+python3 scripts/deletion_commits.py  # the commits that delete manifest files where objects are deleted
 ```
 
 ## Continuous integration
