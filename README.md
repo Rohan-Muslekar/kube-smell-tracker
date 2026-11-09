@@ -14,8 +14,15 @@ make all                    # clones repos into work/, runs both analyzers, writ
 python3 -m pytest           # unit and pipeline tests
 ```
 
-`make all` runs `./scripts/collect.sh` and then `python3 -m kst`. Re-running only the analysis
-on the committed `raw/` needs no network: `python3 -m kst`.
+`make all` runs `./scripts/collect.sh` and then `python3 -m kst`, which rebuilds `raw/` and
+`out/`. Re-running only the analysis on the committed `raw/` needs no network: `python3 -m kst`.
+The other results come from these scripts, which read the clones `make all` leaves in `work/`:
+
+```bash
+python3 scripts/minor_dates.py   # data/minor_dates.csv: the x.y.0 date of each study tag's minor
+python3 scripts/survival.py      # results/survival.csv and .pdf: survival per system over time
+python3 scripts/check_rq3.py     # every traced commit lies between the two tags of its transition
+```
 
 ## Continuous integration
 
@@ -73,7 +80,8 @@ kube-linter `dangling-servicemonitor` reports for kube-prometheus v0.12.0 still 
 | Go (builds the analyzers) | go1.26.9 |
 | kube-linter | v0.8.3 (`go install golang.stackrox.io/kube-linter/cmd/kube-linter@v0.8.3`), run with `--add-all-built-in` and the pinned `--config tools/kube-linter.yaml` (so a `.kube-linter.yaml` inside an analyzed repo is never read) |
 | kube-score | v1.20.0 (`go install github.com/zegl/kube-score/cmd/kube-score@v1.20.0`) |
-| Python | 3.14.8, standard library only (pytest 9.1.1 for tests) |
+| Python | 3.14.8; the analysis (`python3 -m kst`) uses the standard library only, `RENDER=1` needs PyYAML 6.0.3, tests need pytest 9.1.1 |
+| kubectl | v1.36.2 with kustomize v5.8.1, only for `RENDER=1` and the rendering check |
 | git / jq / bash | 2.56.0 / 1.8.1 / 5.3.9 |
 
 Both analyzers report `development` from their `version` subcommand when built with
