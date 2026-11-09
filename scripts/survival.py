@@ -1,8 +1,10 @@
 """Survival figure: share of each system's first-tag smell instances still present at every later tag.
 
 Usage: python3 scripts/survival.py [--out results]
-Reads out/instances.csv, data/versions.csv and data/repos.json. Writes survival.csv always and
-survival.pdf (one IEEE column wide, x axis = the tag's commit date) when matplotlib is installed.
+Reads out/instances.csv, data/versions.csv, data/minor_dates.csv and data/repos.json. Writes
+survival.csv always and survival.pdf (one IEEE column wide) when matplotlib is installed. The x
+axis is the date of each tag's minor release (its x.y.0, from scripts/minor_dates.py): a study tag
+is the latest patch of its minor and can be dated years after the minor shipped.
 Smells in the `other` category are left out, as in the rest of the analysis.
 """
 import argparse
@@ -35,7 +37,8 @@ def main(argv=None):
     tags = {}
     for v in versions:
         tags.setdefault(v["repo"], []).append(v["tag"])
-    when = {(v["repo"], v["tag"]): v["commit_date"] for v in versions}
+    with open(ROOT / "data" / "minor_dates.csv", newline="") as f:
+        when = {(r["repo"], r["tag"]): r["minor_first_date"] for r in csv.DictReader(f)}
     with open(ROOT / "out" / "instances.csv", newline="") as f:
         data = series(list(csv.DictReader(f)), tags)
     order = [r["name"] for r in json.loads((ROOT / "data" / "repos.json").read_text())["included"]]
@@ -43,7 +46,7 @@ def main(argv=None):
     args.out.mkdir(parents=True, exist_ok=True)
     with open(args.out / "survival.csv", "w", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
-        w.writerow(["repo", "tag", "commit_date", "percent_present"])
+        w.writerow(["repo", "tag", "minor_first_date", "percent_present"])
         for repo in order:
             for i, share in data.get(repo, []):
                 tag = tags[repo][i]
@@ -74,7 +77,7 @@ def main(argv=None):
     ax.xaxis.set_major_locator(mdates.YearLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     ax.grid(alpha=0.3, linewidth=0.4)
-    ax.legend(fontsize=5.5, ncol=2, frameon=False, loc="lower left")
+    ax.legend(fontsize=6.5, ncol=2, frameon=False, loc="lower left", handlelength=1.6, columnspacing=0.8)
     fig.tight_layout(pad=0.3)
     fig.savefig(args.out / "survival.pdf")
     print(f"wrote {args.out / 'survival.csv'} and {args.out / 'survival.pdf'}")
