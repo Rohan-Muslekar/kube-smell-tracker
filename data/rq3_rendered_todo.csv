@@ -1,0 +1,22 @@
+repo,object_kind,namespace,object_name,check,tool,category,from_tag,to_tag,transition,n_smells
+flux2,ClusterRole,,flux-edit,wildcard-in-rules,kube-linter,security,v0.39.0,v0.40.2,introduced_new_object,1
+flux2,ClusterRole,,flux-view,wildcard-in-rules,kube-linter,security,v0.39.0,v0.40.2,introduced_new_object,1
+flux2,Deployment,flux-system,source-watcher,minimum-three-replicas,kube-linter,resource,v2.6.4,v2.7.5,introduced_new_object,1
+flux2,Deployment,flux-system,source-watcher,no-rolling-update-strategy,kube-linter,resource,v2.6.4,v2.7.5,introduced_new_object,1
+flux2,Deployment,flux-system,source-watcher,container-ephemeral-storage-request-and-limit,kube-score,resource,v2.6.4,v2.7.5,introduced_new_object,1
+flux2,Deployment,flux-system,source-watcher,container-image-pull-policy,kube-score,image,v2.6.4,v2.7.5,introduced_new_object,1
+flux2,Deployment,flux-system,source-watcher,container-security-context-user-group-id,kube-score,security,v2.6.4,v2.7.5,introduced_new_object,1
+flux2,Deployment,flux-system,source-watcher,deployment-replicas,kube-score,resource,v2.6.4,v2.7.5,introduced_new_object,1
+flux2,Deployment,flux-system,source-watcher,deployment-strategy,kube-score,resource,v2.6.4,v2.7.5,introduced_new_object,1
+flux2,CronJob,flux-system,acr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,14
+flux2,CronJob,flux-system,ecr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,14
+flux2,CronJob,flux-system,gcr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,12
+flux2,CronJob,flux-system,jwt-credentials-sync-eventhub,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,14
+flux2,Deployment,flux-system,acr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,15
+flux2,Deployment,flux-system,ecr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,15
+flux2,Deployment,flux-system,gcr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,13
+flux2,Deployment,flux-system,jwt-credentials-sync-eventhub,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,15
+flux2,RoleBinding,flux-system,acr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,1
+flux2,RoleBinding,flux-system,ecr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,1
+flux2,RoleBinding,flux-system,gcr-credentials-sync,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,1
+flux2,RoleBinding,flux-system,jwt-credentials-sync-eventhub,(all smells on the object),both,,v2.6.4,v2.7.5,removed_object_deleted,1
