@@ -1,5 +1,7 @@
 # Track C: survival and sensitivity result note
 
+PR: https://github.com/Rohan-Muslekar/kube-smell-tracker/pull/26
+
 Input: master `8915044`, 123 valid sampled versions of stored manifests.
 These are preliminary results, not the forthcoming rendered-data freeze.
 

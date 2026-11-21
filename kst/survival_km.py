@@ -59,7 +59,7 @@ def write_curves(instances, data, out):
     for field, filename in (("category", "km_by_category.csv"), ("repo", "km_by_system.csv")):
         points = curves(instances, dates, field)
         with (Path(out) / filename).open("w", newline="", encoding="utf-8") as stream:
-            writer = csv.DictWriter(stream, fieldnames=FIELDS)
+            writer = csv.DictWriter(stream, fieldnames=FIELDS, lineterminator="\n")
             writer.writeheader()
             writer.writerows(points)
 
