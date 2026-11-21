@@ -47,19 +47,68 @@ def pct(a, b):
 
 def chi_square(units):
     """Chi-square test of independence between category and survival for (category, survived) units.
-    df = 3, so the p-value has a closed form (checked against scipy.stats.chi2_contingency without
-    correction). Returns (statistic, p, Cramer's V, n)."""
+    Nonempty category rows determine df (1 to 3); p uses closed forms without
+    correction. Returns (statistic, p, Cramer's V, n), with None for undefined tests."""
     table = []
     for cat in CATS:
         f = [u for u in units if u[0] == cat]
         s = sum(1 for u in f if u[1])
         table.append((s, len(f) - s))
+    table = [r for r in table if sum(r)]
     n = sum(a + b for a, b in table)
     col = [sum(r[0] for r in table), sum(r[1] for r in table)]
+    if len(table) < 2 or not all(col):
+        return None, None, None, n
     x = sum((o - (r[0] + r[1]) * c / n) ** 2 / ((r[0] + r[1]) * c / n)
             for r in table for o, c in zip(r, col))
-    p = math.erfc(math.sqrt(x / 2)) + math.sqrt(2 * x / math.pi) * math.exp(-x / 2)
+    df = len(table) - 1
+    if df == 1:
+        p = math.erfc(math.sqrt(x / 2))
+    elif df == 2:
+        p = math.exp(-x / 2)
+    else:
+        p = math.erfc(math.sqrt(x / 2)) + math.sqrt(2 * x / math.pi) * math.exp(-x / 2)
     return x, p, math.sqrt(x / n), n
+
+
+def headline_numbers(instances, exclude=()):
+    """All headline lifecycle totals and both baseline object-category pair tests.
+
+    Filter before aggregation so excluded projects cannot affect denominators.
+    """
+    kept = [r for r in instances if r["repo"] not in exclude]
+    smell = [r for r in kept if r["category"] in CATS]
+    total = lambda key: sum(int(r[key]) for r in smell)
+    first = [r for r in smell if r["presence"][0] == "1"]
+    survivors = sum(r["presence"][-1] == "1" for r in first)
+    removed, gone = total("removed"), total("removed_object_gone")
+    artifacts = sum(int(r["removed"]) - int(r["removed_object_gone"]) for r in smell
+                    if (r["tool"], r["check"]) in ARTIFACT_CHECKS)
+    tests = {}
+    grouped = defaultdict(list)
+    for row in first:
+        key = tuple(row[k] for k in ("repo", "kind", "namespace", "name", "category"))
+        grouped[key].append(row["presence"][-1] == "1")
+    for rule, reducer in (("any", any), ("all", all)):
+        units = [(key[-1], reducer(values)) for key, values in grouped.items()]
+        x, p, v, n = chi_square(units)
+        counts = {cat: [sum(c == cat and s for c, s in units),
+                        sum(c == cat and not s for c, s in units)] for cat in CATS}
+        columns = [sum(r[i] for r in counts.values()) for i in (0, 1)]
+        expected = [sum(r) * c / n for r in counts.values() if sum(r) for c in columns] if n else []
+        tests[rule] = dict(chi_square=x, p_value=p, cramers_v=v, n=n,
+                           degrees_of_freedom=max(0, sum(bool(sum(r)) for r in counts.values()) - 1),
+                           table_survived_lost=counts,
+                           expected_cells_below_five=sum(e < 5 for e in expected))
+    return dict(excluded=sorted(exclude), systems=sorted({r["repo"] for r in kept}),
+                instances=len(smell), baseline=len(first), survivors=survivors,
+                survival_percent=100 * survivors / len(first) if first else None,
+                persisted=total("persisted"), removals=removed, object_deletions=gone,
+                deletion_percent=100 * gone / removed if removed else None,
+                candidate_fixes=removed - gone, analyzer_artifacts=artifacts,
+                fixes_after_known_artifacts=removed - gone - artifacts,
+                introductions=total("introduced"), new_object_introductions=total("introduced_new_object"),
+                reappearances=total("reappeared"), pair_tests=tests)
 
 
 def git_show(rev, path):
@@ -71,7 +120,23 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--render-rev", default="1e314b0")
+    ap.add_argument("--exclude", action="append", default=[], metavar="REPO",
+                    help="exclude a repository (repeatable); write headline sensitivity JSON instead of the legacy report")
+    ap.add_argument("--headlines-only", action="store_true",
+                    help="write headline JSON without legacy report/plot/clone dependencies")
+    ap.add_argument("--instances", type=Path, default=ART / "out/instances.csv")
     args = ap.parse_args(argv)
+    if args.exclude or args.headlines_only:
+        with args.instances.open(newline="") as stream:
+            instances = list(csv.DictReader(stream))
+        unknown = set(args.exclude) - {r["repo"] for r in instances}
+        if unknown:
+            ap.error(f"Unknown excluded repositories: {sorted(unknown)}")
+        args.out.mkdir(parents=True, exist_ok=True)
+        result = headline_numbers(instances, args.exclude)
+        (args.out / "headlines.json").write_text(json.dumps(result, indent=2) + "\n")
+        print(json.dumps(result, indent=2))
+        return
     OUT = args.out
     (OUT / "tables").mkdir(parents=True, exist_ok=True)
     repos = json.loads((ART / "data/repos.json").read_text())
@@ -403,7 +468,8 @@ def main(argv=None):
         rs = [r for r in smell if (r["tool"], r["check"]) == (tool, check)]
         first = [r for r in rs if r["presence"][0] == "1"]
         surv = sum(1 for r in first if r["presence"][-1] == "1")
-        lines.append(f"\\texttt{{{check.replace('-', '-\\allowbreak{}') if len(check) > 34 else check}}} & {TOOL_NAME[tool]} & {n} & "
+        display_check = check.replace('-', '-\\allowbreak{}') if len(check) > 34 else check
+        lines.append(f"\\texttt{{{display_check}}} & {TOOL_NAME[tool]} & {n} & "
                      f"{len({r['repo'] for r in rs})} & {pct(surv, len(first))} \\\\")
     (OUT / "tables/topchecks.tex").write_text("\n".join(lines) + "\n")
     numbers["nTopEightShare"] = pct(sum(n for _, n in top), len(smell))

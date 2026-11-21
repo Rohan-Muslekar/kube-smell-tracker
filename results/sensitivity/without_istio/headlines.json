@@ -1,0 +1,81 @@
+{
+  "excluded": [
+    "istio"
+  ],
+  "systems": [
+    "argo-cd",
+    "flux2",
+    "kube-prometheus",
+    "microservices-demo",
+    "pipeline",
+    "serving"
+  ],
+  "instances": 623,
+  "baseline": 592,
+  "survivors": 447,
+  "survival_percent": 75.50675675675676,
+  "persisted": 7449,
+  "removals": 147,
+  "object_deletions": 106,
+  "deletion_percent": 72.10884353741497,
+  "candidate_fixes": 41,
+  "analyzer_artifacts": 9,
+  "fixes_after_known_artifacts": 32,
+  "introductions": 31,
+  "new_object_introductions": 16,
+  "reappearances": 0,
+  "pair_tests": {
+    "any": {
+      "chi_square": 5.767488376598218,
+      "p_value": 0.12348696251839864,
+      "cramers_v": 0.16691992897458433,
+      "n": 207,
+      "degrees_of_freedom": 3,
+      "table_survived_lost": {
+        "security": [
+          52,
+          13
+        ],
+        "resource": [
+          40,
+          6
+        ],
+        "image": [
+          26,
+          6
+        ],
+        "hygiene": [
+          60,
+          4
+        ]
+      },
+      "expected_cells_below_five": 1
+    },
+    "all": {
+      "chi_square": 27.598038488829047,
+      "p_value": 4.410621743099602e-06,
+      "cramers_v": 0.3651353960299614,
+      "n": 207,
+      "degrees_of_freedom": 3,
+      "table_survived_lost": {
+        "security": [
+          36,
+          29
+        ],
+        "resource": [
+          29,
+          17
+        ],
+        "image": [
+          26,
+          6
+        ],
+        "hygiene": [
+          60,
+          4
+        ]
+      },
+      "expected_cells_below_five": 0
+    }
+  }
+}
