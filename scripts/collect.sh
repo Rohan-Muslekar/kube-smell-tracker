@@ -14,6 +14,8 @@ VERSIONS="$ROOT/data/versions.csv"
 SKIPPED="$ROOT/raw/skipped_files.txt"
 UNLOADED="$ROOT/raw/load_failures.tsv"
 ONLY="${1:-}"
+# Prefer the pinned tools (kubectl for rendering) over whatever is on PATH.
+export PATH="$ROOT/tools/bin:$PATH"
 
 mkdir -p "$WORK" "$ROOT/raw/kube-linter" "$ROOT/raw/kube-score" "$ROOT/raw/objects"
 [ -f "$VERSIONS" ] || echo "repo,tag,commit_sha,commit_date,n_yaml_files,valid,note" > "$VERSIONS"

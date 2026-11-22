@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "category map",
+    "Rojan"
+  ],
+  "agreements": 45,
+  "disagreements": 17,
+  "percent_agreement": 72.58064516129032,
+  "expected_agreement": 0.24843912591050987,
+  "cohens_kappa": 0.6351678781585324,
+  "kappa_note": "",
+  "agreed_differs_from_map": 0,
+  "stage": "independent ratings, before adjudication"
+}
