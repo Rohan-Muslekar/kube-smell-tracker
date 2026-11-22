@@ -5,11 +5,12 @@ Usage: python3 scripts/category_sensitivity.py [--out results/category_sensitivi
 The category result (security is what gets fixed) should not depend on who drew the category
 map. Each sheet in data/category_validation/ relabels every (tool, check); this script applies
 each labelling to out/instances.csv and counts, per category, the instances present at the
-first tag and the real fixes among them (a removal that leaves the object in place, minus the
+first tag and the real fixes among those same instances (a removal that leaves the object in place, minus the
 kube-score gRPC-probe artifact, as in kst.survival_km).
 
 It also asks whether one check carries the result: for every security check with a fix, the
-map is rerun with that check moved to resource (sheet name `map_move_<tool>:<check>`).
+map is rerun with that check moved to resource (sheet name `map_move_<tool>:<check>`), and
+whether one system carries it: the map without each system (`map_without_<repo>`).
 """
 import argparse
 import csv
@@ -43,8 +44,9 @@ def fixes_by_category(instances, labels):
         if key not in labels:
             raise KeyError(f"{key[0]},{key[1]} is not rated in the sheet")
         cell = counts[labels[key]]
-        if row["at_baseline"] == "1":
-            cell["baseline"] += 1
+        if row["at_baseline"] != "1":
+            continue
+        cell["baseline"] += 1
         if is_fix(row):
             cell["fixes"] += 1
     return {category: dict(cell) for category, cell in sorted(counts.items())}
@@ -63,9 +65,12 @@ def main():
                     if base[(r["tool"], r["check"])] == "security" and is_fix(r)})
     for key in fixed:
         labellings[f"map_move_{key[0]}:{key[1]}"] = {**base, key: "resource"}
+    runs = [(sheet, labels, instances) for sheet, labels in labellings.items()]
+    for repo in sorted({r["repo"] for r in instances}):
+        runs.append((f"map_without_{repo}", base, [r for r in instances if r["repo"] != repo]))
     rows = []
-    for sheet, labels in labellings.items():
-        for category, cell in fixes_by_category(instances, labels).items():
+    for sheet, labels, subset in runs:
+        for category, cell in fixes_by_category(subset, labels).items():
             rows.append({"sheet": sheet, "category": category, **cell})
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with open(args.out, "w", newline="") as handle:
