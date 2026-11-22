@@ -59,7 +59,7 @@ jq -c '.included[]' "$REPOS" | while IFS= read -r repo; do
     lint_out="$ROOT/raw/kube-linter/${name}__${tag}.json"
     score_out="$ROOT/raw/kube-score/${name}__${tag}.json"
 
-    if [ "${RENDER:-0}" = "1" ]; then
+    if [ "${RENDER:-1}" = "1" ]; then
       render_args=()
       for path in "${paths[@]}"; do
         render_args+=(--manifest-path "$path")

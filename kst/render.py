@@ -3,6 +3,7 @@
 import argparse
 import subprocess
 from pathlib import Path
+import sys
 
 import yaml
 
@@ -222,6 +223,20 @@ def build_analysis_file_list(repo_path, manifest_paths, output_dir):
         repo_path, manifest_paths, output_dir
     )
 
+# Identify directories with successfully rendered Kustomizations.
+    failed_directories = {
+        (repo_path / directory).resolve()
+        for directory, _ in failures
+    }
+
+    rendered_directories = {
+        directory
+        for directory in find_top_level_kustomizations(
+            find_kustomizations(repo_path, manifest_paths)
+        )
+        if directory not in failed_directories
+    }
+
     plain_files = []
 
     for manifest_path in manifest_paths:
@@ -237,6 +252,22 @@ def build_analysis_file_list(repo_path, manifest_paths, output_dir):
                 continue
 
             if path.resolve() in consumed:
+                print(
+                    f"consumed by a kustomization: {path.relative_to(repo_path)}",
+                    file=sys.stderr,
+                )
+                continue
+
+            # Exclude unreferenced YAML inside a rendered Kustomization.
+
+            if any(
+                path.resolve().is_relative_to(directory)
+                for directory in rendered_directories
+            ):
+                print(
+                    f"not referenced by kustomization: {path.relative_to(repo_path)}",
+                    file=sys.stderr,
+                )
                 continue
 
             text = path.read_text(encoding="utf-8", errors="replace")
@@ -265,7 +296,7 @@ def main():
         print(path)
 
     for directory, error in failures:
-        print(f"render failed: {directory}: {error}", file=__import__("sys").stderr)
+       print(f"render failed: {directory}: {error}", file=sys.stderr)
 
     return 0 if not failures else 1
 

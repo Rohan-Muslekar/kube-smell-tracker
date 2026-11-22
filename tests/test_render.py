@@ -11,7 +11,7 @@ FIXTURE = Path(__file__).parent / "fixtures" / "kustomize"
 
 
 def test_kustomize_render(tmp_path):
-    """Render a patched Deployment and preserve standalone YAML."""
+    """Render a patched Deployment and exclude unreferenced YAML."""
     files, failures = build_analysis_file_list(
         FIXTURE,
         ["."],
@@ -19,7 +19,7 @@ def test_kustomize_render(tmp_path):
     )
 
     assert failures == []
-    assert len(files) == 2
+    assert len(files) == 1
 
     rendered_files = [
         Path(path) for path in files
@@ -42,7 +42,7 @@ def test_kustomize_render(tmp_path):
     assert not any("patch.yaml" in path for path in files)
 
     # Unrelated plain YAML must remain in the analysis list.
-    assert "standalone.yaml" in files
+    assert "standalone.yaml" not in files
 def test_kustomize_render_failure(tmp_path):
     """Report rendering failures and preserve healthy YAML."""
     fixture = Path(__file__).parent / "fixtures" / "kustomize_failure"
@@ -111,3 +111,20 @@ def test_deprecated_bases_key(tmp_path):
 
     assert failures == []
     assert [Path(path).name for path in files] == ["overlay.yaml"]
+
+def test_unreferenced_yaml_is_excluded(tmp_path):
+    """Unreferenced YAML inside a Kustomization must not be linted."""
+    files, failures = build_analysis_file_list(
+        FIXTURE,
+        ["."],
+        tmp_path / "rendered",
+    )
+
+    assert failures == []
+
+    # Only the rendered Deployment should be analyzed.
+    assert len(files) == 1
+    assert Path(files[0]).name == "root.yaml"
+
+    # Unreferenced YAML must be excluded.
+    assert "standalone.yaml" not in files
