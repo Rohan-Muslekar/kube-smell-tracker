@@ -42,7 +42,7 @@ change the security or image results. The full list is
 2. Adjudication of every disagreement in the ledger by Yasaminzahra (not a rater), with the
    rationale per check; `data/check_categories.csv` changes only through that ledger.
 3. If the human kappa against the map is below 0.6, per-category claims become descriptive only
-   (Milestone 4 report, Table IV).
+   (Milestone 4 report, Table III).
 
 ## Commands
 

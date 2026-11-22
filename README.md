@@ -85,7 +85,7 @@ kube-linter `dangling-servicemonitor` reports for kube-prometheus v0.12.0 still 
 | Go (builds the analyzers) | go1.26.9 |
 | kube-linter | v0.8.3 (`go install golang.stackrox.io/kube-linter/cmd/kube-linter@v0.8.3`), run with `--add-all-built-in` and the pinned `--config tools/kube-linter.yaml` (so a `.kube-linter.yaml` inside an analyzed repo is never read) |
 | kube-score | v1.20.0 (`go install github.com/zegl/kube-score/cmd/kube-score@v1.20.0`) |
-| Python | 3.14.8; the analysis (`python3 -m kst`) uses the standard library only, `RENDER=1` needs PyYAML 6.0.3, tests need pytest 9.1.1 |
+| Python | 3.14.10 (3.14.8 for the Milestone 3 runs); the analysis (`python3 -m kst`) uses the standard library only, `RENDER=1` needs PyYAML 6.0.3, tests need pytest 9.1.1 |
 | kubectl | v1.36.2 with kustomize v5.8.1, for rendering (`RENDER=1`, the default); `tools/install.sh` downloads it into `tools/bin` and checks its SHA-256 |
 | git / jq / bash | 2.56.0 / 1.8.1 / 5.3.9 |
 
