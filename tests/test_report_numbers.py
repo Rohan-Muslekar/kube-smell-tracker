@@ -75,3 +75,9 @@ def test_exclude_cli_writes_filtered_headlines(tmp_path):
 def test_unknown_exclusion_is_rejected(tmp_path):
     with pytest.raises(SystemExit):
         report_numbers.main(["--exclude", "typo", "--out", str(tmp_path)])
+
+
+def test_small_p_values_keep_a_significant_digit():
+    assert report_numbers.fmt_p(0.0028) == "$p=0.003$"
+    assert report_numbers.fmt_p(0.0005) == "$p<0.001$"
+    assert report_numbers.fmt_p(0.081) == "$p=0.08$"

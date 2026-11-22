@@ -1,7 +1,7 @@
 # Independent category validation
 
-Coordinator: Yasaminzahra Valitabar. Status: procedure and calculator ready; independent
-ratings, agreement results and adjudicated decisions are pending.
+Coordinator: Yasaminzahra Valitabar. Current status of the ratings and agreement:
+[results/category_validation_status.md](../results/category_validation_status.md).
 
 ## Procedure
 

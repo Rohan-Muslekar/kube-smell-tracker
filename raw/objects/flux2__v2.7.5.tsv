@@ -1,31 +1,142 @@
-ServiceAccount		helm-controller	manifests/bases/helm-controller/account.yaml
-LabelTransformer		labels	manifests/bases/helm-controller/labels.yaml
-ServiceAccount		image-automation-controller	manifests/bases/image-automation-controller/account.yaml
-LabelTransformer		labels	manifests/bases/image-automation-controller/labels.yaml
-ServiceAccount		image-reflector-controller	manifests/bases/image-reflector-controller/account.yaml
-LabelTransformer		labels	manifests/bases/image-reflector-controller/labels.yaml
-ServiceAccount		kustomize-controller	manifests/bases/kustomize-controller/account.yaml
-LabelTransformer		labels	manifests/bases/kustomize-controller/labels.yaml
-ServiceAccount		notification-controller	manifests/bases/notification-controller/account.yaml
-LabelTransformer		labels	manifests/bases/notification-controller/labels.yaml
-ServiceAccount		source-controller	manifests/bases/source-controller/account.yaml
-LabelTransformer		labels	manifests/bases/source-controller/labels.yaml
-ServiceAccount		source-watcher	manifests/bases/source-watcher/account.yaml
-LabelTransformer		labels	manifests/bases/source-watcher/labels.yaml
-LabelTransformer		labels	manifests/install/labels.yaml
-Namespace		flux-system	manifests/install/namespace.yaml
-LabelTransformer		labels	manifests/openshift/labels.yaml
-Namespace		flux-system	manifests/openshift/namespace.yaml
-ClusterRole		flux-scc	manifests/openshift/scc.yaml
-ClusterRoleBinding		flux-scc	manifests/openshift/scc.yaml
-NetworkPolicy		allow-egress	manifests/policies/allow-egress.yaml
-NetworkPolicy		allow-scraping	manifests/policies/allow-scraping.yaml
-NetworkPolicy		allow-webhooks	manifests/policies/allow-webhooks.yaml
-ClusterRole		crd-controller	manifests/rbac/controller.yaml
-ClusterRoleBinding		crd-controller	manifests/rbac/controller.yaml
-ClusterRole		flux-edit	manifests/rbac/edit.yaml
-ClusterRoleBinding		cluster-reconciler	manifests/rbac/reconciler.yaml
-ResourceQuota		critical-pods	manifests/rbac/resourcequota.yaml
-ClusterRole		flux-view	manifests/rbac/view.yaml
-LabelTransformer		labels	manifests/test/labels.yaml
-Namespace		flux-system	manifests/test/namespace.yaml
+CustomResourceDefinition		alerts.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		artifactgenerators.source.extensions.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		buckets.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		externalartifacts.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		gitrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		helmcharts.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		helmreleases.helm.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		helmrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		imagepolicies.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		imagerepositories.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		imageupdateautomations.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		kustomizations.kustomize.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		ocirepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		providers.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+CustomResourceDefinition		receivers.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__crds.yaml
+Namespace		flux-system	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ResourceQuota	flux-system	critical-pods	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		alerts.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		buckets.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		externalartifacts.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		gitrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		helmcharts.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		helmreleases.helm.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		helmrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		imagepolicies.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		imagerepositories.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		imageupdateautomations.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		kustomizations.kustomize.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		ocirepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		providers.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+CustomResourceDefinition		receivers.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ServiceAccount	flux-system	helm-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ServiceAccount	flux-system	image-automation-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ServiceAccount	flux-system	image-reflector-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ServiceAccount	flux-system	kustomize-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ServiceAccount	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ServiceAccount	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ClusterRole		crd-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ClusterRole		flux-edit	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ClusterRole		flux-view	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ClusterRoleBinding		cluster-reconciler	work/rendered/flux2__v2.7.5/manifests__install.yaml
+ClusterRoleBinding		crd-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Service	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Service	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Service	flux-system	webhook-receiver	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Deployment	flux-system	helm-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Deployment	flux-system	image-automation-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Deployment	flux-system	image-reflector-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Deployment	flux-system	kustomize-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Deployment	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Deployment	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__install.yaml
+NetworkPolicy	flux-system	allow-egress	work/rendered/flux2__v2.7.5/manifests__install.yaml
+NetworkPolicy	flux-system	allow-scraping	work/rendered/flux2__v2.7.5/manifests__install.yaml
+NetworkPolicy	flux-system	allow-webhooks	work/rendered/flux2__v2.7.5/manifests__install.yaml
+Namespace		flux-system	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ResourceQuota	flux-system	critical-pods	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		alerts.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		artifactgenerators.source.extensions.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		buckets.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		externalartifacts.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		gitrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		helmcharts.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		helmreleases.helm.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		helmrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		imagepolicies.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		imagerepositories.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		imageupdateautomations.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		kustomizations.kustomize.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		ocirepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		providers.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+CustomResourceDefinition		receivers.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ServiceAccount	flux-system	helm-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ServiceAccount	flux-system	image-automation-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ServiceAccount	flux-system	image-reflector-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ServiceAccount	flux-system	kustomize-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ServiceAccount	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ServiceAccount	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ServiceAccount	flux-system	source-watcher	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ClusterRole		crd-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ClusterRole		flux-edit	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ClusterRole		flux-scc	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ClusterRole		flux-view	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ClusterRoleBinding		cluster-reconciler	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ClusterRoleBinding		crd-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+ClusterRoleBinding		flux-scc	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Service	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Service	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Service	flux-system	source-watcher	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Service	flux-system	webhook-receiver	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Deployment	flux-system	helm-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Deployment	flux-system	image-automation-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Deployment	flux-system	image-reflector-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Deployment	flux-system	kustomize-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Deployment	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Deployment	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Deployment	flux-system	source-watcher	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+NetworkPolicy	flux-system	allow-egress	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+NetworkPolicy	flux-system	allow-scraping	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+NetworkPolicy	flux-system	allow-webhooks	work/rendered/flux2__v2.7.5/manifests__openshift.yaml
+Namespace		flux-system	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ResourceQuota	flux-system	critical-pods	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		alerts.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		artifactgenerators.source.extensions.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		buckets.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		externalartifacts.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		gitrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		helmcharts.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		helmreleases.helm.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		helmrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		imagepolicies.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		imagerepositories.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		imageupdateautomations.image.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		kustomizations.kustomize.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		ocirepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		providers.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+CustomResourceDefinition		receivers.notification.toolkit.fluxcd.io	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ServiceAccount	flux-system	helm-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ServiceAccount	flux-system	image-automation-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ServiceAccount	flux-system	image-reflector-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ServiceAccount	flux-system	kustomize-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ServiceAccount	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ServiceAccount	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ServiceAccount	flux-system	source-watcher	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ClusterRole		crd-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ClusterRole		flux-edit	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ClusterRole		flux-view	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ClusterRoleBinding		cluster-reconciler	work/rendered/flux2__v2.7.5/manifests__test.yaml
+ClusterRoleBinding		crd-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Service	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Service	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Service	flux-system	source-watcher	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Service	flux-system	webhook-receiver	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Deployment	flux-system	helm-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Deployment	flux-system	image-automation-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Deployment	flux-system	image-reflector-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Deployment	flux-system	kustomize-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Deployment	flux-system	notification-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Deployment	flux-system	source-controller	work/rendered/flux2__v2.7.5/manifests__test.yaml
+Deployment	flux-system	source-watcher	work/rendered/flux2__v2.7.5/manifests__test.yaml
+NetworkPolicy	flux-system	allow-egress	work/rendered/flux2__v2.7.5/manifests__test.yaml
+NetworkPolicy	flux-system	allow-scraping	work/rendered/flux2__v2.7.5/manifests__test.yaml
+NetworkPolicy	flux-system	allow-webhooks	work/rendered/flux2__v2.7.5/manifests__test.yaml

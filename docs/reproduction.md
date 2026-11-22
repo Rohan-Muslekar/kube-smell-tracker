@@ -204,7 +204,7 @@ The overlap analysis aggregates detections across the sampled release history by
 
 ## 9. Known Reproduction Limitations
 
-- Helm charts are not rendered, and some Kustomize configurations are analyzed without rendering.
+- Helm charts are not rendered. Kustomize configurations are rendered by default (`RENDER=1`); data collected before PR #28 (tag `milestone-3-data`) used stored manifests.
 - Object renaming can split a tracked identity into a removal and an introduction.
 - Only five sampled release tags per repository are analyzed; changes between those tags may be missed.
 - Object deletion is distinguished from candidate fixes, but further commit-level verification is required to confirm genuine fixes.
