@@ -9,7 +9,7 @@ to tag and labelled introduced, persisted, removed or reappeared.
 ## Reproduce
 
 ```bash
-./tools/install.sh          # builds the pinned analyzers into tools/bin
+./tools/install.sh          # builds the pinned analyzers and fetches the pinned kubectl into tools/bin
 make all                    # clones repos into work/, runs both analyzers, writes raw/ and out/
 python3 -m pytest           # unit and pipeline tests
 ```
@@ -86,7 +86,7 @@ kube-linter `dangling-servicemonitor` reports for kube-prometheus v0.12.0 still 
 | kube-linter | v0.8.3 (`go install golang.stackrox.io/kube-linter/cmd/kube-linter@v0.8.3`), run with `--add-all-built-in` and the pinned `--config tools/kube-linter.yaml` (so a `.kube-linter.yaml` inside an analyzed repo is never read) |
 | kube-score | v1.20.0 (`go install github.com/zegl/kube-score/cmd/kube-score@v1.20.0`) |
 | Python | 3.14.8; the analysis (`python3 -m kst`) uses the standard library only, `RENDER=1` needs PyYAML 6.0.3, tests need pytest 9.1.1 |
-| kubectl | v1.36.2 with kustomize v5.8.1, only for `RENDER=1` and the rendering check |
+| kubectl | v1.36.2 with kustomize v5.8.1, for rendering (`RENDER=1`, the default); `tools/install.sh` downloads it into `tools/bin` and checks its SHA-256 |
 | git / jq / bash | 2.56.0 / 1.8.1 / 5.3.9 |
 
 Both analyzers report `development` from their `version` subcommand when built with
@@ -174,6 +174,8 @@ Collection with rendering requires `kubectl` and PyYAML 6.0.3. Offline analysis 
 | `transitions_by_repo.csv` | the same per repo, tool and category |
 | `overlap_summary.csv` | category, linter_only, score_only, both (distinct object-category pairs) |
 | `unmapped_checks.txt` | checks missing from the category map; must be empty, otherwise `python3 -m kst` exits non-zero |
+| `km_by_category.csv`, `km_by_system.csv` | Kaplan–Meier curve points (group, time_days, at_risk, events, censored, survival); the event is the first removal of any kind, instances present at the last tag are censored (`kst/survival_km.py`) |
+| `km_fix_by_category.csv`, `km_fix_by_system.csv` | the same with a fix as the event: removals by object deletion and the kube-score gRPC-probe artifact are censored where they happen |
 
 `data/spot_check.csv` holds the manual check of 20 instances. They are drawn by
 `scripts/sample_spot_check.py` with seed 5570: 5 each of persisted, fixed, object deleted and
@@ -181,7 +183,7 @@ introduced. Each was confirmed or rejected by reading the YAML at both tags, wit
 
 ## Known limitations
 
-- Helm charts are not rendered, and kustomize bases and patches are linted unrendered. For flux2, this means patch fragments are analyzed as if they were complete objects.
+- Kustomize configurations are rendered (`RENDER=1`, the default since PR #28), so patch fragments are no longer linted as objects. Helm charts and generated manifests (kube-prometheus jsonnet output is committed YAML, so it is linted as is) are not rendered. The stored-manifest data used up to Milestone 3 is tagged `milestone-3-data`, and the Milestone 3 rendering check is tagged `render-check-m3` (PR #15, closed unmerged).
 - A renamed object appears as one removal plus one introduction. `probable_rename` flags candidate pairs (same kind, same set of checks) but does not merge them. The spot-check found no renames.
 - The object inventory (`kst/inventory.py`) reads the top level of each YAML document without a full YAML parser. Objects inside a `kind: List` are not listed. The inventory matched every object either analyzer reported.
 - kube-score scores only workload-related kinds (it never scores RBAC objects), so the overlap table is limited to the kinds it scores.
@@ -194,5 +196,5 @@ introduced. Each was confirmed or rejected by reading the YAML at both tags, wit
 Yasaminzahra's task documentation: [tracking review and limitations](docs/tracking_limitations.md)
 and [independent two-rater category validation](docs/category_validation.md).
 The latter covers generating the rating sheets, agreement calculation and
-the disagreement/adjudication procedure. Real ratings and validation against
-future denser-tag/rendered-manifest data are pending.
+the disagreement/adjudication procedure. Current status of the ratings:
+[results/category_validation_status.md](results/category_validation_status.md).
