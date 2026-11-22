@@ -131,3 +131,14 @@ import csv
 rows = list(csv.DictReader(open('data/rq3_recode_sheet.csv')))
 print(sum(r['transition'] != 'object_deleted' for r in rows), 'of', len(rows), 'judged rows')"
 ```
+
+## Category sensitivity (does the fix result depend on the category map?)
+
+```bash
+python3 scripts/category_sensitivity.py   # writes results/category_sensitivity.csv
+```
+
+Under the map, the LLM sheet and both AI-assisted sheets, security keeps 25 fixes of 243
+first-tag instances (rate 0.103); resource is at most 0.013. Moving the single largest security
+check (kube-linter `default-service-account`, 10 fixes) to resource still leaves security at
+0.067 against resource 0.034.
