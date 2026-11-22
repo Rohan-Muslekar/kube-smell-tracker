@@ -118,6 +118,28 @@ This is an offline analysis reproduction, not a complete recollection of the sou
 
 The independent verification on October 25, 2026, executed the full pipeline using `make all`. The offline reproduction commands above were not separately executed during that verification.
 
+### Compare stored and rendered results
+
+Use two repository directories with `out/instances.csv` and `raw/objects/`.
+Compare the same systems and tags to isolate the effect of rendering.
+
+```bash
+python3 scripts/compare_render.py --stored /path/to/stored --rendered /path/to/rendered
+```
+
+The command prints a tab-separated comparison and writes `results/render_comparison.csv`
+relative to the working directory, with one row per system and source.
+
+- Object-version observations count each distinct kind, namespace, and name once per tag.
+  An object present at several tags contributes one observation at each tag.
+- Instances count tool-specific smell rows, excluding the `other` category. Survival is
+  the percentage of first-tag instances present at the final tag.
+- Removals and reappearances count transitions. Deletion share is the percentage of
+  removals where the object disappeared. Real fixes count removals where the object
+  remained, excluding kube-score's `pod-probes-identical` artifact.
+- A percentage is blank when its denominator is zero. All metrics are blank when
+  a system is missing from that source.
+
 ## 6. Run the Tests
 
 ```bash
