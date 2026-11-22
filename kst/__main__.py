@@ -93,6 +93,10 @@ def main(argv=None):
 
     instances = track(findings, versions, load_objects(raw, versions))
     write_csv(out / "instances.csv", instances, list(instances[0]) if instances else [])
+    # Older/small fixtures can lack release dates; never invent calendar durations.
+    if (data / "minor_dates.csv").exists():
+        from kst.survival_km import write_curves
+        write_curves(instances, data, out)
 
     prevalence = defaultdict(lambda: [0, set()])
     for f in findings:
