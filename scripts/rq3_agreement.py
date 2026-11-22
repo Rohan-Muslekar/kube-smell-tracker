@@ -99,8 +99,26 @@ def calculate(sheet_rows, source_rows):
         "kappa_note": "Undefined when expected agreement is 1" if chance == 1 else "",
         "first_coder_counts": dict(sorted(ca.items())),
         "second_coder_counts": dict(sorted(cb.items())),
+        "judged_rows": judged_agreement(ordered, first_labels, second_labels),
     }
     return summary, disagreements
+
+
+def judged_agreement(keys, first_labels, second_labels):
+    """Agreement on the rows where the class is a judgment.
+
+    The sheet shows the transition, and an object_deleted transition leaves only one
+    possible class, so those rows agree by construction and inflate kappa.
+    """
+    transition = KEY_FIELDS.index("transition")
+    pairs = [(a, b) for k, a, b in zip(keys, first_labels, second_labels)
+             if k[transition] != "object_deleted"]
+    if not pairs:
+        return {"n": 0, "agreements": 0, "cohens_kappa": None}
+    first, second = zip(*pairs)
+    return {"n": len(pairs), "agreements": sum(a == b for a, b in pairs),
+            "excluded_transition": "object_deleted",
+            "cohens_kappa": cohens_kappa(first, second)}
 
 
 def main(argv=None):
@@ -126,6 +144,10 @@ def main(argv=None):
           f"({summary['percent_agreement']:.1f}%)")
     print(f"Cohen's kappa: {kappa:.4f}" if kappa is not None
           else "Cohen's kappa: undefined (expected agreement = 1)")
+    judged = summary["judged_rows"]
+    if judged["cohens_kappa"] is not None:
+        print(f"Cohen's kappa without object_deleted rows ({judged['n']} rows): "
+              f"{judged['cohens_kappa']:.4f}")
     print(f"Disagreements: {summary['disagreements']}")
     print(f"Wrote {args.out / 'rq3_agreement.json'} "
           f"and {args.out / 'rq3_disagreements.csv'}")

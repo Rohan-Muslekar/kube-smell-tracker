@@ -85,3 +85,19 @@ def test_agreement_helper_undefined_when_all_same():
     assert cohens_kappa(["a", "a", "b", "b"], ["a", "b", "a", "b"]) == 0
     with pytest.raises(ValueError):
         cohens_kappa(["a"], [])
+
+
+def test_kappa_is_also_reported_without_rows_the_transition_already_decides():
+    # An object_deleted transition can only be coded object_deleted, so those rows
+    # agree by construction; the judged kappa leaves them out.
+    source, sheet = fixture()
+    for rows in (source, sheet):
+        for r in rows:
+            if r["classification"] == "object_deleted":
+                r["transition"] = "object_deleted"
+    sheet[0]["classification"] = "new_object"
+    summary, _ = mod.calculate(sheet, source)
+    judged = summary["judged_rows"]
+    assert judged["n"] == 16
+    assert judged["agreements"] == 15
+    assert judged["cohens_kappa"] < summary["cohens_kappa"]
