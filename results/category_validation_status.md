@@ -8,7 +8,7 @@ superseded by this file.
 
 | Sheet | Who | How it was made | Result against the map (62 checks) | Output |
 |---|---|---|---|---|
-| `data/category_validation/llm_rater.csv` | blind LLM (PR #19) | model, prompt in `llm_rater_prompt.txt` | 59 agree, kappa 0.93 | `results/category_validation_llm/` |
+| `data/category_validation/llm_rater.csv` | blind LLM (PR #19) | Claude Opus 5.5; prompt in `llm_rater_prompt.txt` | 59 agree, kappa 0.93 | `results/category_validation_llm/` |
 | `data/category_validation/category_rater_1.csv` | Ankit (PR #21) | AI-assisted, so not independent | 58 agree, kappa 0.91 | `results/category_validation_rater1/` |
 | `data/category_validation/m4_rater2.csv` | Rojan (PR #29) | committed as "AI-assisted category review draft" (commit a44c94e) | 45 agree, kappa 0.64 | `results/category_validation_m4/rater2_vs_map/` |
 | `data/category_validation/m4_rater1.csv` | Ankit | to be rated by hand, without AI | pending | |
