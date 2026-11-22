@@ -206,7 +206,7 @@ The overlap analysis aggregates detections across the sampled release history by
 
 - Helm charts are not rendered. Kustomize configurations are rendered by default (`RENDER=1`); data collected before PR #28 (tag `milestone-3-data`) used stored manifests.
 - Object renaming can split a tracked identity into a removal and an introduction.
-- Only five sampled release tags per repository are analyzed; changes between those tags may be missed.
+- Only the latest patch of each minor release is analyzed (123 tags); changes between minors may be missed.
 - Object deletion is distinguished from candidate fixes, but further commit-level verification is required to confirm genuine fixes.
 - Some unloadable files are logged rather than analyzed.
 - Analyzer version pinning does not independently guarantee identical behavior across all operating systems and build environments.

@@ -10,10 +10,26 @@ kube-linter's example ownership policies). Counts are per tool unless a line say
 problem both tools flag is two instances.
 
 
-## Milestone 3 (every minor release, 123 tags)
+## Milestone 4 (rendered manifests, 123 tags)
 
-The screenshots below are from Milestone 2 (five tags per project). The Milestone 3 data in
-`out/` covers 123 tags; regenerate the numbers with `python3 scripts/summary.py`.
+`out/` on master now holds the rendered data from the Nov 23 integration run (#32,
+`RENDER=1`, kubectl 1.36.2 with kustomize 5.8.1). The stored-manifest numbers in the next
+section are kept at tag `milestone-3-data`. Regenerate these with
+`python3 scripts/report_numbers.py --headlines-only --out results/rendered/baseline`
+([rendered/baseline/headlines.json](rendered/baseline/headlines.json)).
+
+- **Instances:** 911 smell instances; 688 of 864 first-tag instances (79.6%) still present at
+  the last tag (72.3% without istio), 0 reappearances.
+- **Removals:** 138 of 178 (77.5%) are object deletions; 40 keep the object, 9 of them the
+  kube-score probe artifact, so 31 real fixes. Without flux2, 35.5% are deletions.
+- **Stored vs rendered:** only flux2 (97 to 162 instances) and microservices-demo (182 to 166)
+  change; see [render_comparison.csv](render_comparison.csv).
+- **Commands:** [m4_commands.md](m4_commands.md) lists the command behind every Milestone 4 number.
+
+## Milestone 3 (every minor release, 123 tags, stored manifests)
+
+The screenshots below are from Milestone 2 (five tags per project). The Milestone 3 data is at
+tag `milestone-3-data` and covers 123 tags; regenerate the numbers there with `python3 scripts/summary.py`.
 
 - **Same smells, denser view:** 862 smell instances, 676 of 821 first-tag instances (82.3%)
   still present at the last tag, 0 reappearances, now over every minor release.
