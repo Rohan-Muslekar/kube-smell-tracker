@@ -111,6 +111,13 @@ def headline_numbers(instances, exclude=()):
                 reappearances=total("reappeared"), pair_tests=tests)
 
 
+def fmt_p(p):
+    """p for the paper: two decimals, or one significant digit below 0.01."""
+    if p < 0.001:
+        return "$p<0.001$"
+    return f"$p={p:.3f}$" if p < 0.01 else f"$p={p:.2f}$"
+
+
 def git_show(rev, path):
     return subprocess.run(["git", "-C", str(ART), "show", f"{rev}:{path}"], capture_output=True,
                           text=True, check=True).stdout
@@ -440,7 +447,6 @@ def main(argv=None):
     # scipy.stats.chi2_contingency without correction). Three units: instances, instances outside
     # flux2, and merged (system, kind, namespace, name, category) pairs, which removes the dependence
     # between several instances on one object.
-    fmt_p = lambda p: "$p<0.001$" if p < 0.001 else f"$p={p:.2f}$"
     first_units = lambda rs: [(r["category"], r["presence"][-1] == "1") for r in rs if r["presence"][0] == "1"]
     pairs_first = {}
     for r in smell:
