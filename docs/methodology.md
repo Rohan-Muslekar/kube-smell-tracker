@@ -66,7 +66,7 @@ This filtering is based on textual checks rather than complete Kubernetes schema
 
 The pipeline also constructs an inventory of Kubernetes objects from retained files using `kst/inventory.py`. This inventory supports subsequent analysis of whether an object remains present when an associated smell disappears.
 
-Helm charts are not rendered, and Kustomize configurations are not built into their final deployed form before analysis.
+Kustomize configurations are rendered with `kubectl kustomize` before analysis (the default since PR #28; `RENDER=0` gives the stored-manifest collection used up to Milestone 3, tagged `milestone-3-data`). Helm charts are not rendered.
 
 ## 4. Static Analysis and Output Validation
 

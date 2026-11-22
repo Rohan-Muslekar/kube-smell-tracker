@@ -74,8 +74,8 @@ mistaken for the 862 smell instances.
   `track()` raises an error when any valid tag has no inventory, but an incorrectly empty
   inventory can still produce a false deletion classification.
 - The inventory reader does not fully parse YAML or expand `kind: List` objects.
-  The current collection uses unrendered Helm/kustomize inputs as described in
-  the repository README. Patch fragments can distort identity and removals.
+  Kustomize inputs are rendered by default since PR #28, so patch fragments no
+  longer distort identity; Helm charts are still not rendered.
 - Categories are taken from findings, with the last category winning if an
   instance is inconsistently mapped. Use one frozen mapping per run.
 - Instances remain tool-specific; cross-tool warnings are not deduplicated by
