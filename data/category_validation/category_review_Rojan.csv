@@ -1,0 +1,63 @@
+tool,check,rater,category,rationale
+kube-linter,access-to-create-pods,Rojan,security,Excessive permission to create Pods can enable privilege escalation.
+kube-linter,access-to-secrets,Rojan,security,Access to Kubernetes Secrets exposes sensitive credentials.
+kube-linter,cluster-admin-role-binding,Rojan,security,Cluster-admin bindings grant highly privileged access.
+kube-linter,dangling-networkpolicy,Rojan,hygiene,A NetworkPolicy without matching workloads may indicate stale configuration.
+kube-linter,dangling-networkpolicypeer-podselector,Rojan,hygiene,A peer pod selector matching no Pods may indicate stale policy configuration.
+kube-linter,dangling-service,Rojan,hygiene,A Service without matching Pods is likely an ineffective configuration.
+kube-linter,dangling-servicemonitor,Rojan,hygiene,A ServiceMonitor without a matching Service is likely ineffective.
+kube-linter,default-service-account,Rojan,security,Using the default ServiceAccount can weaken workload identity isolation.
+kube-linter,dnsconfig-options,Rojan,hygiene,DNS configuration options concern workload configuration correctness.
+kube-linter,env-value-from,Rojan,hygiene,Environment variable source configuration concerns manifest correctness.
+kube-linter,env-var-secret,Rojan,security,Secret handling through environment variables can expose credentials.
+kube-linter,exposed-services,Rojan,security,Exposed Services can broaden external access to workloads.
+kube-linter,host-network,Rojan,security,Host networking weakens workload network isolation.
+kube-linter,host-pid,Rojan,security,Host PID namespace access weakens process isolation.
+kube-linter,hpa-minimum-three-replicas,Rojan,resource,Minimum HPA replica count concerns workload capacity and availability.
+kube-linter,latest-tag,Rojan,image,Mutable latest image tags reduce image version reproducibility.
+kube-linter,liveness-port,Rojan,hygiene,Liveness probe port configuration concerns operational correctness.
+kube-linter,minimum-three-replicas,Rojan,resource,Replica count concerns availability and workload capacity.
+kube-linter,mismatching-selector,Rojan,hygiene,Selector mismatch prevents controllers from targeting intended Pods.
+kube-linter,no-anti-affinity,Rojan,resource,Anti-affinity affects placement and availability of replicas.
+kube-linter,no-liveness-probe,Rojan,hygiene,Missing liveness probes weaken workload health management.
+kube-linter,no-node-affinity,Rojan,resource,Node affinity governs workload placement across nodes.
+kube-linter,no-read-only-root-fs,Rojan,security,Writable container root filesystems increase attack surface.
+kube-linter,no-readiness-probe,Rojan,hygiene,Missing readiness probes impair service readiness management.
+kube-linter,no-rolling-update-strategy,Rojan,hygiene,Deployment update strategy affects safe rollout behavior.
+kube-linter,non-existent-service-account,Rojan,hygiene,Referencing a nonexistent ServiceAccount is a configuration error.
+kube-linter,non-isolated-pod,Rojan,security,Insufficient network isolation increases workload exposure.
+kube-linter,pdb-min-available,Rojan,resource,PodDisruptionBudget availability thresholds affect workload resilience.
+kube-linter,pdb-unhealthy-pod-eviction-policy,Rojan,hygiene,Eviction policy governs operational disruption behavior.
+kube-linter,read-secret-from-env-var,Rojan,security,Reading secrets from environment variables can expose credentials.
+kube-linter,required-annotation-email,Rojan,hygiene,Required ownership annotations concern configuration metadata quality.
+kube-linter,required-label-owner,Rojan,hygiene,Owner labels support configuration accountability and maintenance.
+kube-linter,restart-policy,Rojan,hygiene,Restart policy concerns workload execution configuration.
+kube-linter,run-as-non-root,Rojan,security,Running as root increases container privileges.
+kube-linter,schema-validation,Rojan,hygiene,Schema validation checks manifest structural correctness.
+kube-linter,sensitive-host-mounts,Rojan,security,Mounting sensitive host paths increases host compromise risk.
+kube-linter,sorted-keys,Rojan,hygiene,Consistent key ordering concerns manifest maintainability.
+kube-linter,unset-cpu-requirements,Rojan,resource,Missing CPU requests or limits impairs resource allocation.
+kube-linter,unset-memory-requirements,Rojan,resource,Missing memory requests or limits impairs resource allocation.
+kube-linter,use-namespace,Rojan,hygiene,Explicit namespace configuration supports manifest clarity.
+kube-linter,wildcard-in-rules,Rojan,security,Wildcard RBAC rules can grant overly broad permissions.
+kube-score,container-ephemeral-storage-request-and-limit,Rojan,resource,Ephemeral storage requests and limits govern resource consumption.
+kube-score,container-image-pull-policy,Rojan,image,Image pull policy controls container image retrieval behavior.
+kube-score,container-image-tag,Rojan,image,Image tagging affects image version stability and reproducibility.
+kube-score,container-resources,Rojan,resource,Container resource requests and limits govern allocation.
+kube-score,container-security-context-readonlyrootfilesystem,Rojan,security,Read-only root filesystems reduce container attack surface.
+kube-score,container-security-context-user-group-id,Rojan,security,User and group IDs control container execution privileges.
+kube-score,cronjob-has-deadline,Rojan,hygiene,CronJob deadlines govern scheduled job execution behavior.
+kube-score,cronjob-restartpolicy,Rojan,hygiene,CronJob restart policy concerns job configuration correctness.
+kube-score,deployment-has-host-podantiaffinity,Rojan,resource,Pod anti-affinity distributes replicas for availability.
+kube-score,deployment-has-poddisruptionbudget,Rojan,resource,PodDisruptionBudgets protect replica availability during disruptions.
+kube-score,deployment-pod-selector-labels-match-template-metadata-labels,Rojan,hygiene,Matching selector labels are required for correct Deployment targeting.
+kube-score,deployment-replicas,Rojan,resource,Replica count determines workload capacity and availability.
+kube-score,deployment-strategy,Rojan,hygiene,Deployment strategy controls rollout behavior.
+kube-score,horizontalpodautoscaler-replicas,Rojan,resource,Autoscaler replica settings govern workload capacity.
+kube-score,networkpolicy-targets-pod,Rojan,hygiene,A NetworkPolicy that matches no Pods may be ineffective configuration.
+kube-score,pod-networkpolicy,Rojan,security,NetworkPolicies restrict Pod network access.
+kube-score,pod-probes,Rojan,hygiene,Health probes support workload operational correctness.
+kube-score,pod-probes-identical,Rojan,hygiene,Identical probes can indicate poorly differentiated health checks.
+kube-score,service-targets-pod,Rojan,hygiene,A Service selector that matches no Pods is ineffective.
+kube-score,service-type,Rojan,security,Service type can affect workload network exposure.
+kube-score,statefulset-has-servicename,Rojan,hygiene,StatefulSet serviceName is required for stable network identity.
