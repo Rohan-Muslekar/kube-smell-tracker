@@ -24,11 +24,11 @@ RoleBinding	tekton-pipelines	tekton-pipelines-events-controller	config/201-roleb
 RoleBinding	tekton-pipelines	tekton-events-controller-leaderelection	config/201-rolebinding.yaml
 CustomResourceDefinition		clustertasks.tekton.dev	config/300-clustertask.yaml
 CustomResourceDefinition		customruns.tekton.dev	config/300-customrun.yaml
-CustomResourceDefinition		pipelineruns.tekton.dev	config/300-pipelinerun.yaml
 CustomResourceDefinition		pipelines.tekton.dev	config/300-pipeline.yaml
+CustomResourceDefinition		pipelineruns.tekton.dev	config/300-pipelinerun.yaml
 CustomResourceDefinition		resolutionrequests.resolution.tekton.dev	config/300-resolutionrequest.yaml
-CustomResourceDefinition		taskruns.tekton.dev	config/300-taskrun.yaml
 CustomResourceDefinition		tasks.tekton.dev	config/300-task.yaml
+CustomResourceDefinition		taskruns.tekton.dev	config/300-taskrun.yaml
 CustomResourceDefinition		verificationpolicies.tekton.dev	config/300-verificationpolicy.yaml
 Secret	tekton-pipelines	webhook-certs	config/500-webhooks.yaml
 ValidatingWebhookConfiguration		validation.webhook.pipeline.tekton.dev	config/500-webhooks.yaml

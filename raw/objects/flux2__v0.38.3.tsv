@@ -1,94 +1,115 @@
-ServiceAccount		helm-controller	manifests/bases/helm-controller/account.yaml
-LabelTransformer		labels	manifests/bases/helm-controller/labels.yaml
-ServiceAccount		image-automation-controller	manifests/bases/image-automation-controller/account.yaml
-LabelTransformer		labels	manifests/bases/image-automation-controller/labels.yaml
-ServiceAccount		image-reflector-controller	manifests/bases/image-reflector-controller/account.yaml
-LabelTransformer		labels	manifests/bases/image-reflector-controller/labels.yaml
-ServiceAccount		kustomize-controller	manifests/bases/kustomize-controller/account.yaml
-LabelTransformer		labels	manifests/bases/kustomize-controller/labels.yaml
-ServiceAccount		notification-controller	manifests/bases/notification-controller/account.yaml
-LabelTransformer		labels	manifests/bases/notification-controller/labels.yaml
-ServiceAccount		source-controller	manifests/bases/source-controller/account.yaml
-LabelTransformer		labels	manifests/bases/source-controller/labels.yaml
-LabelTransformer		labels	manifests/install/labels.yaml
-Namespace		flux-system	manifests/install/namespace.yaml
-AzureIdentity	flux-system	lab	manifests/integrations/eventhub-credentials-sync/azure/az-identity.yaml
-AzureIdentityBinding	flux-system	lab	manifests/integrations/eventhub-credentials-sync/azure/az-identity.yaml
-ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/azure/config-patches.yaml
-AzureIdentity	flux-system	lab	manifests/integrations/eventhub-credentials-sync/azure/config-patches.yaml
-Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/azure/config-patches.yaml
-Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/azure/reconcile-patch.yaml
-Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/kubectl-patch.yaml
-ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
-Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
-Role	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
-RoleBinding	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
-ServiceAccount	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_base/sync.yaml
-AzureIdentity	flux-system	lab	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/az-identity.yaml
-AzureIdentityBinding	flux-system	lab	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/az-identity.yaml
-ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/config-patches.yaml
-AzureIdentity	flux-system	lab	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/config-patches.yaml
-CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/config-patches.yaml
-CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/azure/reconcile-patch.yaml
-CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/kubectl-patch.yaml
-ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
-CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
-Role	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
-RoleBinding	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
-ServiceAccount	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/_base/sync.yaml
-ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/config-patches.yaml
-CronJob	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/reconcile-patch.yaml
-Secret	flux-system	azure-credentials	manifests/integrations/eventhub-credentials-sync/_cronjobs/generic/secret-azure-credentials.yaml
-ConfigMap		credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/generic/config-patches.yaml
-Deployment	flux-system	credentials-sync-eventhub	manifests/integrations/eventhub-credentials-sync/generic/reconcile-patch.yaml
-Secret	flux-system	azure-credentials	manifests/integrations/eventhub-credentials-sync/generic/secret-azure-credentials.yaml
-ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/aws/config-patches.yaml
-ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/aws/config-patches.yaml
-Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/aws/reconcile-patch.yaml
-AzureIdentity	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/az-identity.yaml
-AzureIdentityBinding	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/az-identity.yaml
-ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/azure/config-patches.yaml
-AzureIdentity	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/config-patches.yaml
-Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/config-patches.yaml
-Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/azure/reconcile-patch.yaml
-Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/kubectl-patch.yaml
-ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
-Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
-Role	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
-RoleBinding	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
-ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_base/sync.yaml
-ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/aws/config-patches.yaml
-ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/aws/config-patches.yaml
-CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/aws/config-patches.yaml
-CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/aws/reconcile-patch.yaml
-AzureIdentity	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/az-identity.yaml
-AzureIdentityBinding	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/az-identity.yaml
-ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/config-patches.yaml
-AzureIdentity	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/config-patches.yaml
-CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/config-patches.yaml
-CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/azure/reconcile-patch.yaml
-CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/kubectl-patch.yaml
-ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
-CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
-Role	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
-RoleBinding	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
-ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/_base/sync.yaml
-ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/config-patches.yaml
-ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/config-patches.yaml
-CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/config-patches.yaml
-CronJob	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/_cronjobs/gcp/reconcile-patch.yaml
-ConfigMap		credentials-sync	manifests/integrations/registry-credentials-sync/gcp/config-patches.yaml
-ServiceAccount	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/gcp/config-patches.yaml
-Deployment	flux-system	credentials-sync	manifests/integrations/registry-credentials-sync/gcp/reconcile-patch.yaml
-Namespace		monitoring	manifests/monitoring/kube-prometheus-stack/namespace.yaml
-HelmRelease		kube-prometheus-stack	manifests/monitoring/kube-prometheus-stack/release.yaml
-HelmRepository		prometheus-community	manifests/monitoring/kube-prometheus-stack/repository.yaml
-HelmRelease		loki-stack	manifests/monitoring/loki-stack/release.yaml
-HelmRepository		grafana-charts	manifests/monitoring/loki-stack/repository.yaml
-PodMonitor	flux-system	flux-system	manifests/monitoring/monitoring-config/podmonitor.yaml
-NetworkPolicy		allow-egress	manifests/policies/allow-egress.yaml
-NetworkPolicy		allow-scraping	manifests/policies/allow-scraping.yaml
-NetworkPolicy		allow-webhooks	manifests/policies/allow-webhooks.yaml
-ClusterRole		crd-controller	manifests/rbac/controller.yaml
-ClusterRoleBinding		crd-controller	manifests/rbac/controller.yaml
-ClusterRoleBinding		cluster-reconciler	manifests/rbac/reconciler.yaml
+CustomResourceDefinition		alerts.notification.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		buckets.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		gitrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		helmcharts.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		helmreleases.helm.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		helmrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		imagepolicies.image.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		imagerepositories.image.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		imageupdateautomations.image.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		kustomizations.kustomize.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		ocirepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		providers.notification.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+CustomResourceDefinition		receivers.notification.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__crds.yaml
+Namespace		flux-system	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		alerts.notification.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		buckets.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		gitrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		helmcharts.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		helmreleases.helm.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		helmrepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		imagepolicies.image.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		imagerepositories.image.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		imageupdateautomations.image.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		kustomizations.kustomize.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		ocirepositories.source.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		providers.notification.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+CustomResourceDefinition		receivers.notification.toolkit.fluxcd.io	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ServiceAccount	flux-system	helm-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ServiceAccount	flux-system	image-automation-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ServiceAccount	flux-system	image-reflector-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ServiceAccount	flux-system	kustomize-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ServiceAccount	flux-system	notification-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ServiceAccount	flux-system	source-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ClusterRole		crd-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ClusterRoleBinding		cluster-reconciler	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ClusterRoleBinding		crd-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Service	flux-system	notification-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Service	flux-system	source-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Service	flux-system	webhook-receiver	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Deployment	flux-system	helm-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Deployment	flux-system	image-automation-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Deployment	flux-system	image-reflector-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Deployment	flux-system	kustomize-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Deployment	flux-system	notification-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+Deployment	flux-system	source-controller	work/rendered/flux2__v0.38.3/manifests__install.yaml
+NetworkPolicy	flux-system	allow-egress	work/rendered/flux2__v0.38.3/manifests__install.yaml
+NetworkPolicy	flux-system	allow-scraping	work/rendered/flux2__v0.38.3/manifests__install.yaml
+NetworkPolicy	flux-system	allow-webhooks	work/rendered/flux2__v0.38.3/manifests__install.yaml
+ServiceAccount	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__azure.yaml
+Role	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__azure.yaml
+RoleBinding	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__azure.yaml
+ConfigMap	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__azure.yaml
+CronJob	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__azure.yaml
+AzureIdentity	flux-system	jwt-lab	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__azure.yaml
+AzureIdentityBinding	flux-system	jwt-lab	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__azure.yaml
+ServiceAccount	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__generic.yaml
+Role	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__generic.yaml
+RoleBinding	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__generic.yaml
+ConfigMap	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__generic.yaml
+Secret	flux-system	jwt-azure-credentials	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__generic.yaml
+CronJob	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync___cronjobs__generic.yaml
+ServiceAccount	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__azure.yaml
+Role	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__azure.yaml
+RoleBinding	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__azure.yaml
+ConfigMap	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__azure.yaml
+Deployment	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__azure.yaml
+AzureIdentity	flux-system	jwt-lab	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__azure.yaml
+AzureIdentityBinding	flux-system	jwt-lab	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__azure.yaml
+ServiceAccount	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__generic.yaml
+Role	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__generic.yaml
+RoleBinding	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__generic.yaml
+ConfigMap	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__generic.yaml
+Secret	flux-system	jwt-azure-credentials	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__generic.yaml
+Deployment	flux-system	jwt-credentials-sync-eventhub	work/rendered/flux2__v0.38.3/manifests__integrations__eventhub-credentials-sync__generic.yaml
+ServiceAccount	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__aws.yaml
+Role	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__aws.yaml
+RoleBinding	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__aws.yaml
+ConfigMap	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__aws.yaml
+CronJob	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__aws.yaml
+ServiceAccount	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__azure.yaml
+Role	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__azure.yaml
+RoleBinding	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__azure.yaml
+ConfigMap	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__azure.yaml
+CronJob	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__azure.yaml
+AzureIdentity	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__azure.yaml
+AzureIdentityBinding	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__azure.yaml
+ServiceAccount	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__gcp.yaml
+Role	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__gcp.yaml
+RoleBinding	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__gcp.yaml
+ConfigMap	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__gcp.yaml
+CronJob	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync___cronjobs__gcp.yaml
+ServiceAccount	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__aws.yaml
+Role	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__aws.yaml
+RoleBinding	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__aws.yaml
+ConfigMap	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__aws.yaml
+Deployment	flux-system	ecr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__aws.yaml
+ServiceAccount	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__azure.yaml
+Role	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__azure.yaml
+RoleBinding	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__azure.yaml
+ConfigMap	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__azure.yaml
+Deployment	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__azure.yaml
+AzureIdentity	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__azure.yaml
+AzureIdentityBinding	flux-system	acr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__azure.yaml
+ServiceAccount	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__gcp.yaml
+Role	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__gcp.yaml
+RoleBinding	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__gcp.yaml
+ConfigMap	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__gcp.yaml
+Deployment	flux-system	gcr-credentials-sync	work/rendered/flux2__v0.38.3/manifests__integrations__registry-credentials-sync__gcp.yaml
+Namespace		monitoring	work/rendered/flux2__v0.38.3/manifests__monitoring__kube-prometheus-stack.yaml
+HelmRelease	monitoring	kube-prometheus-stack	work/rendered/flux2__v0.38.3/manifests__monitoring__kube-prometheus-stack.yaml
+HelmRepository	monitoring	prometheus-community	work/rendered/flux2__v0.38.3/manifests__monitoring__kube-prometheus-stack.yaml
+HelmRelease	monitoring	loki-stack	work/rendered/flux2__v0.38.3/manifests__monitoring__loki-stack.yaml
+HelmRepository	monitoring	grafana-charts	work/rendered/flux2__v0.38.3/manifests__monitoring__loki-stack.yaml
+ConfigMap	monitoring	flux-grafana-dashboards-g2km27mbhh	work/rendered/flux2__v0.38.3/manifests__monitoring__monitoring-config.yaml
+PodMonitor	monitoring	flux-system	work/rendered/flux2__v0.38.3/manifests__monitoring__monitoring-config.yaml
