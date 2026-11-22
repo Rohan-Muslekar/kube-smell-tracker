@@ -87,3 +87,17 @@ macro prefixed by `R`:
 ```bash
 python3 scripts/report_numbers.py --out /tmp/rn && sed 's/\\newcommand{\\/\\newcommand{\\R/' /tmp/rn/numbers.tex > rnumbers.tex
 ```
+
+istio objects that sit in more than one Bookinfo variant file (14 of 33, over all tags):
+
+```bash
+python3 - <<'EOF'
+import csv, glob
+from collections import defaultdict
+files = defaultdict(set)
+for p in glob.glob('raw/objects/istio__*.tsv'):
+    for row in csv.reader(open(p), delimiter='\t'):
+        files[tuple(row[:3])].add(row[3])
+print(sum(len(f) > 1 for f in files.values()), 'of', len(files), 'objects sit in more than one file')
+EOF
+```
