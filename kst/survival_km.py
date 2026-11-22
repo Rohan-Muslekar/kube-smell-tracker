@@ -60,6 +60,56 @@ def curves(instances, dates, group, event="removal"):
             for point in kaplan_meier(obs)]
 
 
+CIF_FIELDS = ["group", "time_days", "at_risk", "fixes", "deletions", "censored", "cif_fix",
+              "cif_deletion"]
+
+
+def cumulative_incidence(observations):
+    """Aalen-Johansen cumulative incidence for two competing causes.
+
+    `observations` are (duration_days, cause) with cause "fix", "deletion" or None (censored).
+    Unlike the fix-event Kaplan-Meier curve, a deletion is not censored: it removes the
+    instance from risk as a competing event, so cif_fix is the share fixed by time t."""
+    counts = defaultdict(Counter)
+    for duration, cause in observations:
+        if duration < 0:
+            raise ValueError("Negative follow-up duration")
+        counts[duration][cause or "censored"] += 1
+    risk, survival, cif, points = len(observations), 1.0, Counter(), []
+    for duration, c in sorted(counts.items()):
+        for cause in ("fix", "deletion"):
+            cif[cause] += survival * c[cause] / risk
+        survival *= 1 - (c["fix"] + c["deletion"]) / risk
+        points.append(dict(time_days=duration, at_risk=risk, fixes=c["fix"],
+                           deletions=c["deletion"], censored=c["censored"],
+                           cif_fix=cif["fix"], cif_deletion=cif["deletion"]))
+        risk -= sum(c.values())
+    return points
+
+
+def incidence_curves(instances, dates, group):
+    """Cumulative incidence of fix vs deletion per group. Analyzer artifacts are censored."""
+    observations = defaultdict(list)
+    for row in instances:
+        if row["category"] == "other":
+            continue
+        history, days = row["presence"], dates[row["repo"]]
+        if len(history) != len(days) or "1" not in history:
+            raise ValueError(f"Invalid presence/date alignment for {row['repo']}")
+        first = history.index("1")
+        removed = history.find("0", first)
+        end = removed if removed != -1 else len(history) - 1
+        cause = None
+        if removed != -1:
+            if is_fix(row):
+                cause = "fix"
+            elif int(row.get("removed_object_gone") or 0):
+                cause = "deletion"
+        observations[row[group]].append(((days[end] - days[first]).days, cause))
+    return [dict(group=name, **point) for name, obs in sorted(observations.items())
+            for point in cumulative_incidence(obs)]
+
+
 def read_csv(path):
     with Path(path).open(newline="", encoding="utf-8") as stream:
         return list(csv.DictReader(stream))
@@ -82,6 +132,11 @@ def write_curves(instances, data, out):
             writer = csv.DictWriter(stream, fieldnames=FIELDS, lineterminator="\n")
             writer.writeheader()
             writer.writerows(points)
+    points = incidence_curves(instances, dates, "category")
+    with (Path(out) / "cif_by_category.csv").open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.DictWriter(stream, fieldnames=CIF_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(points)
 
 
 def main():

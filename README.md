@@ -176,6 +176,7 @@ Collection with rendering requires `kubectl` and PyYAML 6.0.3. Offline analysis 
 | `unmapped_checks.txt` | checks missing from the category map; must be empty, otherwise `python3 -m kst` exits non-zero |
 | `km_by_category.csv`, `km_by_system.csv` | Kaplan–Meier curve points (group, time_days, at_risk, events, censored, survival); the event is the first removal of any kind, instances present at the last tag are censored (`kst/survival_km.py`) |
 | `km_fix_by_category.csv`, `km_fix_by_system.csv` | the same with a fix as the event: removals by object deletion and the kube-score gRPC-probe artifact are censored where they happen |
+| `cif_by_category.csv` | cumulative incidence per category with fix and deletion as competing events (Aalen-Johansen); the gRPC-probe artifact is censored |
 
 `data/spot_check.csv` holds the manual check of 20 instances. They are drawn by
 `scripts/sample_spot_check.py` with seed 5570: 5 each of persisted, fixed, object deleted and

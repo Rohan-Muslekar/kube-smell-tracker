@@ -34,3 +34,10 @@ def test_a_check_missing_from_the_sheet_is_an_error():
         assert "kube-linter" in str(error)
     else:
         raise AssertionError("expected KeyError")
+
+
+def test_fixes_count_only_instances_present_at_the_first_tag():
+    rows = [inst("a", removed="1"), inst("a", removed="1", baseline="0")]
+    labels = {("kube-linter", "a"): "security"}
+    assert category_sensitivity.fixes_by_category(rows, labels) == {
+        "security": {"baseline": 1, "fixes": 1}}
