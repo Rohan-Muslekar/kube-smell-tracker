@@ -101,3 +101,33 @@ for p in glob.glob('raw/objects/istio__*.tsv'):
 print(sum(len(f) > 1 for f in files.values()), 'of', len(files), 'objects sit in more than one file')
 EOF
 ```
+
+## Other report numbers
+
+Deletions outside flux2 and serving (0 of 34 removals):
+
+```bash
+python3 -c "
+import csv
+rows = [r for r in csv.DictReader(open('out/instances.csv'))
+        if r['repo'] not in ('flux2', 'serving') and r['category'] != 'other']
+print(sum(int(r['removed_object_gone'] or 0) for r in rows), 'of',
+      sum(int(r['removed'] or 0) for r in rows), 'removals are deletions')"
+```
+
+Longest follow-up of the Kaplan-Meier curves (1430 days, 3.9 years):
+
+```bash
+python3 -c "
+import csv
+print(max(int(r['time_days']) for r in csv.DictReader(open('out/km_by_category.csv'))), 'days')"
+```
+
+Judged rows on the E4 recode sheet (17 of 20; object_deleted rows give the answer away):
+
+```bash
+python3 -c "
+import csv
+rows = list(csv.DictReader(open('data/rq3_recode_sheet.csv')))
+print(sum(r['transition'] != 'object_deleted' for r in rows), 'of', len(rows), 'judged rows')"
+```

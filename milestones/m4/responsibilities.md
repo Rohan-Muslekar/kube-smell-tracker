@@ -1,7 +1,7 @@
 # Milestone 4 and Final: Responsibilities (Group 4)
 
 **Covers:** everything from now to the final report.
-**Key dates:** Milestone 4 report due Nov 20 (Rohan submits). Presentation on Nov 27 or Dec 4
+**Key dates:** Milestone 4 report due Nov 20 per the syllabus (Nov 22 in the group chat; Rohan submits). Presentation on Nov 27 or Dec 4
 (our assigned slot). Final report and reproducibility artifact due **Dec 11, 11:59 p.m.**
 
 Read sections 1 to 4 first, then your own task in section 6. Ask in the group chat if anything
