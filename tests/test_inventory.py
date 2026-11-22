@@ -1,4 +1,6 @@
-from kst.inventory import objects
+from pathlib import Path
+
+from kst.inventory import main, objects
 
 
 def test_single_object_without_namespace():
@@ -26,3 +28,14 @@ def test_list_kind_items_are_not_parsed():
 def test_stray_namespace_on_cluster_scoped_object_is_dropped():
     text = "kind: ClusterRoleBinding\nmetadata:\n  name: resolvers\n  namespace: tekton-pipelines\n"
     assert objects(text) == [("ClusterRoleBinding", "", "resolvers")]
+
+def test_inventory_uses_relative_paths(capsys):
+    """Absolute project paths must be stored as relative paths."""
+    project_root = Path(__file__).resolve().parent.parent
+    manifest = project_root / "tests" / "fixtures" / "kustomize" / "standalone.yaml"
+
+    main([str(manifest)])
+
+    output = capsys.readouterr().out
+    assert "tests/fixtures/kustomize/standalone.yaml" in output
+    assert str(project_root) not in output

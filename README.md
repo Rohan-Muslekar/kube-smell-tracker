@@ -129,20 +129,26 @@ git tag `milestone-2-data`. `data/repos.json` is the record of the tags used. Th
 
 1. **Collect** (`scripts/collect.sh`) does the following for each repo and tag:
    - checks out the tag
-   - keeps the YAML files under the manifest path that are plain Kubernetes objects (`kst/manifests.py`). It skips kustomization files, Helm-templated files and non-Kubernetes YAML, and logs every skipped file to `raw/skipped_files.txt`.
+   - discovers Kubernetes YAML files under the configured manifest paths. By default (`RENDER=1`), Kustomize configurations are rendered before linting. Consumed source files and unreferenced YAML files inside successfully rendered Kustomization directories are excluded from separate analysis. With `RENDER=0`, the previous plain-manifest collection behavior is used. Skipped files and their reasons are logged to `raw/skipped_files.txt`.
    - lists the objects defined in the kept files (`raw/objects/`)
    - runs both analyzers (`scripts/analyze.sh`, writing `raw/kube-linter/`, `raw/kube-score/`)
    - lints each file alone to find files kube-linter cannot load (unparseable YAML, `kind: List`), which it otherwise skips silently, and logs them to `raw/load_failures.tsv`
 
    A tag is invalid when either analyzer's stdout is empty or not a JSON array or object (`kst/validate.py`; kube-score prints nothing when it crashes), or when no manifests remain. Invalid tags are left out of tracking, so a crashed run does not look like removed smells. All 123 tags are valid.
 
-**Optional Kustomize rendering (`RENDER=1`):**
+**Kustomize rendering (enabled by default, `RENDER=1`):**
 
-When enabled, the collection script discovers top-level Kustomize configurations under the selected manifest paths and renders them using `kubectl kustomize`. The rendered Kubernetes manifests are saved under `work/rendered/<repo>__<tag>/` and included in the analysis pipeline. Source files consumed by successfully rendered Kustomizations, including bases and patches, are excluded from separate analysis to avoid double counting. Unconsumed plain Kubernetes YAML files continue to be analyzed normally.
+Collection renders top-level Kustomize configurations using `kubectl kustomize` by default. Rendered manifests are saved under `work/rendered/<repo>__<tag>/` and included in the analysis pipeline.
 
-If rendering fails, the error is recorded in `raw/skipped_files.txt` and the affected version is marked invalid so that incomplete results are not included in lifecycle tracking. The default collection behavior remains unchanged when `RENDER` is not enabled.
+Source YAML files consumed by a successfully rendered Kustomization are excluded from separate linting to avoid double counting. Unreferenced YAML files inside successfully rendered Kustomization directories are also excluded.
 
-Kustomize rendering requires `kubectl` to be available in the environment.
+Skipped files and their reasons are recorded in `raw/skipped_files.txt`, including `consumed by a kustomization` and `not referenced by kustomization`.
+
+If rendering fails, the error is recorded in `raw/skipped_files.txt` and the affected version is marked invalid to prevent incomplete results from entering lifecycle tracking.
+
+Set `RENDER=0` to disable rendering and use the previous collection behavior, for example: `RENDER=0 make collect`.
+
+Collection with rendering requires `kubectl` and PyYAML 6.0.3. Offline analysis with `python3 -m kst` uses only the Python standard library.
 
 2. **Normalize** (`kst/normalize.py`) produces one finding per analyzer report:
    - kube-score checks count when graded below 10 and not skipped

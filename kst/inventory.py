@@ -9,6 +9,7 @@ parser (the pipeline is standard library only). It reads `kind:` at column 0 and
 """
 import re
 import sys
+from pathlib import Path
 
 DOC_SPLIT = re.compile(r"^---\s*$", re.M)
 TOP_KEY = re.compile(r"^([A-Za-z]\w*):\s*(.*?)\s*$")
@@ -58,10 +59,21 @@ def objects(text):
 
 
 def main(paths):
+    """List objects and store file paths relative to the project root."""
+    project_root = Path(__file__).resolve().parent.parent
+
     for path in paths:
         with open(path, errors="replace") as f:
             for kind, namespace, name in objects(f.read()):
-                print(f"{kind}\t{namespace}\t{name}\t{path}")
+                file_path = Path(path)
+
+                if file_path.is_absolute():
+                    try:
+                        file_path = file_path.relative_to(project_root)
+                    except ValueError:
+                        pass
+
+                print(f"{kind}\t{namespace}\t{name}\t{file_path}")
 
 
 if __name__ == "__main__":
