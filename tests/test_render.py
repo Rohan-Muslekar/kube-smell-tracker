@@ -128,3 +128,58 @@ def test_unreferenced_yaml_is_excluded(tmp_path):
 
     # Unreferenced YAML must be excluded.
     assert "standalone.yaml" not in files
+
+
+def _write(path, text):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+
+
+DEPLOYMENT = """apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {name}
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.27
+"""
+
+
+def _two_directory_repo(root):
+    """app/ is a kustomization that leaves unused.yaml out; plain/ has no kustomization."""
+    _write(root / "app" / "kustomization.yaml", "resources:\n  - deployment.yaml\n")
+    _write(root / "app" / "deployment.yaml", DEPLOYMENT.format(name="app"))
+    _write(root / "app" / "unused.yaml", DEPLOYMENT.format(name="unused"))
+    _write(root / "plain" / "service.yaml", DEPLOYMENT.format(name="plain"))
+    _write(root / "plain" / "values.yaml", "replicas: 3\n")
+    return root
+
+
+def test_plain_yaml_outside_a_kustomization_is_kept(tmp_path):
+    """Only files under a rendered kustomization's directory are dropped."""
+    repo = _two_directory_repo(tmp_path / "repo")
+
+    files, failures = build_analysis_file_list(repo, ["."], tmp_path / "rendered")
+
+    assert failures == []
+    assert "plain/service.yaml" in files
+    assert "app/unused.yaml" not in files
+    assert [Path(f).name for f in files if Path(f).is_absolute()] == ["app.yaml"]
+
+
+def test_every_dropped_file_has_a_reason(tmp_path, capsys):
+    """Each file that is not linted is reported as `path<TAB>reason`, like kst.manifests."""
+    repo = _two_directory_repo(tmp_path / "repo")
+
+    build_analysis_file_list(repo, ["."], tmp_path / "rendered")
+
+    reasons = dict(line.split("\t", 1) for line in capsys.readouterr().err.splitlines())
+    assert reasons == {
+        "app/deployment.yaml": "consumed by a kustomization",
+        "app/kustomization.yaml": "consumed by a kustomization",
+        "app/unused.yaml": "not referenced by kustomization",
+        "plain/values.yaml": "not a k8s object",
+    }

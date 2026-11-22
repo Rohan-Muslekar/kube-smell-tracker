@@ -213,6 +213,11 @@ def render_kustomizations(repo_path, manifest_paths, output_dir):
             failures.append((str(relative), str(exc)))
 
     return rendered, consumed, failures
+def log_skip(path, reason):
+    """Report a file that is not linted, in the `path<TAB>reason` format of kst.manifests."""
+    print(f"{path}\t{reason}", file=sys.stderr)
+
+
 def build_analysis_file_list(repo_path, manifest_paths, output_dir):
     """Return rendered manifests and unconsumed plain YAML files."""
     from .manifests import skip_reason
@@ -223,7 +228,8 @@ def build_analysis_file_list(repo_path, manifest_paths, output_dir):
         repo_path, manifest_paths, output_dir
     )
 
-# Identify directories with successfully rendered Kustomizations.
+    # Directories whose kustomization rendered; YAML under them that the render did not
+    # consume is not deployed, so it is not linted either.
     failed_directories = {
         (repo_path / directory).resolve()
         for directory, _ in failures
@@ -252,28 +258,23 @@ def build_analysis_file_list(repo_path, manifest_paths, output_dir):
                 continue
 
             if path.resolve() in consumed:
-                print(
-                    f"consumed by a kustomization: {path.relative_to(repo_path)}",
-                    file=sys.stderr,
-                )
+                log_skip(path.relative_to(repo_path), "consumed by a kustomization")
                 continue
-
-            # Exclude unreferenced YAML inside a rendered Kustomization.
 
             if any(
                 path.resolve().is_relative_to(directory)
                 for directory in rendered_directories
             ):
-                print(
-                    f"not referenced by kustomization: {path.relative_to(repo_path)}",
-                    file=sys.stderr,
-                )
+                log_skip(path.relative_to(repo_path), "not referenced by kustomization")
                 continue
 
             text = path.read_text(encoding="utf-8", errors="replace")
+            reason = skip_reason(str(path), text)
 
-            if skip_reason(str(path), text) is None:
+            if reason is None:
                 plain_files.append(str(path.relative_to(repo_path)))
+            else:
+                log_skip(path.relative_to(repo_path), reason)
 
     return sorted(set(plain_files)) + [str(path) for path in rendered], failures
 
@@ -287,16 +288,17 @@ def main():
     args = parser.parse_args()
 
     files, failures = build_analysis_file_list(
-    args.repo_path,
-    args.manifest_path,
-    args.output_dir,
-)
+        args.repo_path,
+        args.manifest_path,
+        args.output_dir,
+    )
 
     for path in files:
         print(path)
 
     for directory, error in failures:
-       print(f"render failed: {directory}: {error}", file=sys.stderr)
+        # kubectl errors span several lines; keep one line per failure in skipped_files.txt.
+        log_skip(directory, "render failed: " + " ".join(error.split()))
 
     return 0 if not failures else 1
 
