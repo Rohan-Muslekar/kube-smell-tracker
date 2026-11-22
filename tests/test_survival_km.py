@@ -32,3 +32,17 @@ def test_empty_and_all_events():
 def test_alignment_error():
     with pytest.raises(ValueError):
         curves([dict(repo="r", category="image", presence="11")], {"r": [date.today()]}, "category")
+
+
+def test_fix_curve_censors_deletions():
+    # A removal by object deletion is not a fix: for the fix curve it is censored at that
+    # tag, so only the instance whose object stayed counts as an event.
+    dates = {"r": [date(2020, 1, 1) + timedelta(days=i) for i in range(3)]}
+    rows = [dict(repo="r", category="security", presence="110", removed="1", removed_object_gone="1"),
+            dict(repo="r", category="security", presence="110", removed="1", removed_object_gone="0"),
+            dict(repo="r", category="security", presence="111", removed="0", removed_object_gone="0")]
+    any_removal = curves(rows, dates, "repo")
+    fix_only = curves(rows, dates, "repo", event="fix")
+    assert [(p["time_days"], p["events"], p["censored"]) for p in any_removal] == [(2, 2, 1)]
+    assert [(p["time_days"], p["events"], p["censored"]) for p in fix_only] == [(2, 1, 2)]
+    assert fix_only[0]["survival"] == pytest.approx(2 / 3)

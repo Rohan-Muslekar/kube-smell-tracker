@@ -25,7 +25,23 @@ def kaplan_meier(observations):
     return points
 
 
-def curves(instances, dates, group):
+# Removals that are not fixes when event="fix": kube-score's gRPC-probe artifact (the same set
+# as ARTIFACT_CHECKS in scripts/summary.py) and removals where the object itself was deleted.
+ARTIFACT_CHECKS = {("kube-score", "pod-probes-identical")}
+
+
+def is_fix(row):
+    """True if the instance's removal left its object in place and is not a known artifact."""
+    if (row.get("tool"), row.get("check")) in ARTIFACT_CHECKS:
+        return False
+    return int(row.get("removed_object_gone") or 0) < int(row.get("removed") or 0)
+
+
+def curves(instances, dates, group, event="removal"):
+    """event="removal": any first removal is the event. event="fix": a deletion or an
+    analyzer artifact is censored at the tag where the smell disappears instead."""
+    if event not in ("removal", "fix"):
+        raise ValueError(f"Unknown event type: {event}")
     observations = defaultdict(list)
     for row in instances:
         if row["category"] == "other":
@@ -38,7 +54,8 @@ def curves(instances, dates, group):
         first = history.index("1")
         removed = history.find("0", first)
         end = removed if removed != -1 else len(history) - 1
-        observations[row[group]].append(((days[end] - days[first]).days, removed != -1))
+        happened = removed != -1 and (event == "removal" or is_fix(row))
+        observations[row[group]].append(((days[end] - days[first]).days, happened))
     return [dict(group=name, **point) for name, obs in sorted(observations.items())
             for point in kaplan_meier(obs)]
 
@@ -56,8 +73,11 @@ def write_curves(instances, data, out):
     for row in read_csv(Path(data) / "versions.csv"):
         if row["valid"] == "1":
             dates[row["repo"]].append(minor[(row["repo"], row["tag"])])
-    for field, filename in (("category", "km_by_category.csv"), ("repo", "km_by_system.csv")):
-        points = curves(instances, dates, field)
+    for field, event, filename in (("category", "removal", "km_by_category.csv"),
+                                   ("repo", "removal", "km_by_system.csv"),
+                                   ("category", "fix", "km_fix_by_category.csv"),
+                                   ("repo", "fix", "km_fix_by_system.csv")):
+        points = curves(instances, dates, field, event)
         with (Path(out) / filename).open("w", newline="", encoding="utf-8") as stream:
             writer = csv.DictWriter(stream, fieldnames=FIELDS, lineterminator="\n")
             writer.writeheader()
