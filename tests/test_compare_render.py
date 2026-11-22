@@ -46,3 +46,22 @@ def test_compares_stored_and_rendered_systems(tmp_path):
         ["quiet", "rendered"] + [""] * 10,
     ]
     assert [line.split("\t") for line in result.stdout.splitlines()] == rows
+
+
+def test_out_option_writes_where_asked(tmp_path):
+    script = Path(__file__).resolve().parents[1] / "scripts" / "compare_render.py"
+    for source in ("stored", "rendered"):
+        (tmp_path / source / "raw" / "objects").mkdir(parents=True)
+        (tmp_path / source / "out").mkdir()
+        (tmp_path / source / "out" / "instances.csv").write_text(
+            "repo,category,tool,check,presence,removed,removed_object_gone,reappeared\n")
+    target = tmp_path / "elsewhere" / "comparison.csv"
+
+    subprocess.run(
+        [sys.executable, str(script), "--stored", "stored", "--rendered", "rendered",
+         "--out", str(target)],
+        cwd=tmp_path, check=True, capture_output=True, text=True,
+    )
+
+    assert target.read_text().startswith("system,source,")
+    assert not (tmp_path / "results").exists()

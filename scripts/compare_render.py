@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compare stored and rendered Kubernetes smell results per system.
 
-Run from the directory where results/render_comparison.csv should be written.
+Writes results/render_comparison.csv (relative to the working directory) unless --out is given.
 Object-version observations sum distinct (kind, namespace, name) identities
 per inventory tag.
 Survival is first-tag instances still present at the final tag. Percentages are
@@ -60,6 +60,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--stored", type=Path, required=True)
     parser.add_argument("--rendered", type=Path, required=True)
+    parser.add_argument("--out", type=Path, default=Path("results/render_comparison.csv"),
+                        help="CSV to write (default: results/render_comparison.csv)")
     args = parser.parse_args()
 
     try:
@@ -68,8 +70,8 @@ def main():
     except (OSError, KeyError, ValueError) as exc:
         parser.error(str(exc))
 
-    output = Path("results/render_comparison.csv")
-    output.parent.mkdir(exist_ok=True)
+    output = args.out
+    output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", encoding="utf-8", newline="") as stream:
         writer = csv.writer(stream, lineterminator="\n")
         writer.writerow(("system", "source", *METRICS))
