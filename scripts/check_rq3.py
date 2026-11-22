@@ -33,6 +33,27 @@ def in_range(clone, sha, from_tag, to_tag):
     return ancestor(sha, to_tag) and not ancestor(sha, from_tag)
 
 
+def check_rows(rows, presence, tags, commit_in_range):
+    """Return (problems, absent) as lists of (csv line, text). `absent` holds rows whose
+    instance is not in out/ at all, e.g. a stored-manifest patch fragment after rendering."""
+    problems, absent = [], []
+    for n, r in enumerate(rows, start=2):
+        if r["transition"] not in CHANGE:
+            continue
+        key = (r["repo"], r["object_kind"], r["namespace"], r["object_name"], r["check"])
+        label = f"{r['repo']} {r['object_name']} {r['check']}"
+        if key not in presence:
+            absent.append((n, label))
+            continue
+        why = step_problem(presence[key], tags[r["repo"]], r["transition"], r["from_tag"], r["to_tag"])
+        sha = r["commit_url"].rstrip("/").split("/")[-1]
+        if why is None and not commit_in_range(r["repo"], sha, r["from_tag"], r["to_tag"]):
+            why = f"commit {sha[:9]} is not in {r['from_tag']}..{r['to_tag']}"
+        if why:
+            problems.append((n, f"{label}: {why}"))
+    return problems, absent
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--work", type=Path, default=ROOT / "work")
@@ -45,21 +66,16 @@ def main(argv=None):
     with open(ROOT / "out" / "instances.csv", newline="") as f:
         presence = {(r["repo"], r["kind"], r["namespace"], r["name"], r["check"]): r["presence"]
                     for r in csv.DictReader(f)}
-    problems = checked = 0
     with open(ROOT / "data" / "rq3_investigations.csv", newline="") as f:
-        for n, r in enumerate(csv.DictReader(f), start=2):
-            if r["transition"] not in CHANGE:
-                continue
-            checked += 1
-            key = (r["repo"], r["object_kind"], r["namespace"], r["object_name"], r["check"])
-            why = step_problem(presence[key], tags[r["repo"]], r["transition"], r["from_tag"], r["to_tag"])
-            sha = r["commit_url"].rstrip("/").split("/")[-1]
-            if why is None and not in_range(args.work / r["repo"], sha, r["from_tag"], r["to_tag"]):
-                why = f"commit {sha[:9]} is not in {r['from_tag']}..{r['to_tag']}"
-            if why:
-                problems += 1
-                print(f"line {n}: {r['repo']} {r['object_name']} {r['check']}: {why}")
-    print(f"{checked} transitions checked, {problems} problems")
+        rows = list(csv.DictReader(f))
+    problems, absent = check_rows(rows, presence, tags,
+                                  lambda repo, *rest: in_range(args.work / repo, *rest))
+    for n, why in problems:
+        print(f"line {n}: {why}")
+    for n, why in absent:
+        print(f"line {n}: {why} (not in out/; a stored-manifest object rendering removes?)")
+    checked = sum(r["transition"] in CHANGE for r in rows)
+    print(f"{checked} transitions checked, {len(problems)} problems, {len(absent)} not in this out/")
     return 1 if problems else 0
 
 
