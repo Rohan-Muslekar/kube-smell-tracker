@@ -14,7 +14,7 @@ argo-cd,kube-linter,no-readiness-probe,resource,Deployment,,argocd-applicationse
 argo-cd,kube-linter,no-rolling-update-strategy,resource,Deployment,,argocd-applicationset-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-annotation-email,other,Deployment,,argocd-applicationset-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-label-owner,other,Deployment,,argocd-applicationset-controller,1111111111111111,1,0,15,0,0,0,0,0
-argo-cd,kube-linter,restart-policy,other,Deployment,,argocd-applicationset-controller,1111111111111111,1,0,15,0,0,0,0,0
+argo-cd,kube-linter,restart-policy,resource,Deployment,,argocd-applicationset-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-cpu-requirements,resource,Deployment,,argocd-applicationset-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-memory-requirements,resource,Deployment,,argocd-applicationset-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,use-namespace,hygiene,Deployment,,argocd-applicationset-controller,1111111111111111,1,0,15,0,0,0,0,0
@@ -26,7 +26,7 @@ argo-cd,kube-linter,no-readiness-probe,resource,Deployment,,argocd-dex-server,11
 argo-cd,kube-linter,no-rolling-update-strategy,resource,Deployment,,argocd-dex-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-annotation-email,other,Deployment,,argocd-dex-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-label-owner,other,Deployment,,argocd-dex-server,1111111111111111,1,0,15,0,0,0,0,0
-argo-cd,kube-linter,restart-policy,other,Deployment,,argocd-dex-server,1111111111111111,1,0,15,0,0,0,0,0
+argo-cd,kube-linter,restart-policy,resource,Deployment,,argocd-dex-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-cpu-requirements,resource,Deployment,,argocd-dex-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-memory-requirements,resource,Deployment,,argocd-dex-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,use-namespace,hygiene,Deployment,,argocd-dex-server,1111111111111111,1,0,15,0,0,0,0,0
@@ -38,7 +38,7 @@ argo-cd,kube-linter,no-readiness-probe,resource,Deployment,,argocd-notifications
 argo-cd,kube-linter,no-rolling-update-strategy,resource,Deployment,,argocd-notifications-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-annotation-email,other,Deployment,,argocd-notifications-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-label-owner,other,Deployment,,argocd-notifications-controller,1111111111111111,1,0,15,0,0,0,0,0
-argo-cd,kube-linter,restart-policy,other,Deployment,,argocd-notifications-controller,1111111111111111,1,0,15,0,0,0,0,0
+argo-cd,kube-linter,restart-policy,resource,Deployment,,argocd-notifications-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-cpu-requirements,resource,Deployment,,argocd-notifications-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-memory-requirements,resource,Deployment,,argocd-notifications-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,use-namespace,hygiene,Deployment,,argocd-notifications-controller,1111111111111111,1,0,15,0,0,0,0,0
@@ -53,7 +53,7 @@ argo-cd,kube-linter,no-rolling-update-strategy,resource,Deployment,,argocd-redis
 argo-cd,kube-linter,read-secret-from-env-var,security,Deployment,,argocd-redis,0001111111111111,0,1,12,0,0,0,0,0
 argo-cd,kube-linter,required-annotation-email,other,Deployment,,argocd-redis,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-label-owner,other,Deployment,,argocd-redis,1111111111111111,1,0,15,0,0,0,0,0
-argo-cd,kube-linter,restart-policy,other,Deployment,,argocd-redis,1111111111111111,1,0,15,0,0,0,0,0
+argo-cd,kube-linter,restart-policy,resource,Deployment,,argocd-redis,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-cpu-requirements,resource,Deployment,,argocd-redis,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-memory-requirements,resource,Deployment,,argocd-redis,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,use-namespace,hygiene,Deployment,,argocd-redis,1111111111111111,1,0,15,0,0,0,0,0
@@ -65,7 +65,7 @@ argo-cd,kube-linter,no-rolling-update-strategy,resource,Deployment,,argocd-repo-
 argo-cd,kube-linter,read-secret-from-env-var,security,Deployment,,argocd-repo-server,0001111111111111,0,1,12,0,0,0,0,0
 argo-cd,kube-linter,required-annotation-email,other,Deployment,,argocd-repo-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-label-owner,other,Deployment,,argocd-repo-server,1111111111111111,1,0,15,0,0,0,0,0
-argo-cd,kube-linter,restart-policy,other,Deployment,,argocd-repo-server,1111111111111111,1,0,15,0,0,0,0,0
+argo-cd,kube-linter,restart-policy,resource,Deployment,,argocd-repo-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-cpu-requirements,resource,Deployment,,argocd-repo-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-memory-requirements,resource,Deployment,,argocd-repo-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,use-namespace,hygiene,Deployment,,argocd-repo-server,1111111111111111,1,0,15,0,0,0,0,0
@@ -77,7 +77,7 @@ argo-cd,kube-linter,no-rolling-update-strategy,resource,Deployment,,argocd-serve
 argo-cd,kube-linter,read-secret-from-env-var,security,Deployment,,argocd-server,0001111111111111,0,1,12,0,0,0,0,0
 argo-cd,kube-linter,required-annotation-email,other,Deployment,,argocd-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-label-owner,other,Deployment,,argocd-server,1111111111111111,1,0,15,0,0,0,0,0
-argo-cd,kube-linter,restart-policy,other,Deployment,,argocd-server,1111111111111111,1,0,15,0,0,0,0,0
+argo-cd,kube-linter,restart-policy,resource,Deployment,,argocd-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-cpu-requirements,resource,Deployment,,argocd-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-memory-requirements,resource,Deployment,,argocd-server,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,use-namespace,hygiene,Deployment,,argocd-server,1111111111111111,1,0,15,0,0,0,0,0
@@ -104,7 +104,7 @@ argo-cd,kube-linter,no-rolling-update-strategy,resource,StatefulSet,,argocd-appl
 argo-cd,kube-linter,read-secret-from-env-var,security,StatefulSet,,argocd-application-controller,0001111111111111,0,1,12,0,0,0,0,0
 argo-cd,kube-linter,required-annotation-email,other,StatefulSet,,argocd-application-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,required-label-owner,other,StatefulSet,,argocd-application-controller,1111111111111111,1,0,15,0,0,0,0,0
-argo-cd,kube-linter,restart-policy,other,StatefulSet,,argocd-application-controller,1111111111111111,1,0,15,0,0,0,0,0
+argo-cd,kube-linter,restart-policy,resource,StatefulSet,,argocd-application-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-cpu-requirements,resource,StatefulSet,,argocd-application-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,unset-memory-requirements,resource,StatefulSet,,argocd-application-controller,1111111111111111,1,0,15,0,0,0,0,0
 argo-cd,kube-linter,use-namespace,hygiene,StatefulSet,,argocd-application-controller,1111111111111111,1,0,15,0,0,0,0,0
@@ -175,7 +175,7 @@ flux2,kube-linter,no-read-only-root-fs,security,CronJob,flux-system,acr-credenti
 flux2,kube-linter,no-readiness-probe,resource,CronJob,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-annotation-email,other,CronJob,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-label-owner,other,CronJob,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
-flux2,kube-linter,restart-policy,other,CronJob,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
+flux2,kube-linter,restart-policy,resource,CronJob,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,run-as-non-root,security,CronJob,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-cpu-requirements,resource,CronJob,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-memory-requirements,resource,CronJob,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
@@ -187,7 +187,7 @@ flux2,kube-linter,no-read-only-root-fs,security,CronJob,flux-system,ecr-credenti
 flux2,kube-linter,no-readiness-probe,resource,CronJob,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-annotation-email,other,CronJob,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-label-owner,other,CronJob,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
-flux2,kube-linter,restart-policy,other,CronJob,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
+flux2,kube-linter,restart-policy,resource,CronJob,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,run-as-non-root,security,CronJob,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-cpu-requirements,resource,CronJob,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-memory-requirements,resource,CronJob,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
@@ -198,7 +198,7 @@ flux2,kube-linter,no-read-only-root-fs,security,CronJob,flux-system,gcr-credenti
 flux2,kube-linter,no-readiness-probe,resource,CronJob,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-annotation-email,other,CronJob,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-label-owner,other,CronJob,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
-flux2,kube-linter,restart-policy,other,CronJob,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
+flux2,kube-linter,restart-policy,resource,CronJob,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,run-as-non-root,security,CronJob,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-cpu-requirements,resource,CronJob,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-memory-requirements,resource,CronJob,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
@@ -211,7 +211,7 @@ flux2,kube-linter,no-readiness-probe,resource,CronJob,flux-system,jwt-credential
 flux2,kube-linter,read-secret-from-env-var,security,CronJob,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-annotation-email,other,CronJob,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-label-owner,other,CronJob,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
-flux2,kube-linter,restart-policy,other,CronJob,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
+flux2,kube-linter,restart-policy,resource,CronJob,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-cpu-requirements,resource,CronJob,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-memory-requirements,resource,CronJob,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,dnsconfig-options,other,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
@@ -224,7 +224,7 @@ flux2,kube-linter,no-readiness-probe,resource,Deployment,flux-system,acr-credent
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,run-as-non-root,security,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-cpu-requirements,resource,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-memory-requirements,resource,Deployment,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
@@ -238,7 +238,7 @@ flux2,kube-linter,no-readiness-probe,resource,Deployment,flux-system,ecr-credent
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,run-as-non-root,security,Deployment,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-cpu-requirements,resource,Deployment,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-memory-requirements,resource,Deployment,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
@@ -251,7 +251,7 @@ flux2,kube-linter,no-readiness-probe,resource,Deployment,flux-system,gcr-credent
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,run-as-non-root,security,Deployment,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-cpu-requirements,resource,Deployment,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-memory-requirements,resource,Deployment,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
@@ -261,21 +261,21 @@ flux2,kube-linter,no-node-affinity,other,Deployment,flux-system,helm-controller,
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,helm-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,helm-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,helm-controller,1111111111111111,1,0,15,0,0,0,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,helm-controller,1111111111111111,1,0,15,0,0,0,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,helm-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,dnsconfig-options,other,Deployment,flux-system,image-automation-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,minimum-three-replicas,resource,Deployment,flux-system,image-automation-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,no-node-affinity,other,Deployment,flux-system,image-automation-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,image-automation-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,image-automation-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,image-automation-controller,1111111111111111,1,0,15,0,0,0,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,image-automation-controller,1111111111111111,1,0,15,0,0,0,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,image-automation-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,dnsconfig-options,other,Deployment,flux-system,image-reflector-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,minimum-three-replicas,resource,Deployment,flux-system,image-reflector-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,no-node-affinity,other,Deployment,flux-system,image-reflector-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,image-reflector-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,image-reflector-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,image-reflector-controller,1111111111111111,1,0,15,0,0,0,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,image-reflector-controller,1111111111111111,1,0,15,0,0,0,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,image-reflector-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,dnsconfig-options,other,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,latest-tag,image,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,minimum-three-replicas,resource,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
@@ -287,7 +287,7 @@ flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,jwt
 flux2,kube-linter,read-secret-from-env-var,security,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-cpu-requirements,resource,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,unset-memory-requirements,resource,Deployment,flux-system,jwt-credentials-sync-eventhub,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,dnsconfig-options,other,Deployment,flux-system,kustomize-controller,1111111111111111,1,0,15,0,0,0,0,0
@@ -296,28 +296,28 @@ flux2,kube-linter,no-node-affinity,other,Deployment,flux-system,kustomize-contro
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,kustomize-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,kustomize-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,kustomize-controller,1111111111111111,1,0,15,0,0,0,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,kustomize-controller,1111111111111111,1,0,15,0,0,0,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,kustomize-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,dnsconfig-options,other,Deployment,flux-system,notification-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,minimum-three-replicas,resource,Deployment,flux-system,notification-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,no-node-affinity,other,Deployment,flux-system,notification-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,notification-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,notification-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,notification-controller,1111111111111111,1,0,15,0,0,0,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,notification-controller,1111111111111111,1,0,15,0,0,0,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,notification-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,dnsconfig-options,other,Deployment,flux-system,source-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,minimum-three-replicas,resource,Deployment,flux-system,source-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,no-node-affinity,other,Deployment,flux-system,source-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,source-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,source-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,source-controller,1111111111111111,1,0,15,0,0,0,0,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,source-controller,1111111111111111,1,0,15,0,0,0,0,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,source-controller,1111111111111111,1,0,15,0,0,0,0,0
 flux2,kube-linter,dnsconfig-options,other,Deployment,flux-system,source-watcher,0000000000000111,0,1,2,0,0,0,1,0
 flux2,kube-linter,minimum-three-replicas,resource,Deployment,flux-system,source-watcher,0000000000000111,0,1,2,0,0,0,1,0
 flux2,kube-linter,no-node-affinity,other,Deployment,flux-system,source-watcher,0000000000000111,0,1,2,0,0,0,1,0
 flux2,kube-linter,no-rolling-update-strategy,resource,Deployment,flux-system,source-watcher,0000000000000111,0,1,2,0,0,0,1,0
 flux2,kube-linter,required-annotation-email,other,Deployment,flux-system,source-watcher,0000000000000111,0,1,2,0,0,0,1,0
 flux2,kube-linter,required-label-owner,other,Deployment,flux-system,source-watcher,0000000000000111,0,1,2,0,0,0,1,0
-flux2,kube-linter,restart-policy,other,Deployment,flux-system,source-watcher,0000000000000111,0,1,2,0,0,0,1,0
+flux2,kube-linter,restart-policy,resource,Deployment,flux-system,source-watcher,0000000000000111,0,1,2,0,0,0,1,0
 flux2,kube-linter,access-to-secrets,security,RoleBinding,flux-system,acr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,access-to-secrets,security,RoleBinding,flux-system,ecr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
 flux2,kube-linter,access-to-secrets,security,RoleBinding,flux-system,gcr-credentials-sync,1111111111111000,1,0,12,1,0,1,0,0
@@ -411,7 +411,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,details-v1,111
 istio,kube-linter,non-isolated-pod,security,Deployment,,details-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,details-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,details-v1,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,details-v1,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,details-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,details-v1,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,details-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,details-v1,1111111111111111,1,0,15,0,0,0,0,0
@@ -428,7 +428,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,details-v2,111
 istio,kube-linter,non-isolated-pod,security,Deployment,,details-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,details-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,details-v2,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,details-v2,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,details-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,details-v2,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,details-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,details-v2,1111111111111111,1,0,15,0,0,0,0,0
@@ -445,7 +445,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,mongodb-v1,111
 istio,kube-linter,non-isolated-pod,security,Deployment,,mongodb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,mongodb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,mongodb-v1,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,mongodb-v1,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,mongodb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,mongodb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,mongodb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,mongodb-v1,1111111111111111,1,0,15,0,0,0,0,0
@@ -463,7 +463,7 @@ istio,kube-linter,non-isolated-pod,security,Deployment,,mysqldb-v1,1111111111111
 istio,kube-linter,read-secret-from-env-var,security,Deployment,,mysqldb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,mysqldb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,mysqldb-v1,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,mysqldb-v1,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,mysqldb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,mysqldb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,mysqldb-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,mysqldb-v1,1111111111111111,1,0,15,0,0,0,0,0
@@ -479,7 +479,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,productpage-v1
 istio,kube-linter,non-isolated-pod,security,Deployment,,productpage-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,productpage-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,productpage-v1,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,productpage-v1,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,productpage-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,productpage-v1,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,productpage-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,productpage-v1,1111111111111111,1,0,15,0,0,0,0,0
@@ -496,7 +496,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,ratings-v1,111
 istio,kube-linter,non-isolated-pod,security,Deployment,,ratings-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,ratings-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,ratings-v1,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,ratings-v1,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,ratings-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,ratings-v1,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,ratings-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,ratings-v1,1111111111111111,1,0,15,0,0,0,0,0
@@ -512,7 +512,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,ratings-v2,111
 istio,kube-linter,non-isolated-pod,security,Deployment,,ratings-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,ratings-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,ratings-v2,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,ratings-v2,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,ratings-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,ratings-v2,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,ratings-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,ratings-v2,1111111111111111,1,0,15,0,0,0,0,0
@@ -529,7 +529,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,ratings-v2-mys
 istio,kube-linter,non-isolated-pod,security,Deployment,,ratings-v2-mysql,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,ratings-v2-mysql,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,ratings-v2-mysql,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,ratings-v2-mysql,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,ratings-v2-mysql,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,ratings-v2-mysql,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,ratings-v2-mysql,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,ratings-v2-mysql,1111111111111111,1,0,15,0,0,0,0,0
@@ -546,7 +546,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,ratings-v2-mys
 istio,kube-linter,non-isolated-pod,security,Deployment,,ratings-v2-mysql-vm,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,ratings-v2-mysql-vm,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,ratings-v2-mysql-vm,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,ratings-v2-mysql-vm,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,ratings-v2-mysql-vm,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,ratings-v2-mysql-vm,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,ratings-v2-mysql-vm,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,ratings-v2-mysql-vm,1111111111111111,1,0,15,0,0,0,0,0
@@ -562,7 +562,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,reviews-v1,111
 istio,kube-linter,non-isolated-pod,security,Deployment,,reviews-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,reviews-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,reviews-v1,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,reviews-v1,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,reviews-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,reviews-v1,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,reviews-v1,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,reviews-v1,1111111111111111,1,0,15,0,0,0,0,0
@@ -579,7 +579,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,reviews-v2,111
 istio,kube-linter,non-isolated-pod,security,Deployment,,reviews-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,reviews-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,reviews-v2,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,reviews-v2,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,reviews-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,reviews-v2,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,reviews-v2,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,reviews-v2,1111111111111111,1,0,15,0,0,0,0,0
@@ -595,7 +595,7 @@ istio,kube-linter,no-rolling-update-strategy,resource,Deployment,,reviews-v3,111
 istio,kube-linter,non-isolated-pod,security,Deployment,,reviews-v3,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-annotation-email,other,Deployment,,reviews-v3,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,required-label-owner,other,Deployment,,reviews-v3,1111111111111111,1,0,15,0,0,0,0,0
-istio,kube-linter,restart-policy,other,Deployment,,reviews-v3,1111111111111111,1,0,15,0,0,0,0,0
+istio,kube-linter,restart-policy,resource,Deployment,,reviews-v3,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,run-as-non-root,security,Deployment,,reviews-v3,0001111111111111,0,1,12,0,0,0,0,0
 istio,kube-linter,sorted-keys,other,Deployment,,reviews-v3,1111111111111111,1,0,15,0,0,0,0,0
 istio,kube-linter,unset-cpu-requirements,resource,Deployment,,reviews-v3,1111111111111111,1,0,15,0,0,0,0,0
@@ -746,7 +746,7 @@ kube-prometheus,kube-linter,no-node-affinity,other,DaemonSet,monitoring,node-exp
 kube-prometheus,kube-linter,no-readiness-probe,resource,DaemonSet,monitoring,node-exporter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-annotation-email,other,DaemonSet,monitoring,node-exporter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-label-owner,other,DaemonSet,monitoring,node-exporter,11111111,1,0,7,0,0,0,0,0
-kube-prometheus,kube-linter,restart-policy,other,DaemonSet,monitoring,node-exporter,11111111,1,0,7,0,0,0,0,0
+kube-prometheus,kube-linter,restart-policy,resource,DaemonSet,monitoring,node-exporter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,sensitive-host-mounts,security,DaemonSet,monitoring,node-exporter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,dnsconfig-options,other,Deployment,monitoring,blackbox-exporter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,minimum-three-replicas,resource,Deployment,monitoring,blackbox-exporter,11111111,1,0,7,0,0,0,0,0
@@ -756,7 +756,7 @@ kube-prometheus,kube-linter,no-readiness-probe,resource,Deployment,monitoring,bl
 kube-prometheus,kube-linter,no-rolling-update-strategy,resource,Deployment,monitoring,blackbox-exporter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-annotation-email,other,Deployment,monitoring,blackbox-exporter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-label-owner,other,Deployment,monitoring,blackbox-exporter,11111111,1,0,7,0,0,0,0,0
-kube-prometheus,kube-linter,restart-policy,other,Deployment,monitoring,blackbox-exporter,11111111,1,0,7,0,0,0,0,0
+kube-prometheus,kube-linter,restart-policy,resource,Deployment,monitoring,blackbox-exporter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,dnsconfig-options,other,Deployment,monitoring,grafana,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,minimum-three-replicas,resource,Deployment,monitoring,grafana,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,no-liveness-probe,resource,Deployment,monitoring,grafana,11111111,1,0,7,0,0,0,0,0
@@ -764,7 +764,7 @@ kube-prometheus,kube-linter,no-node-affinity,other,Deployment,monitoring,grafana
 kube-prometheus,kube-linter,no-rolling-update-strategy,resource,Deployment,monitoring,grafana,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-annotation-email,other,Deployment,monitoring,grafana,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-label-owner,other,Deployment,monitoring,grafana,11111111,1,0,7,0,0,0,0,0
-kube-prometheus,kube-linter,restart-policy,other,Deployment,monitoring,grafana,11111111,1,0,7,0,0,0,0,0
+kube-prometheus,kube-linter,restart-policy,resource,Deployment,monitoring,grafana,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,dnsconfig-options,other,Deployment,monitoring,kube-state-metrics,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,minimum-three-replicas,resource,Deployment,monitoring,kube-state-metrics,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,no-liveness-probe,resource,Deployment,monitoring,kube-state-metrics,11111111,1,0,7,0,0,0,0,0
@@ -773,7 +773,7 @@ kube-prometheus,kube-linter,no-readiness-probe,resource,Deployment,monitoring,ku
 kube-prometheus,kube-linter,no-rolling-update-strategy,resource,Deployment,monitoring,kube-state-metrics,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-annotation-email,other,Deployment,monitoring,kube-state-metrics,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-label-owner,other,Deployment,monitoring,kube-state-metrics,11111111,1,0,7,0,0,0,0,0
-kube-prometheus,kube-linter,restart-policy,other,Deployment,monitoring,kube-state-metrics,11111111,1,0,7,0,0,0,0,0
+kube-prometheus,kube-linter,restart-policy,resource,Deployment,monitoring,kube-state-metrics,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,dnsconfig-options,other,Deployment,monitoring,prometheus-adapter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,minimum-three-replicas,resource,Deployment,monitoring,prometheus-adapter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,no-anti-affinity,resource,Deployment,monitoring,prometheus-adapter,11111111,1,0,7,0,0,0,0,0
@@ -781,7 +781,7 @@ kube-prometheus,kube-linter,no-node-affinity,other,Deployment,monitoring,prometh
 kube-prometheus,kube-linter,no-rolling-update-strategy,resource,Deployment,monitoring,prometheus-adapter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-annotation-email,other,Deployment,monitoring,prometheus-adapter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-label-owner,other,Deployment,monitoring,prometheus-adapter,11111111,1,0,7,0,0,0,0,0
-kube-prometheus,kube-linter,restart-policy,other,Deployment,monitoring,prometheus-adapter,11111111,1,0,7,0,0,0,0,0
+kube-prometheus,kube-linter,restart-policy,resource,Deployment,monitoring,prometheus-adapter,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,run-as-non-root,security,Deployment,monitoring,prometheus-adapter,11000000,1,0,1,1,0,0,0,0
 kube-prometheus,kube-linter,dnsconfig-options,other,Deployment,monitoring,prometheus-operator,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,minimum-three-replicas,resource,Deployment,monitoring,prometheus-operator,11111111,1,0,7,0,0,0,0,0
@@ -791,7 +791,7 @@ kube-prometheus,kube-linter,no-readiness-probe,resource,Deployment,monitoring,pr
 kube-prometheus,kube-linter,no-rolling-update-strategy,resource,Deployment,monitoring,prometheus-operator,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-annotation-email,other,Deployment,monitoring,prometheus-operator,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,required-label-owner,other,Deployment,monitoring,prometheus-operator,11111111,1,0,7,0,0,0,0,0
-kube-prometheus,kube-linter,restart-policy,other,Deployment,monitoring,prometheus-operator,11111111,1,0,7,0,0,0,0,0
+kube-prometheus,kube-linter,restart-policy,resource,Deployment,monitoring,prometheus-operator,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,dangling-networkpolicy,hygiene,NetworkPolicy,monitoring,alertmanager-main,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,dangling-networkpolicypeer-podselector,hygiene,NetworkPolicy,monitoring,alertmanager-main,11111111,1,0,7,0,0,0,0,0
 kube-prometheus,kube-linter,dangling-networkpolicypeer-podselector,hygiene,NetworkPolicy,monitoring,blackbox-exporter,11111111,1,0,7,0,0,0,0,0
@@ -852,7 +852,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,a
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,adservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,adservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,adservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,adservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,adservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,adservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,cartservice,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,cartservice,111111,1,0,5,0,0,0,0,0
@@ -863,7 +863,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,c
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,cartservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,cartservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,cartservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,cartservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,cartservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,cartservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,checkoutservice,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,checkoutservice,111111,1,0,5,0,0,0,0,0
@@ -874,7 +874,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,c
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,checkoutservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,checkoutservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,checkoutservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,checkoutservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,checkoutservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,checkoutservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,currencyservice,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,currencyservice,111111,1,0,5,0,0,0,0,0
@@ -885,7 +885,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,c
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,currencyservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,currencyservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,currencyservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,currencyservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,currencyservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,currencyservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,emailservice,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,emailservice,111111,1,0,5,0,0,0,0,0
@@ -896,7 +896,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,e
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,emailservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,emailservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,emailservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,emailservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,emailservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,emailservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,frontend,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,frontend,111111,1,0,5,0,0,0,0,0
@@ -907,7 +907,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,f
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,frontend,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,frontend,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,frontend,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,frontend,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,frontend,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,frontend,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,paymentservice,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,paymentservice,111111,1,0,5,0,0,0,0,0
@@ -918,7 +918,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,p
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,paymentservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,paymentservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,paymentservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,paymentservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,paymentservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,paymentservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,productcatalogservice,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,productcatalogservice,111111,1,0,5,0,0,0,0,0
@@ -929,7 +929,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,p
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,productcatalogservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,productcatalogservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,productcatalogservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,productcatalogservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,productcatalogservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,productcatalogservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,recommendationservice,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,recommendationservice,111111,1,0,5,0,0,0,0,0
@@ -940,7 +940,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,r
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,recommendationservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,recommendationservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,recommendationservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,recommendationservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,recommendationservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,recommendationservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,redis-cart,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,redis-cart,111111,1,0,5,0,0,0,0,0
@@ -950,7 +950,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,r
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,redis-cart,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,redis-cart,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,redis-cart,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,redis-cart,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,redis-cart,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,redis-cart,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,default-service-account,security,Deployment,,shippingservice,111110,1,0,4,1,0,0,0,0
 microservices-demo,kube-linter,dnsconfig-options,other,Deployment,,shippingservice,111111,1,0,5,0,0,0,0,0
@@ -961,7 +961,7 @@ microservices-demo,kube-linter,no-rolling-update-strategy,resource,Deployment,,s
 microservices-demo,kube-linter,non-isolated-pod,security,Deployment,,shippingservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-annotation-email,other,Deployment,,shippingservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,required-label-owner,other,Deployment,,shippingservice,111111,1,0,5,0,0,0,0,0
-microservices-demo,kube-linter,restart-policy,other,Deployment,,shippingservice,111111,1,0,5,0,0,0,0,0
+microservices-demo,kube-linter,restart-policy,resource,Deployment,,shippingservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Deployment,,shippingservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Service,,adservice,111111,1,0,5,0,0,0,0,0
 microservices-demo,kube-linter,use-namespace,hygiene,Service,,cartservice,111111,1,0,5,0,0,0,0,0
@@ -1126,7 +1126,7 @@ pipeline,kube-linter,no-rolling-update-strategy,resource,Deployment,tekton-pipel
 pipeline,kube-linter,non-isolated-pod,security,Deployment,tekton-pipelines,tekton-events-controller,0000000111111111111111111111111111111111111111,0,1,38,0,0,0,1,0
 pipeline,kube-linter,required-annotation-email,other,Deployment,tekton-pipelines,tekton-events-controller,0000000111111111111111111111111111111111111111,0,1,38,0,0,0,1,0
 pipeline,kube-linter,required-label-owner,other,Deployment,tekton-pipelines,tekton-events-controller,0000000111111111111111111111111111111111111111,0,1,38,0,0,0,1,0
-pipeline,kube-linter,restart-policy,other,Deployment,tekton-pipelines,tekton-events-controller,0000000111111111111111111111111111111111111111,0,1,38,0,0,0,1,0
+pipeline,kube-linter,restart-policy,resource,Deployment,tekton-pipelines,tekton-events-controller,0000000111111111111111111111111111111111111111,0,1,38,0,0,0,1,0
 pipeline,kube-linter,sorted-keys,other,Deployment,tekton-pipelines,tekton-events-controller,0000000111111111111111111111111111111111111111,0,1,38,0,0,0,1,0
 pipeline,kube-linter,unset-cpu-requirements,resource,Deployment,tekton-pipelines,tekton-events-controller,0000000111111111111111111111111111111111111111,0,1,38,0,0,0,1,0
 pipeline,kube-linter,unset-memory-requirements,resource,Deployment,tekton-pipelines,tekton-events-controller,0000000111111111111111111111111111111111111111,0,1,38,0,0,0,1,0
@@ -1138,7 +1138,7 @@ pipeline,kube-linter,no-rolling-update-strategy,resource,Deployment,tekton-pipel
 pipeline,kube-linter,non-isolated-pod,security,Deployment,tekton-pipelines,tekton-pipelines-controller,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,required-annotation-email,other,Deployment,tekton-pipelines,tekton-pipelines-controller,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,required-label-owner,other,Deployment,tekton-pipelines,tekton-pipelines-controller,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
-pipeline,kube-linter,restart-policy,other,Deployment,tekton-pipelines,tekton-pipelines-controller,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
+pipeline,kube-linter,restart-policy,resource,Deployment,tekton-pipelines,tekton-pipelines-controller,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,sorted-keys,other,Deployment,tekton-pipelines,tekton-pipelines-controller,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,unset-cpu-requirements,resource,Deployment,tekton-pipelines,tekton-pipelines-controller,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,unset-memory-requirements,resource,Deployment,tekton-pipelines,tekton-pipelines-controller,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
@@ -1151,7 +1151,7 @@ pipeline,kube-linter,no-rolling-update-strategy,resource,Deployment,tekton-pipel
 pipeline,kube-linter,non-isolated-pod,security,Deployment,tekton-pipelines,tekton-pipelines-webhook,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,required-annotation-email,other,Deployment,tekton-pipelines,tekton-pipelines-webhook,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,required-label-owner,other,Deployment,tekton-pipelines,tekton-pipelines-webhook,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
-pipeline,kube-linter,restart-policy,other,Deployment,tekton-pipelines,tekton-pipelines-webhook,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
+pipeline,kube-linter,restart-policy,resource,Deployment,tekton-pipelines,tekton-pipelines-webhook,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,sorted-keys,other,Deployment,tekton-pipelines,tekton-pipelines-webhook,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,dnsconfig-options,other,Deployment,tekton-pipelines-resolvers,tekton-pipelines-remote-resolvers,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,latest-tag,image,Deployment,tekton-pipelines-resolvers,tekton-pipelines-remote-resolvers,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
@@ -1163,7 +1163,7 @@ pipeline,kube-linter,no-rolling-update-strategy,resource,Deployment,tekton-pipel
 pipeline,kube-linter,non-isolated-pod,security,Deployment,tekton-pipelines-resolvers,tekton-pipelines-remote-resolvers,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,required-annotation-email,other,Deployment,tekton-pipelines-resolvers,tekton-pipelines-remote-resolvers,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,required-label-owner,other,Deployment,tekton-pipelines-resolvers,tekton-pipelines-remote-resolvers,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
-pipeline,kube-linter,restart-policy,other,Deployment,tekton-pipelines-resolvers,tekton-pipelines-remote-resolvers,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
+pipeline,kube-linter,restart-policy,resource,Deployment,tekton-pipelines-resolvers,tekton-pipelines-remote-resolvers,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,sorted-keys,other,Deployment,tekton-pipelines-resolvers,tekton-pipelines-remote-resolvers,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,hpa-minimum-three-replicas,resource,HorizontalPodAutoscaler,tekton-pipelines,tekton-pipelines-webhook,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
 pipeline,kube-linter,sorted-keys,other,HorizontalPodAutoscaler,tekton-pipelines,tekton-pipelines-webhook,1111111111111111111111111111111111111111111111,1,0,45,0,0,0,0,0
@@ -1265,7 +1265,7 @@ serving,kube-linter,non-existent-service-account,hygiene,Deployment,knative-serv
 serving,kube-linter,non-isolated-pod,security,Deployment,knative-serving,activator,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,required-annotation-email,other,Deployment,knative-serving,activator,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,required-label-owner,other,Deployment,knative-serving,activator,111111111111111,1,0,14,0,0,0,0,0
-serving,kube-linter,restart-policy,other,Deployment,knative-serving,activator,111111111111111,1,0,14,0,0,0,0,0
+serving,kube-linter,restart-policy,resource,Deployment,knative-serving,activator,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,sorted-keys,other,Deployment,knative-serving,activator,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,dnsconfig-options,other,Deployment,knative-serving,autoscaler,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,latest-tag,image,Deployment,knative-serving,autoscaler,111111111111111,1,0,14,0,0,0,0,0
@@ -1275,7 +1275,7 @@ serving,kube-linter,non-existent-service-account,hygiene,Deployment,knative-serv
 serving,kube-linter,non-isolated-pod,security,Deployment,knative-serving,autoscaler,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,required-annotation-email,other,Deployment,knative-serving,autoscaler,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,required-label-owner,other,Deployment,knative-serving,autoscaler,111111111111111,1,0,14,0,0,0,0,0
-serving,kube-linter,restart-policy,other,Deployment,knative-serving,autoscaler,111111111111111,1,0,14,0,0,0,0,0
+serving,kube-linter,restart-policy,resource,Deployment,knative-serving,autoscaler,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,sorted-keys,other,Deployment,knative-serving,autoscaler,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,dnsconfig-options,other,Deployment,knative-serving,controller,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,latest-tag,image,Deployment,knative-serving,controller,111111111111111,1,0,14,0,0,0,0,0
@@ -1288,7 +1288,7 @@ serving,kube-linter,non-existent-service-account,hygiene,Deployment,knative-serv
 serving,kube-linter,non-isolated-pod,security,Deployment,knative-serving,controller,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,required-annotation-email,other,Deployment,knative-serving,controller,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,required-label-owner,other,Deployment,knative-serving,controller,111111111111111,1,0,14,0,0,0,0,0
-serving,kube-linter,restart-policy,other,Deployment,knative-serving,controller,111111111111111,1,0,14,0,0,0,0,0
+serving,kube-linter,restart-policy,resource,Deployment,knative-serving,controller,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,sorted-keys,other,Deployment,knative-serving,controller,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,dnsconfig-options,other,Deployment,knative-serving,domain-mapping,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,latest-tag,image,Deployment,knative-serving,domain-mapping,110000000000000,1,0,1,1,0,1,0,0
@@ -1301,7 +1301,7 @@ serving,kube-linter,non-existent-service-account,hygiene,Deployment,knative-serv
 serving,kube-linter,non-isolated-pod,security,Deployment,knative-serving,domain-mapping,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,required-annotation-email,other,Deployment,knative-serving,domain-mapping,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,required-label-owner,other,Deployment,knative-serving,domain-mapping,110000000000000,1,0,1,1,0,1,0,0
-serving,kube-linter,restart-policy,other,Deployment,knative-serving,domain-mapping,110000000000000,1,0,1,1,0,1,0,0
+serving,kube-linter,restart-policy,resource,Deployment,knative-serving,domain-mapping,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,sorted-keys,other,Deployment,knative-serving,domain-mapping,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,dnsconfig-options,other,Deployment,knative-serving,domainmapping-webhook,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,latest-tag,image,Deployment,knative-serving,domainmapping-webhook,110000000000000,1,0,1,1,0,1,0,0
@@ -1312,7 +1312,7 @@ serving,kube-linter,non-existent-service-account,hygiene,Deployment,knative-serv
 serving,kube-linter,non-isolated-pod,security,Deployment,knative-serving,domainmapping-webhook,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,required-annotation-email,other,Deployment,knative-serving,domainmapping-webhook,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,required-label-owner,other,Deployment,knative-serving,domainmapping-webhook,110000000000000,1,0,1,1,0,1,0,0
-serving,kube-linter,restart-policy,other,Deployment,knative-serving,domainmapping-webhook,110000000000000,1,0,1,1,0,1,0,0
+serving,kube-linter,restart-policy,resource,Deployment,knative-serving,domainmapping-webhook,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,sorted-keys,other,Deployment,knative-serving,domainmapping-webhook,110000000000000,1,0,1,1,0,1,0,0
 serving,kube-linter,dnsconfig-options,other,Deployment,knative-serving,webhook,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,latest-tag,image,Deployment,knative-serving,webhook,111111111111111,1,0,14,0,0,0,0,0
@@ -1323,7 +1323,7 @@ serving,kube-linter,non-existent-service-account,hygiene,Deployment,knative-serv
 serving,kube-linter,non-isolated-pod,security,Deployment,knative-serving,webhook,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,required-annotation-email,other,Deployment,knative-serving,webhook,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,required-label-owner,other,Deployment,knative-serving,webhook,111111111111111,1,0,14,0,0,0,0,0
-serving,kube-linter,restart-policy,other,Deployment,knative-serving,webhook,111111111111111,1,0,14,0,0,0,0,0
+serving,kube-linter,restart-policy,resource,Deployment,knative-serving,webhook,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,sorted-keys,other,Deployment,knative-serving,webhook,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,hpa-minimum-three-replicas,resource,HorizontalPodAutoscaler,knative-serving,activator,111111111111111,1,0,14,0,0,0,0,0
 serving,kube-linter,sorted-keys,other,HorizontalPodAutoscaler,knative-serving,activator,111111111111111,1,0,14,0,0,0,0,0

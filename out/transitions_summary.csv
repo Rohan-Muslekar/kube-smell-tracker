@@ -1,8 +1,8 @@
 tool,category,at_baseline,introduced,persisted,removed,reappeared,removed_object_gone,introduced_new_object
 kube-linter,hygiene,84,4,918,2,0,2,0
 kube-linter,image,25,1,353,8,0,8,1
-kube-linter,other,440,43,8323,70,0,69,42
-kube-linter,resource,238,6,3403,48,0,44,6
+kube-linter,other,381,41,7522,60,0,59,40
+kube-linter,resource,297,8,4204,58,0,54,8
 kube-linter,security,124,21,1987,38,0,22,5
 kube-score,hygiene,5,0,43,0,0,0,0
 kube-score,image,59,3,795,16,0,16,2
