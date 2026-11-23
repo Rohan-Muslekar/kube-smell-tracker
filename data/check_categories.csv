@@ -36,10 +36,10 @@ kube-linter,mismatching-selector,hygiene,workload selector does not match pod la
 kube-linter,non-existent-service-account,hygiene,references a service account not in the analysed set
 kube-linter,env-value-from,hygiene,env valueFrom references an object not in the analysed set
 kube-linter,sorted-keys,other,YAML key ordering style; not a configuration smell
-kube-linter,schema-validation,hygiene,"Flags resources that fail validation against the Kubernetes API schema using kubeconform, a manifest correctness issue (kube-linter v0.8.3). (adjudicated, PR #38)"
+kube-linter,schema-validation,other,"schema parse failure; tool artifact, reported separately"
 kube-linter,dnsconfig-options,other,opinionated DNS tuning default; outside the Milestone 1 categories
 kube-linter,no-node-affinity,other,opinionated scheduling default; outside the Milestone 1 categories
-kube-linter,restart-policy,resource,"Indicates when a deployment lacks a restart policy set to Always or OnFailure, reducing fault tolerance (kube-linter v0.8.3). (adjudicated, PR #38)"
+kube-linter,restart-policy,other,opinionated restart-policy default; outside the Milestone 1 categories
 kube-score,container-security-context-readonlyrootfilesystem,security,absent securityContext hardening (writable root fs)
 kube-score,container-security-context-user-group-id,security,may run as root / low UID or GID
 kube-score,pod-networkpolicy,security,no NetworkPolicy isolates the pod
