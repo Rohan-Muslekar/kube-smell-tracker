@@ -18,12 +18,15 @@ section are kept at tag `milestone-3-data`. Regenerate these with
 `python3 scripts/report_numbers.py --headlines-only --out results/rendered/baseline`
 ([rendered/baseline/headlines.json](rendered/baseline/headlines.json)).
 
-- **Instances:** 911 smell instances; 688 of 864 first-tag instances (79.6%) still present at
-  the last tag (72.3% without istio), 0 reappearances.
-- **Removals:** 138 of 178 (77.5%) are object deletions; 40 keep the object, 9 of them the
-  kube-score probe artifact, so 31 real fixes. Without flux2, 35.5% are deletions.
-- **Stored vs rendered:** only flux2 (97 to 162 instances) and microservices-demo (182 to 166)
-  change; see [render_comparison.csv](render_comparison.csv).
+- **Category map:** adjudicated on Nov 23 (#38): `restart-policy` moves from other to resource
+  (61 instances) and `schema-validation` to hygiene (no instances). Numbers below use it; before
+  adjudication there were 911 instances, 79.6% survival and 138 of 178 deletions.
+- **Instances:** 972 smell instances; 737 of 923 first-tag instances (79.8%) still present at
+  the last tag (72.7% without istio), 0 reappearances.
+- **Removals:** 148 of 188 (78.7%) are object deletions; 40 keep the object, 9 of them the
+  kube-score probe artifact, so 31 real fixes. Without flux2, 37.5% are deletions.
+- **Stored vs rendered** (before adjudication): only flux2 (97 to 162 instances) and
+  microservices-demo (182 to 166) change; see [render_comparison.csv](render_comparison.csv).
 - **Commands:** [m4_commands.md](m4_commands.md) lists the command behind every Milestone 4 number.
 
 ## Milestone 3 (every minor release, 123 tags, stored manifests)
