@@ -9,8 +9,8 @@ first tag and the real fixes among those same instances (a removal that leaves t
 kube-score gRPC-probe artifact, as in kst.survival_km).
 
 It also asks whether one check carries the result: for every security check with a fix, the
-adjudicated map (data/check_categories.csv) is rerun with that check moved to resource (sheet name
-`map_move_<tool>:<check>`), and whether one system carries it: the adjudicated map without each
+current map (data/check_categories.csv) is rerun with that check moved to resource (sheet name
+`map_move_<tool>:<check>`), and whether one system carries it: the current map without each
 system (`map_without_<repo>`). `map` is the original map before adjudication.
 """
 import argparse
@@ -24,13 +24,13 @@ sys.path.insert(0, str(ROOT))
 from kst.survival_km import is_fix  # noqa: E402
 
 SHEETS = {
-    "adjudicated_map": "data/check_categories.csv",
+    "current_map": "data/check_categories.csv",
     "map": "data/category_validation/map_as_rater.csv",
     "llm": "data/category_validation/llm_rater.csv",
     "rater1_ai_assisted": "data/category_validation/category_rater_1.csv",
     "rater2_ai_assisted": "data/category_validation/m4_rater2.csv",
-    "m4_rater1_human": "data/category_validation/m4_rater1.csv",
-    "m4_rater3_human": "data/category_validation/m4_rater3.csv",
+    "m4_rater1_ai_assisted": "data/category_validation/m4_rater1.csv",
+    "m4_rater3_ai_assisted": "data/category_validation/m4_rater3.csv",
 }
 
 
@@ -64,7 +64,7 @@ def main():
     with open(args.instances, newline="") as handle:
         instances = list(csv.DictReader(handle))
     labellings = {sheet: load_labels(ROOT / path) for sheet, path in SHEETS.items()}
-    base = labellings["adjudicated_map"]
+    base = labellings["current_map"]
     fixed = sorted({(r["tool"], r["check"]) for r in instances
                     if base[(r["tool"], r["check"])] == "security" and is_fix(r)})
     for key in fixed:

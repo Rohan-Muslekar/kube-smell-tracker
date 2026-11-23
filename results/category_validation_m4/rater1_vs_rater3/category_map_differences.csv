@@ -1,10 +1,10 @@
 tool,check,mapped_category,agreed_category,rater_1_category,rater_2_category,adjudicated_category,decision_rationale,adjudicator,date
-kube-linter,restart-policy,other,resource,resource,resource,resource,"Indicates when a deployment lacks a restart policy set to Always or OnFailure, reducing fault tolerance (kube-linter v0.8.3).",Yasaminzahra,2026-11-23
-kube-linter,schema-validation,other,hygiene,hygiene,hygiene,hygiene,"Flags resources that fail validation against the Kubernetes API schema using kubeconform, a manifest correctness issue (kube-linter v0.8.3).",Yasaminzahra,2026-11-23
-kube-linter,dangling-networkpolicy,hygiene,,other,hygiene,hygiene,"Indicates when NetworkPolicies have no associated deployments, a stale cross-object reference (kube-linter v0.8.3).",Yasaminzahra,2026-11-23
-kube-linter,dangling-networkpolicypeer-podselector,hygiene,,other,hygiene,hygiene,"Indicates when NetworkPolicy ingress/egress rules do not match any deployments, broken references within the policy (kube-linter v0.8.3).",Yasaminzahra,2026-11-23
-kube-linter,dangling-service,hygiene,,other,hygiene,hygiene,"Indicates when Services do not have any associated deployments, a dangling reference between objects (kube-linter v0.8.3).",Yasaminzahra,2026-11-23
-kube-linter,dangling-servicemonitor,hygiene,,other,hygiene,hygiene,"Indicates when a ServiceMonitor's selectors do not match any services, a stale monitoring configuration (kube-linter v0.8.3).",Yasaminzahra,2026-11-23
-kube-linter,exposed-services,security,,resource,security,security,Alerts on services of forbidden types such as NodePort and LoadBalancer that expose workloads outside the cluster boundary (kube-linter v0.8.3).,Yasaminzahra,2026-11-23
-kube-linter,liveness-port,resource,,hygiene,resource,resource,"Indicates when a liveness probe references an unexposed port so the probe fails at runtime, harming availability (kube-linter v0.8.3).",Yasaminzahra,2026-11-23
-kube-linter,no-node-affinity,other,,resource,other,other,"Alerts on deployments with no node affinity defined, an opinionated scheduling-placement policy outside the four smell categories (kube-linter v0.8.3).",Yasaminzahra,2026-11-23
+kube-linter,restart-policy,other,resource,resource,resource,,,,
+kube-linter,schema-validation,other,hygiene,hygiene,hygiene,,,,
+kube-linter,dangling-networkpolicy,hygiene,,other,hygiene,,,,
+kube-linter,dangling-networkpolicypeer-podselector,hygiene,,other,hygiene,,,,
+kube-linter,dangling-service,hygiene,,other,hygiene,,,,
+kube-linter,dangling-servicemonitor,hygiene,,other,hygiene,,,,
+kube-linter,exposed-services,security,,resource,security,,,,
+kube-linter,liveness-port,resource,,hygiene,resource,,,,
+kube-linter,no-node-affinity,other,,resource,other,,,,
