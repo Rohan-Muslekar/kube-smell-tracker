@@ -1,0 +1,2 @@
+tool,check,mapped_category,rater_1_category,rater_2_category,rater_1_rationale,rater_2_rationale,adjudicated_category,decision_rationale,adjudicator,date
+kube-linter,no-node-affinity,other,resource,other,"Flags deployments with no node affinity, a scheduling and placement concern, so resource (kube-linter docs).","Flags deployments with no node affinity, an opinionated scheduling-placement policy outside the four categories (kube-linter v0.8.3 docs).",,,,

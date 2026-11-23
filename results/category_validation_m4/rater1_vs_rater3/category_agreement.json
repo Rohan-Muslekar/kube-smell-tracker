@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "Ankit Suman",
+    "Rohan Muslekar"
+  ],
+  "agreements": 55,
+  "disagreements": 7,
+  "percent_agreement": 88.70967741935483,
+  "expected_agreement": 0.2697710718002081,
+  "cohens_kappa": 0.8453865336658354,
+  "kappa_note": "",
+  "agreed_differs_from_map": 2,
+  "stage": "independent ratings, before adjudication"
+}

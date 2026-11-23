@@ -27,6 +27,8 @@ SHEETS = {
     "llm": "data/category_validation/llm_rater.csv",
     "rater1_ai_assisted": "data/category_validation/category_rater_1.csv",
     "rater2_ai_assisted": "data/category_validation/m4_rater2.csv",
+    "m4_rater1_human": "data/category_validation/m4_rater1.csv",
+    "m4_rater3_human": "data/category_validation/m4_rater3.csv",
 }
 
 

@@ -1,0 +1,10 @@
+tool,check,mapped_category,agreed_category,rater_1_category,rater_2_category,adjudicated_category,decision_rationale,adjudicator,date
+kube-linter,restart-policy,other,resource,resource,resource,,,,
+kube-linter,schema-validation,other,hygiene,hygiene,hygiene,,,,
+kube-linter,dangling-networkpolicy,hygiene,,other,hygiene,,,,
+kube-linter,dangling-networkpolicypeer-podselector,hygiene,,other,hygiene,,,,
+kube-linter,dangling-service,hygiene,,other,hygiene,,,,
+kube-linter,dangling-servicemonitor,hygiene,,other,hygiene,,,,
+kube-linter,exposed-services,security,,resource,security,,,,
+kube-linter,liveness-port,resource,,hygiene,resource,,,,
+kube-linter,no-node-affinity,other,,resource,other,,,,

@@ -38,7 +38,21 @@ print(len(c.prepare_additions(c.build_draft(todo), inst, vers, orig, Path('work/
 
 ## E3: category ratings so far
 
-See `results/category_validation_status.md` (rater 2 against the map and against the LLM sheet).
+See `results/category_validation_status.md`. Agreement between the two hand-made sheets and
+each sheet against the map, the LLM sheet and rater 2:
+
+```bash
+V=data/category_validation; O=results/category_validation_m4
+python3 -m kst.category_validation calculate --rater-1 $V/m4_rater1.csv --rater-2 $V/m4_rater3.csv --out $O/rater1_vs_rater3
+python3 -m kst.category_validation calculate --rater-1 $V/map_as_rater.csv --rater-2 $V/m4_rater1.csv --out $O/rater1_vs_map
+python3 -m kst.category_validation calculate --rater-1 $V/map_as_rater.csv --rater-2 $V/m4_rater3.csv --out $O/rater3_vs_map
+python3 -m kst.category_validation calculate --rater-1 $V/llm_rater.csv --rater-2 $V/m4_rater1.csv --out $O/rater1_vs_llm
+python3 -m kst.category_validation calculate --rater-1 $V/llm_rater.csv --rater-2 $V/m4_rater3.csv --out $O/rater3_vs_llm
+python3 -m kst.category_validation calculate --rater-1 $V/m4_rater1.csv --rater-2 $V/m4_rater2.csv --out $O/rater1_vs_rater2
+python3 -m kst.category_validation calculate --rater-1 $V/m4_rater3.csv --rater-2 $V/m4_rater2.csv --out $O/rater3_vs_rater2
+```
+
+`calculate` refuses to overwrite an existing output folder, so remove it first to rerun.
 
 ## E5: survival curves and sensitivity
 
@@ -138,9 +152,9 @@ print(sum(r['transition'] != 'object_deleted' for r in rows), 'of', len(rows), '
 python3 scripts/category_sensitivity.py   # writes results/category_sensitivity.csv
 ```
 
-Rates count fixes among first-tag instances only. Under the map, the LLM sheet and both
-AI-assisted sheets, security has 23 fixes among 243 first-tag instances (rate 0.095); resource is
-at most 0.013. Moving the largest security check (kube-linter `default-service-account`) to
+Rates count fixes among first-tag instances only. Under the map, the LLM sheet, both
+AI-assisted sheets and both hand-made sheets, security has 23 fixes among 241 to 243 first-tag
+instances (rate 0.095); resource is at most 0.013. Moving the largest security check (kube-linter `default-service-account`) to
 resource leaves security at 0.058 against 0.034. Dropping one system at a time, the closest
 case is without microservices-demo: 0.066 against 0.016.
 
