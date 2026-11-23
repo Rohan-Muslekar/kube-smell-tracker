@@ -18,6 +18,16 @@ rater2_ai_assisted,hygiene,638,5
 rater2_ai_assisted,image,84,0
 rater2_ai_assisted,resource,339,2
 rater2_ai_assisted,security,243,23
+m4_rater1_human,hygiene,74,0
+m4_rater1_human,image,84,0
+m4_rater1_human,other,340,0
+m4_rater1_human,resource,565,7
+m4_rater1_human,security,241,23
+m4_rater3_human,hygiene,89,0
+m4_rater3_human,image,84,0
+m4_rater3_human,other,381,1
+m4_rater3_human,resource,507,6
+m4_rater3_human,security,243,23
 map_move_kube-linter:default-service-account,hygiene,89,0
 map_move_kube-linter:default-service-account,image,84,0
 map_move_kube-linter:default-service-account,other,440,1

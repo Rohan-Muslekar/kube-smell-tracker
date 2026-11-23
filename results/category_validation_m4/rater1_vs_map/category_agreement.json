@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "category map",
+    "Ankit Suman"
+  ],
+  "agreements": 53,
+  "disagreements": 9,
+  "percent_agreement": 85.48387096774194,
+  "expected_agreement": 0.26508844953173777,
+  "cohens_kappa": 0.8024778761061948,
+  "kappa_note": "",
+  "agreed_differs_from_map": 0,
+  "stage": "independent ratings, before adjudication"
+}

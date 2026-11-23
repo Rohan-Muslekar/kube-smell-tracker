@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "Rohan Muslekar",
+    "Rojan (AI-assisted draft)"
+  ],
+  "agreements": 46,
+  "disagreements": 16,
+  "percent_agreement": 74.19354838709677,
+  "expected_agreement": 0.259105098855359,
+  "cohens_kappa": 0.6516853932584269,
+  "kappa_note": "",
+  "agreed_differs_from_map": 1,
+  "stage": "independent ratings, before adjudication"
+}

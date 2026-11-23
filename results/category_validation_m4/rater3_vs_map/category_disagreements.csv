@@ -1,0 +1,3 @@
+tool,check,mapped_category,rater_1_category,rater_2_category,rater_1_rationale,rater_2_rationale,adjudicated_category,decision_rationale,adjudicator,date
+kube-linter,restart-policy,other,other,resource,opinionated restart-policy default; outside the Milestone 1 categories,"Flags deployment-like objects without a restart policy of Always or OnFailure, reducing fault tolerance (kube-linter v0.8.3 docs).",,,,
+kube-linter,schema-validation,other,other,hygiene,"schema parse failure; tool artifact, reported separately","Flags resources that fail validation against the Kubernetes API schema (via kubeconform), a manifest-correctness issue (kube-linter v0.8.3 docs).",,,,

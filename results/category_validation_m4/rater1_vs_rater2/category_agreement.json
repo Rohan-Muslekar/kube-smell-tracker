@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "Ankit Suman",
+    "Rojan (AI-assisted draft)"
+  ],
+  "agreements": 43,
+  "disagreements": 19,
+  "percent_agreement": 69.35483870967742,
+  "expected_agreement": 0.23595213319458896,
+  "cohens_kappa": 0.5989104528430372,
+  "kappa_note": "",
+  "agreed_differs_from_map": 3,
+  "stage": "independent ratings, before adjudication"
+}

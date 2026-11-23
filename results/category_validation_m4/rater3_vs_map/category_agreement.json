@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "category map",
+    "Rohan Muslekar"
+  ],
+  "agreements": 60,
+  "disagreements": 2,
+  "percent_agreement": 96.7741935483871,
+  "expected_agreement": 0.2679500520291363,
+  "cohens_kappa": 0.9559346126510306,
+  "kappa_note": "",
+  "agreed_differs_from_map": 0,
+  "stage": "independent ratings, before adjudication"
+}

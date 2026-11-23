@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "automated rater (LLM)",
+    "Rohan Muslekar"
+  ],
+  "agreements": 61,
+  "disagreements": 1,
+  "percent_agreement": 98.38709677419355,
+  "expected_agreement": 0.2793964620187305,
+  "cohens_kappa": 0.9776173285198556,
+  "kappa_note": "",
+  "agreed_differs_from_map": 2,
+  "stage": "independent ratings, before adjudication"
+}
