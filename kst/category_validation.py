@@ -40,6 +40,19 @@ def text(row, field):
     return (row.get(field) or "").strip()
 
 
+def cohens_kappa(first_labels, second_labels):
+    """Cohen's kappa for paired categorical labels; None if P(expected) == 1."""
+    first_labels, second_labels = list(first_labels), list(second_labels)
+    if not first_labels or len(first_labels) != len(second_labels):
+        raise ValueError("Kappa requires nonempty, equal-length rating sequences")
+    n = len(first_labels)
+    first, second = Counter(first_labels), Counter(second_labels)
+    observed = sum(a == b for a, b in zip(first_labels, second_labels)) / n
+    categories = first.keys() | second.keys()
+    expected = sum(first[cat] * second[cat] for cat in categories) / (n * n)
+    return (observed - expected) / (1 - expected) if expected < 1 else None
+
+
 def agreement(expected, first, second):
     """`expected` is the mapping keyed by (tool, check), as returned by keyed()."""
     a, b = keyed(first), keyed(second)
@@ -84,7 +97,8 @@ def agreement(expected, first, second):
     return {"checks": n, "raters": raters, "agreements": matches,
             "disagreements": len(disagreements), "percent_agreement": observed * 100,
             "expected_agreement": chance,
-            "cohens_kappa": (observed - chance) / (1 - chance) if chance < 1 else None,
+            "cohens_kappa": cohens_kappa([a[k]["category"] for k in expected],
+                                          [b[k]["category"] for k in expected]),
             "kappa_note": "Undefined when expected agreement is 1" if chance == 1 else "",
             "agreed_differs_from_map": agreed_differences,
             "stage": "independent ratings, before adjudication"}, disagreements, map_differences

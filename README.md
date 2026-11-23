@@ -9,7 +9,7 @@ to tag and labelled introduced, persisted, removed or reappeared.
 ## Reproduce
 
 ```bash
-./tools/install.sh          # builds the pinned analyzers into tools/bin
+./tools/install.sh          # builds the pinned analyzers and fetches the pinned kubectl into tools/bin
 make all                    # clones repos into work/, runs both analyzers, writes raw/ and out/
 python3 -m pytest           # unit and pipeline tests
 ```
@@ -85,8 +85,8 @@ kube-linter `dangling-servicemonitor` reports for kube-prometheus v0.12.0 still 
 | Go (builds the analyzers) | go1.26.9 |
 | kube-linter | v0.8.3 (`go install golang.stackrox.io/kube-linter/cmd/kube-linter@v0.8.3`), run with `--add-all-built-in` and the pinned `--config tools/kube-linter.yaml` (so a `.kube-linter.yaml` inside an analyzed repo is never read) |
 | kube-score | v1.20.0 (`go install github.com/zegl/kube-score/cmd/kube-score@v1.20.0`) |
-| Python | 3.14.8; the analysis (`python3 -m kst`) uses the standard library only, `RENDER=1` needs PyYAML 6.0.3, tests need pytest 9.1.1 |
-| kubectl | v1.36.2 with kustomize v5.8.1, only for `RENDER=1` and the rendering check |
+| Python | 3.14.10 (3.14.8 for the Milestone 3 runs); the analysis (`python3 -m kst`) uses the standard library only, `RENDER=1` needs PyYAML 6.0.3, tests need pytest 9.1.1 |
+| kubectl | v1.36.2 with kustomize v5.8.1, for rendering (`RENDER=1`, the default); `tools/install.sh` downloads it into `tools/bin` and checks its SHA-256 |
 | git / jq / bash | 2.56.0 / 1.8.1 / 5.3.9 |
 
 Both analyzers report `development` from their `version` subcommand when built with
@@ -129,20 +129,26 @@ git tag `milestone-2-data`. `data/repos.json` is the record of the tags used. Th
 
 1. **Collect** (`scripts/collect.sh`) does the following for each repo and tag:
    - checks out the tag
-   - keeps the YAML files under the manifest path that are plain Kubernetes objects (`kst/manifests.py`). It skips kustomization files, Helm-templated files and non-Kubernetes YAML, and logs every skipped file to `raw/skipped_files.txt`.
+   - discovers Kubernetes YAML files under the configured manifest paths. By default (`RENDER=1`), Kustomize configurations are rendered before linting. Consumed source files and unreferenced YAML files inside successfully rendered Kustomization directories are excluded from separate analysis. With `RENDER=0`, the previous plain-manifest collection behavior is used. Skipped files and their reasons are logged to `raw/skipped_files.txt`.
    - lists the objects defined in the kept files (`raw/objects/`)
    - runs both analyzers (`scripts/analyze.sh`, writing `raw/kube-linter/`, `raw/kube-score/`)
    - lints each file alone to find files kube-linter cannot load (unparseable YAML, `kind: List`), which it otherwise skips silently, and logs them to `raw/load_failures.tsv`
 
    A tag is invalid when either analyzer's stdout is empty or not a JSON array or object (`kst/validate.py`; kube-score prints nothing when it crashes), or when no manifests remain. Invalid tags are left out of tracking, so a crashed run does not look like removed smells. All 123 tags are valid.
 
-**Optional Kustomize rendering (`RENDER=1`):**
+**Kustomize rendering (enabled by default, `RENDER=1`):**
 
-When enabled, the collection script discovers top-level Kustomize configurations under the selected manifest paths and renders them using `kubectl kustomize`. The rendered Kubernetes manifests are saved under `work/rendered/<repo>__<tag>/` and included in the analysis pipeline. Source files consumed by successfully rendered Kustomizations, including bases and patches, are excluded from separate analysis to avoid double counting. Unconsumed plain Kubernetes YAML files continue to be analyzed normally.
+Collection renders top-level Kustomize configurations using `kubectl kustomize` by default. Rendered manifests are saved under `work/rendered/<repo>__<tag>/` and included in the analysis pipeline.
 
-If rendering fails, the error is recorded in `raw/skipped_files.txt` and the affected version is marked invalid so that incomplete results are not included in lifecycle tracking. The default collection behavior remains unchanged when `RENDER` is not enabled.
+Source YAML files consumed by a successfully rendered Kustomization are excluded from separate linting to avoid double counting. Unreferenced YAML files inside successfully rendered Kustomization directories are also excluded.
 
-Kustomize rendering requires `kubectl` to be available in the environment.
+Skipped files and their reasons are recorded in `raw/skipped_files.txt`, including `consumed by a kustomization` and `not referenced by kustomization`.
+
+If rendering fails, the error is recorded in `raw/skipped_files.txt` and the affected version is marked invalid to prevent incomplete results from entering lifecycle tracking.
+
+Set `RENDER=0` to disable rendering and use the previous collection behavior, for example: `RENDER=0 make collect`.
+
+Collection with rendering requires `kubectl` and PyYAML 6.0.3. Offline analysis with `python3 -m kst` uses only the Python standard library.
 
 2. **Normalize** (`kst/normalize.py`) produces one finding per analyzer report:
    - kube-score checks count when graded below 10 and not skipped
@@ -168,6 +174,9 @@ Kustomize rendering requires `kubectl` to be available in the environment.
 | `transitions_by_repo.csv` | the same per repo, tool and category |
 | `overlap_summary.csv` | category, linter_only, score_only, both (distinct object-category pairs) |
 | `unmapped_checks.txt` | checks missing from the category map; must be empty, otherwise `python3 -m kst` exits non-zero |
+| `km_by_category.csv`, `km_by_system.csv` | Kaplan–Meier curve points (group, time_days, at_risk, events, censored, survival); the event is the first removal of any kind, instances present at the last tag are censored (`kst/survival_km.py`) |
+| `km_fix_by_category.csv`, `km_fix_by_system.csv` | the same with a fix as the event: removals by object deletion and the kube-score gRPC-probe artifact are censored where they happen |
+| `cif_by_category.csv` | cumulative incidence per category with fix and deletion as competing events (Aalen-Johansen); the gRPC-probe artifact is censored |
 
 `data/spot_check.csv` holds the manual check of 20 instances. They are drawn by
 `scripts/sample_spot_check.py` with seed 5570: 5 each of persisted, fixed, object deleted and
@@ -175,7 +184,7 @@ introduced. Each was confirmed or rejected by reading the YAML at both tags, wit
 
 ## Known limitations
 
-- Helm charts are not rendered, and kustomize bases and patches are linted unrendered. For flux2, this means patch fragments are analyzed as if they were complete objects.
+- Kustomize configurations are rendered (`RENDER=1`, the default since PR #28), so patch fragments are no longer linted as objects. Helm charts and generated manifests (kube-prometheus jsonnet output is committed YAML, so it is linted as is) are not rendered. The stored-manifest data used up to Milestone 3 is tagged `milestone-3-data`, and the Milestone 3 rendering check is tagged `render-check-m3` (PR #15, closed unmerged).
 - A renamed object appears as one removal plus one introduction. `probable_rename` flags candidate pairs (same kind, same set of checks) but does not merge them. The spot-check found no renames.
 - The object inventory (`kst/inventory.py`) reads the top level of each YAML document without a full YAML parser. Objects inside a `kind: List` are not listed. The inventory matched every object either analyzer reported.
 - kube-score scores only workload-related kinds (it never scores RBAC objects), so the overlap table is limited to the kinds it scores.
@@ -188,5 +197,5 @@ introduced. Each was confirmed or rejected by reading the YAML at both tags, wit
 Yasaminzahra's task documentation: [tracking review and limitations](docs/tracking_limitations.md)
 and [independent two-rater category validation](docs/category_validation.md).
 The latter covers generating the rating sheets, agreement calculation and
-the disagreement/adjudication procedure. Real ratings and validation against
-future denser-tag/rendered-manifest data are pending.
+the disagreement/adjudication procedure. Current status of the ratings:
+[results/category_validation_status.md](results/category_validation_status.md).

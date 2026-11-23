@@ -1,0 +1,15 @@
+system,source,object_version_observations,instances,baseline,survivors,survival_pct,removals,deletions,deletion_pct,real_fixes,reappearances
+argo-cd,stored,931,127,114,112,98.2,2,0,0.0,2,0
+argo-cd,rendered,931,127,114,112,98.2,2,0,0.0,2,0
+flux2,stored,550,97,95,11,11.6,84,84,100.0,0,0
+flux2,rendered,1063,162,153,37,24.2,116,116,100.0,0,0
+istio,stored,528,239,229,229,100.0,0,0,,0,0
+istio,rendered,528,239,229,229,100.0,0,0,,0,0
+kube-prometheus,stored,758,80,80,73,91.2,7,0,0.0,7,0
+kube-prometheus,rendered,758,80,80,73,91.2,7,0,0.0,7,0
+microservices-demo,stored,155,182,181,161,89.0,20,0,0.0,11,0
+microservices-demo,rendered,148,166,166,147,88.6,19,0,0.0,10,0
+pipeline,stored,3338,56,41,37,90.2,6,0,0.0,6,0
+pipeline,rendered,3338,56,41,37,90.2,6,0,0.0,6,0
+serving,stored,802,81,81,53,65.4,28,22,78.6,6,0
+serving,rendered,802,81,81,53,65.4,28,22,78.6,6,0

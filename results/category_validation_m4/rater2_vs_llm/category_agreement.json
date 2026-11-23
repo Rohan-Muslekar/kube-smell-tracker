@@ -1,0 +1,15 @@
+{
+  "checks": 62,
+  "raters": [
+    "automated rater (LLM)",
+    "Rojan (AI-assisted draft)"
+  ],
+  "agreements": 47,
+  "disagreements": 15,
+  "percent_agreement": 75.80645161290323,
+  "expected_agreement": 0.2624869927159209,
+  "cohens_kappa": 0.671957671957672,
+  "kappa_note": "",
+  "agreed_differs_from_map": 2,
+  "stage": "independent ratings, before adjudication"
+}

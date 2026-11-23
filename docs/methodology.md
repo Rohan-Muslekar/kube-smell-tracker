@@ -42,11 +42,11 @@ The utility retrieves Git tags and recognizes version strings matching the form 
 
 A minor release is eligible when a corresponding `.0` tag exists and the Git commit date associated with that tag is on or after the specified cutoff date, October 22, 2022.
 
-When more than five eligible minor releases are available, the utility selects five approximately evenly spaced positions in semantic-version order, including the first and last eligible entries. This spacing is based on positions in the ordered version sequence rather than equal calendar-time intervals.
+When more than five eligible minor releases are available, the utility selects five approximately evenly spaced positions in semantic-version order, including the first and last eligible entries. This spacing is based on positions in the ordered version sequence rather than equal calendar-time intervals. This five-tag sample was used in Milestone 2; from Milestone 3 on, every eligible minor release is analyzed (123 tags in total).
 
 The selected tags are explicitly recorded in `data/repos.json`, preserving the study selection independently of future releases.
 
-The collection metadata in `data/versions.csv` contains **35 repository-version combinations**, representing five selected tags for each of the seven repositories. All 35 entries are marked valid. Each entry records the repository, release tag, resolved commit SHA, commit date, number of retained YAML files, validity flag, and an optional note.
+The collection metadata in `data/versions.csv` contains **123 repository-version combinations**, one per eligible minor release of the seven repositories (Milestone 2 used 35, five per repository). All 123 entries are marked valid. Each entry records the repository, release tag, resolved commit SHA, commit date, number of retained YAML files, validity flag, and an optional note.
 
 ## 3. Manifest Collection and Filtering
 
@@ -66,7 +66,7 @@ This filtering is based on textual checks rather than complete Kubernetes schema
 
 The pipeline also constructs an inventory of Kubernetes objects from retained files using `kst/inventory.py`. This inventory supports subsequent analysis of whether an object remains present when an associated smell disappears.
 
-Helm charts are not rendered, and Kustomize configurations are not built into their final deployed form before analysis.
+Kustomize configurations are rendered with `kubectl kustomize` before analysis (the default since PR #28; `RENDER=0` gives the stored-manifest collection used up to Milestone 3, tagged `milestone-3-data`). Helm charts are not rendered.
 
 ## 4. Static Analysis and Output Validation
 
@@ -216,9 +216,9 @@ The raw analyzer outputs are retained to support inspection and regeneration of 
 
 Several limitations affect the interpretation of the results.
 
-**Manifest representation.** Helm templates are excluded rather than rendered, while Kustomize bases and patches are analyzed without generating their final composed configurations. Findings may therefore differ from those obtained from deployed manifests.
+**Manifest representation.** Helm templates are excluded rather than rendered. Kustomize configurations are rendered with `kubectl kustomize` by default (`RENDER=1`, PR #28); the stored-manifest data used up to Milestone 3 is kept at tag `milestone-3-data`. Generated output (for example kube-prometheus jsonnet) is analyzed as committed, so findings may still differ from deployed manifests.
 
-**Release sampling.** Five selected release tags are analyzed per repository. Changes occurring between these versions may remain unobserved, including temporary removals and reappearances.
+**Release sampling.** The latest patch of every eligible minor release is analyzed (123 tags). Changes between minor releases, including temporary removals and reappearances within a minor, may remain unobserved.
 
 **Instance identity.** The tracking key uses object kind, namespace, name, tool, and check. Object renaming can consequently appear as a removal followed by an introduction, even when the underlying logical resource continues to exist.
 

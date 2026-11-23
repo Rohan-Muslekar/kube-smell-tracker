@@ -1,7 +1,9 @@
 """Tests for the Kustomize renderer."""
 
+import shutil
 from pathlib import Path
 
+import pytest
 import yaml
 
 from kst.render import build_analysis_file_list
@@ -9,9 +11,13 @@ from kst.render import build_analysis_file_list
 
 FIXTURE = Path(__file__).parent / "fixtures" / "kustomize"
 
+needs_kubectl = pytest.mark.skipif(
+    shutil.which("kubectl") is None, reason="kubectl not installed (./tools/install.sh)")
 
+
+@needs_kubectl
 def test_kustomize_render(tmp_path):
-    """Render a patched Deployment and preserve standalone YAML."""
+    """Render a patched Deployment and exclude unreferenced YAML."""
     files, failures = build_analysis_file_list(
         FIXTURE,
         ["."],
@@ -19,7 +25,7 @@ def test_kustomize_render(tmp_path):
     )
 
     assert failures == []
-    assert len(files) == 2
+    assert len(files) == 1
 
     rendered_files = [
         Path(path) for path in files
@@ -42,7 +48,8 @@ def test_kustomize_render(tmp_path):
     assert not any("patch.yaml" in path for path in files)
 
     # Unrelated plain YAML must remain in the analysis list.
-    assert "standalone.yaml" in files
+    assert "standalone.yaml" not in files
+@needs_kubectl
 def test_kustomize_render_failure(tmp_path):
     """Report rendering failures and preserve healthy YAML."""
     fixture = Path(__file__).parent / "fixtures" / "kustomize_failure"
@@ -99,6 +106,7 @@ def test_invalid_kustomization(tmp_path):
     assert failures[0][0] == "."
 
 
+@needs_kubectl
 def test_deprecated_bases_key(tmp_path):
     """A base listed under the old `bases:` key is not rendered on its own."""
     fixture = Path(__file__).parent / "fixtures" / "kustomize_bases"
@@ -111,3 +119,78 @@ def test_deprecated_bases_key(tmp_path):
 
     assert failures == []
     assert [Path(path).name for path in files] == ["overlay.yaml"]
+
+@needs_kubectl
+def test_unreferenced_yaml_is_excluded(tmp_path):
+    """Unreferenced YAML inside a Kustomization must not be linted."""
+    files, failures = build_analysis_file_list(
+        FIXTURE,
+        ["."],
+        tmp_path / "rendered",
+    )
+
+    assert failures == []
+
+    # Only the rendered Deployment should be analyzed.
+    assert len(files) == 1
+    assert Path(files[0]).name == "root.yaml"
+
+    # Unreferenced YAML must be excluded.
+    assert "standalone.yaml" not in files
+
+
+def _write(path, text):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+
+
+DEPLOYMENT = """apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {name}
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          image: nginx:1.27
+"""
+
+
+def _two_directory_repo(root):
+    """app/ is a kustomization that leaves unused.yaml out; plain/ has no kustomization."""
+    _write(root / "app" / "kustomization.yaml", "resources:\n  - deployment.yaml\n")
+    _write(root / "app" / "deployment.yaml", DEPLOYMENT.format(name="app"))
+    _write(root / "app" / "unused.yaml", DEPLOYMENT.format(name="unused"))
+    _write(root / "plain" / "service.yaml", DEPLOYMENT.format(name="plain"))
+    _write(root / "plain" / "values.yaml", "replicas: 3\n")
+    return root
+
+
+@needs_kubectl
+def test_plain_yaml_outside_a_kustomization_is_kept(tmp_path):
+    """Only files under a rendered kustomization's directory are dropped."""
+    repo = _two_directory_repo(tmp_path / "repo")
+
+    files, failures = build_analysis_file_list(repo, ["."], tmp_path / "rendered")
+
+    assert failures == []
+    assert "plain/service.yaml" in files
+    assert "app/unused.yaml" not in files
+    assert [Path(f).name for f in files if Path(f).is_absolute()] == ["app.yaml"]
+
+
+@needs_kubectl
+def test_every_dropped_file_has_a_reason(tmp_path, capsys):
+    """Each file that is not linted is reported as `path<TAB>reason`, like kst.manifests."""
+    repo = _two_directory_repo(tmp_path / "repo")
+
+    build_analysis_file_list(repo, ["."], tmp_path / "rendered")
+
+    reasons = dict(line.split("\t", 1) for line in capsys.readouterr().err.splitlines())
+    assert reasons == {
+        "app/deployment.yaml": "consumed by a kustomization",
+        "app/kustomization.yaml": "consumed by a kustomization",
+        "app/unused.yaml": "not referenced by kustomization",
+        "plain/values.yaml": "not a k8s object",
+    }

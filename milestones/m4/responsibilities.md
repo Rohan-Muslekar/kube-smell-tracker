@@ -1,13 +1,31 @@
 # Milestone 4 and Final: Responsibilities (Group 4)
 
 **Covers:** everything from now to the final report.
-**Key dates:** Milestone 4 report due Nov 20 (Rohan submits). Presentation on Nov 27 or Dec 4
+**Key dates:** Milestone 4 report due Nov 20 per the syllabus (Nov 22 in the group chat; Rohan submits). Presentation on Nov 27 or Dec 4
 (our assigned slot). Final report and reproducibility artifact due **Dec 11, 11:59 p.m.**
 
 Read sections 1 to 4 first, then your own task in section 6. Ask in the group chat if anything
 is unclear, before you start.
 
 ---
+
+## Update, Nov 23 (after the PR reviews)
+
+- **E4 second coder changes to Yasaminzahra.** 17 of the 20 sampled rows were first coded by Bayan
+  (8 in #7, 9 in #13) and 3 by Rohan, so neither can be the second coder. Yasaminzahra coded none
+  of them, so Yasaminzahra codes `data/rq3_recode_sheet.csv` by Nov 25, without AI and without opening
+  `data/rq3_investigations.csv`; Bayan keeps the sampling and agreement tooling (#27) and the E2
+  sign-off below.
+- **E2 needs a human sign-off.** `results/rq3_rendered_traces_draft.csv` (21 rows, three flux2
+  commits) is an AI-assisted draft. All 21 rows pass the presence and git-range checks on rendered
+  data. Bayan opens each commit and confirms or corrects the class before the rows go into
+  `data/rq3_investigations.csv`.
+- **E3 still has no human sheet.** Rojan's `m4_rater2.csv` was committed as an AI-assisted draft
+  (a44c94e), so it is reported as AI-assisted (kappa 0.64 against the map). We need at least one
+  sheet rated by hand without AI: Ankit's `m4_rater1.csv` (now due Nov 24), and Rojan re-rates by
+  hand if possible. Status: `results/category_validation_status.md`.
+- **E1 is done** (#28 and the integration run on `data/rendered-integration`). The stored data is
+  tagged `milestone-3-data`; the Milestone 3 rendering check is tagged `render-check-m3`.
 
 ## 1. What is left, in one paragraph
 
@@ -53,7 +71,7 @@ How the old dependencies were removed:
 | Used to wait for | Now |
 |---|---|
 | Bayan's tracing waited for the integration run | The rendered transitions are already known from the Nov 19 run: `data/rq3_rendered_todo.csv` (21 rows) |
-| Ankit's comparison waited for rendered data | The script takes any two `out/` folders; Ankit makes rendered data himself in 3 minutes (`RENDER=1 ./scripts/collect.sh flux2`) or tests on fixtures |
+| Ankit's comparison waited for rendered data | The script takes any two `out/` folders; Ankit can make rendered data in 3 minutes (`RENDER=1 ./scripts/collect.sh flux2`) or tests on fixtures |
 | Ankit reviewed Rojan's PR | Rohan reviews every PR |
 | Raters waited for Yasaminzahra's sheets | Each rater makes their own blank sheet with one command |
 | Kappa waited for both sheets | Rohan runs `calculate` (one command) when both are in; Yasaminzahra's code does not depend on it |

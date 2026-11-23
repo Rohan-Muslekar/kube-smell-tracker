@@ -4,7 +4,7 @@ tools:
 	./tools/install.sh
 
 collect:
-	./scripts/collect.sh
+	RENDER=$${RENDER:-1} ./scripts/collect.sh
 
 analyze:
 	python3 -m kst
