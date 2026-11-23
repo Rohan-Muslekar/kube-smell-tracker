@@ -152,14 +152,16 @@ print(sum(r['transition'] != 'object_deleted' for r in rows), 'of', len(rows), '
 python3 scripts/category_sensitivity.py   # writes results/category_sensitivity.csv
 ```
 
-Rates count fixes among first-tag instances only. Under the map, the LLM sheet, both
-AI-assisted sheets and both hand-made sheets, security has 23 fixes among 241 to 243 first-tag
-instances (rate 0.095); resource is at most 0.013. Moving the largest security check (kube-linter `default-service-account`) to
-resource leaves security at 0.058 against 0.034. Dropping one system at a time, the closest
-case is without microservices-demo: 0.066 against 0.016.
+Rates count fixes among first-tag instances only. Under the adjudicated map
+(`data/check_categories.csv`), the original map, the LLM sheet, both AI-assisted sheets and both
+hand-made sheets, security has 23 fixes among 241 to 243 first-tag instances (rate 0.095);
+resource is at most 0.013 (0.012 under the adjudicated map). The move and leave-one-out runs use
+the adjudicated map: moving the largest security check (kube-linter `default-service-account`) to
+resource leaves security at 0.058 against 0.030. Dropping one system at a time, the closest
+case is without microservices-demo: 0.066 against 0.014.
 
 ## Competing risks (fix vs deletion)
 
 `python3 -m kst` also writes `out/cif_by_category.csv`: cumulative incidence with fix and
 deletion as competing events. At 1430 days, security 0.102 fixed and 0.180 deleted; resource
-0.013 fixed and 0.181 deleted; image 0.000 fixed and 0.353 deleted.
+0.012 fixed and 0.183 deleted; image 0.000 fixed and 0.353 deleted.

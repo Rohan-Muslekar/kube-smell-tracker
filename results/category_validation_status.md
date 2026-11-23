@@ -46,9 +46,11 @@ change the security or image results. The full list is
 ## Remaining
 
 1. Done: two hand-made sheets (`m4_rater1.csv`, `m4_rater3.csv`), kappa 0.85 between them.
-2. Adjudication of every disagreement in the ledger by Yasaminzahra (not a rater), with the
-   rationale per check; `data/check_categories.csv` changes only through that ledger.
-   The ledger to adjudicate is `results/category_validation_m4/rater1_vs_rater3/category_map_differences.csv`.
+2. Done (#38): Yasaminzahra adjudicated all 9 ledger rows (7 disagreements and 2 checks where
+   both raters left the map) in `results/category_validation_m4/rater1_vs_rater3/category_map_differences.csv`.
+   Two checks change category in `data/check_categories.csv`: `restart-policy` other to resource
+   (61 instances, no fixes) and `schema-validation` other to hygiene (no instances). The other 7
+   keep the map's category. Security's 23 fixes do not move.
 3. If the human kappa against the map is below 0.6, per-category claims become descriptive only
    (Milestone 4 report, Table III). Ankit's sheet is at 0.80, so the claims stand.
 
